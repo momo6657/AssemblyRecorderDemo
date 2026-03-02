@@ -1,0 +1,44 @@
+# Unity项目统一使用LF换行符
+
+# 文本文件统一使用LF
+* text=auto eol=lf
+
+# C# 源代码
+*.cs text eol=lf
+*.csx text eol=lf
+
+# Unity 配置文件
+*.meta text eol=lf
+*.prefab text eol=lf
+*.unity text eol=lf
+*.asset text eol=lf
+*.mat text eol=lf
+*.anim text eol=lf
+*.controller text eol=lf
+
+# Shader 文件
+*.shader text eol=lf
+*.cginc text eol=lf
+*.hlsl text eol=lf
+
+# JSON 和配置文件
+*.json text eol=lf
+*.xml text eol=lf
+*.txt text eol=lf
+*.md text eol=lf
+
+# 二进制文件不转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.psd binary
+*.ai binary
+*.fbx binary
+*.obj binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.unitypackage binary
+*.glb binary
+*.gltf binary
