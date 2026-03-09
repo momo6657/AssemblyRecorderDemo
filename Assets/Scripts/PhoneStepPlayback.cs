@@ -36,6 +36,18 @@ public class PhoneStepPlayback : MonoBehaviour
     string _loadedTaskId;
     string _loadedRecordingId;
     bool _busy;
+    
+    // 记录当前已加载的模型ID，避免重复加载
+    private string _loadedModelId = null;
+
+    /// <summary>
+    /// 清除模型缓存，强制下次重新加载
+    /// </summary>
+    public void ClearModelCache()
+    {
+        _loadedModelId = null;
+        Debug.Log("[PHONE] Model cache cleared.");
+    }
 
     public async void DownloadAndPrepare()
     {
@@ -95,6 +107,10 @@ public class PhoneStepPlayback : MonoBehaviour
                 SetStatus("[PHONE] parse steps failed.");
                 return false;
             }
+
+            int sanitizedLegacyTracks = SanitizeTrajectoryData(data);
+            if (sanitizedLegacyTracks > 0)
+                Debug.LogWarning("[PHONE] sanitized contaminated legacy tracks=" + sanitizedLegacyTracks);
 
             _loadedRecordingId = "";
             recordingId = "";
@@ -206,6 +222,10 @@ public class PhoneStepPlayback : MonoBehaviour
                 Debug.LogWarning("[PHONE] parse recording steps failed for recordingId=" + id);
                 return false;
             }
+
+            int sanitizedRecordingTracks = SanitizeTrajectoryData(data);
+            if (sanitizedRecordingTracks > 0)
+                Debug.LogWarning("[PHONE] sanitized contaminated recording tracks=" + sanitizedRecordingTracks + " recordingId=" + id);
 
             if (string.IsNullOrEmpty(data.modelId) && !string.IsNullOrEmpty(modelIdFromMeta))
                 data.modelId = modelIdFromMeta;
@@ -391,6 +411,78 @@ public class PhoneStepPlayback : MonoBehaviour
         }
     }
 
+    static int SanitizeTrajectoryData(StepsData d)
+    {
+        if (d == null || d.steps == null) return 0;
+
+        int sanitized = 0;
+        for (int i = 0; i < d.steps.Count; i++)
+        {
+            var step = d.steps[i];
+            if (step == null || step.trajectories == null) continue;
+
+            float duration = Mathf.Max(0.02f, step.duration);
+            for (int j = 0; j < step.trajectories.Count; j++)
+            {
+                var track = step.trajectories[j];
+                if (!TrackLooksContaminatedByGrabParent(track)) continue;
+
+                ReplaceTrackSamplesWithEndpoints(track, duration);
+                sanitized++;
+            }
+        }
+
+        return sanitized;
+    }
+
+    static bool TrackLooksContaminatedByGrabParent(PartTrajectory track)
+    {
+        if (track == null || track.from == null || track.to == null) return false;
+        if (track.samples == null || track.samples.Count < 2) return false;
+
+        const float suspiciousScaleDeviation = 0.05f;
+
+        // This app does not intentionally scale parts during a one-hand Quest grab.
+        // If mid-samples show large scale drift while endpoints stay stable, the samples
+        // were likely captured in a temporary grab-parent space rather than model space.
+        if (Vector3.Distance(track.from.localScale, track.to.localScale) > suspiciousScaleDeviation)
+            return false;
+
+        for (int i = 1; i < track.samples.Count - 1; i++)
+        {
+            var sample = track.samples[i];
+            if (sample == null) continue;
+
+            float fromScaleDelta = Vector3.Distance(sample.localScale, track.from.localScale);
+            float toScaleDelta = Vector3.Distance(sample.localScale, track.to.localScale);
+            if (fromScaleDelta > suspiciousScaleDeviation && toScaleDelta > suspiciousScaleDeviation)
+                return true;
+        }
+
+        return false;
+    }
+
+    static void ReplaceTrackSamplesWithEndpoints(PartTrajectory track, float duration)
+    {
+        track.samples = new List<TrajectorySample>
+        {
+            new TrajectorySample
+            {
+                t = 0f,
+                localPos = track.from.localPos,
+                localRot = track.from.localRot,
+                localScale = track.from.localScale
+            },
+            new TrajectorySample
+            {
+                t = Mathf.Max(0.02f, duration),
+                localPos = track.to.localPos,
+                localRot = track.to.localRot,
+                localScale = track.to.localScale
+            }
+        };
+    }
+
     static StepsData ConvertLite(StepsDataLite lite)
     {
         var outData = new StepsData
@@ -533,6 +625,38 @@ public class PhoneStepPlayback : MonoBehaviour
         if (importManager == null || api == null) return;
         if (data == null || string.IsNullOrEmpty(data.modelId)) return;
 
+        // ✅ 修复1：如果已经加载了相同的模型，直接返回
+        if (!string.IsNullOrEmpty(_loadedModelId) && _loadedModelId == data.modelId)
+        {
+            // 二次验证：确保 modelIndex 和 modelRoot 仍然有效
+            if (modelIndex != null && modelIndex.modelRoot != null && modelIndex.map.Count > 0)
+            {
+                Debug.Log($"[PHONE] Model already loaded (cached), skipping reload. modelId={data.modelId}");
+                return;
+            }
+            else
+            {
+                // 缓存失效，清除标记
+                Debug.LogWarning($"[PHONE] Model cache invalid, will reload. modelId={data.modelId}");
+                _loadedModelId = null;
+            }
+        }
+
+        // ✅ 修复2：即使没有缓存标记，也检查 modelIndex 是否已有有效模型
+        if (modelIndex != null && modelIndex.modelRoot != null && modelIndex.map.Count > 0)
+        {
+            // 检查当前加载的模型是否是我们需要的
+            string currentModelName = modelIndex.modelRoot.name;
+            if (currentModelName.Contains(data.modelId) || currentModelName == "ImportedModel")
+            {
+                Debug.Log($"[PHONE] Model already loaded (detected), skipping reload. modelId={data.modelId}");
+                _loadedModelId = data.modelId; // 更新缓存
+                return;
+            }
+        }
+
+        Debug.Log($"[PHONE] Loading model. modelId={data.modelId}");
+
         string localPath = Path.Combine(Application.persistentDataPath, data.modelId + ".glb");
         if (!File.Exists(localPath))
         {
@@ -545,9 +669,15 @@ public class PhoneStepPlayback : MonoBehaviour
         {
             bool ok = await importManager.LoadGlbFromPathAsync(localPath);
             if (!ok)
+            {
                 SetStatus("[PHONE] model load failed.");
+                _loadedModelId = null; // 加载失败，清除缓存
+            }
             else
+            {
                 SetStatus("[PHONE] model ready for steps.");
+                _loadedModelId = data.modelId; // 加载成功，更新缓存
+            }
         }
     }
 
@@ -651,21 +781,56 @@ public class PhoneStepPlayback : MonoBehaviour
 
     IEnumerator CoPlayStep(int index)
     {
+        // ✅ 修复：在任何操作之前先锁定模型根节点位置
+        Transform modelRoot = modelIndex?.modelRoot;
+        
+        // ✅ 检查 modelRoot 是否有效
+        if (modelRoot == null)
+        {
+            Debug.LogWarning("[PLAYBACK] ModelRoot is null, cannot play step");
+            _playCo = null;
+            yield break;
+        }
+        
+        Vector3 lockedPosition = modelRoot.position;
+        Quaternion lockedRotation = modelRoot.rotation;
+        
+        Debug.Log($"[PLAYBACK] Start PlayStep {index} - ModelRoot pos: {lockedPosition}, rot: {lockedRotation}");
+        
         JumpTo(index - 1);
+        
+        // ✅ JumpTo 后重新获取 modelRoot（可能已经改变）
+        modelRoot = modelIndex?.modelRoot;
+        if (modelRoot != null)
+        {
+            Vector3 afterJumpPos = modelRoot.position;
+            Quaternion afterJumpRot = modelRoot.rotation;
+            
+            if (Vector3.Distance(afterJumpPos, lockedPosition) > 0.001f || Quaternion.Angle(afterJumpRot, lockedRotation) > 0.1f)
+            {
+                Debug.LogWarning($"[PLAYBACK] ModelRoot moved after JumpTo! Before: {lockedPosition}, After: {afterJumpPos}, Distance: {Vector3.Distance(afterJumpPos, lockedPosition)}");
+            }
+            
+            modelRoot.position = lockedPosition;
+            modelRoot.rotation = lockedRotation;
+        }
+        
         var frame = data.steps[index];
         float duration = Mathf.Max(0.02f, frame.duration);
 
         if (frame.trajectories == null || frame.trajectories.Count == 0)
         {
             JumpTo(index);
+            // ✅ JumpTo 后再次恢复位置
+            modelRoot = modelIndex?.modelRoot;
+            if (modelRoot != null)
+            {
+                modelRoot.position = lockedPosition;
+                modelRoot.rotation = lockedRotation;
+            }
             _playCo = null;
             yield break;
         }
-
-        // ✅ 修复：锁定模型根节点位置，防止动画播放时模型跳动
-        Transform modelRoot = modelIndex?.modelRoot;
-        Vector3 lockedPosition = modelRoot != null ? modelRoot.position : Vector3.zero;
-        Quaternion lockedRotation = modelRoot != null ? modelRoot.rotation : Quaternion.identity;
 
         float elapsed = 0f;
         while (elapsed < duration)
@@ -674,6 +839,7 @@ public class PhoneStepPlayback : MonoBehaviour
             float t = Mathf.Clamp(elapsed, 0f, duration);
 
             // ✅ 每帧强制锁定模型根节点位置，确保动画在当前位置播放
+            modelRoot = modelIndex?.modelRoot;
             if (modelRoot != null)
             {
                 modelRoot.position = lockedPosition;
@@ -691,6 +857,15 @@ public class PhoneStepPlayback : MonoBehaviour
         }
 
         JumpTo(index);
+        // ✅ 最后再次恢复位置
+        modelRoot = modelIndex?.modelRoot;
+        if (modelRoot != null)
+        {
+            modelRoot.position = lockedPosition;
+            modelRoot.rotation = lockedRotation;
+        }
+        
+        Debug.Log($"[PLAYBACK] End PlayStep {index} - ModelRoot pos: {modelRoot?.position}");
         _playCo = null;
     }
 

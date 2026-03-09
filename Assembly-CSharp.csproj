@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\PhoneStepPlayback.cs" />
+    <Compile Include="Assets\Scripts\ScaleDiagnostic.cs" />
     <Compile Include="Assets\Scripts\ProjectData.cs" />
     <Compile Include="Assets\Scripts\XRGrabSetup.cs" />
     <Compile Include="Assets\Scripts\RecordingListUI.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Assets\Scripts\UIController.cs" />
     <Compile Include="Assets\Scripts\SafImportPicker.cs" />
     <Compile Include="Assets\Scripts\StepRecorder.cs" />
+    <Compile Include="Assets\Scripts\ScaleTestTool.cs" />
     <Compile Include="Assets\Scripts\Core\ServiceLocator.cs" />
     <Compile Include="Assets\Scripts\QuestStepSession.cs" />
     <Compile Include="Assets\Scripts\ImportManager.cs" />
@@ -74,8 +76,10 @@
     <Compile Include="Assets\Scripts\StepListUI.cs" />
     <Compile Include="Assets\Scripts\ModelIndex.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\ScaleProtector.cs" />
     <Compile Include="Assets\Scripts\InputCompat.cs" />
     <Compile Include="Assets\Scripts\AndroidPickerBridge.cs" />
+    <Compile Include="Assets\Scripts\ScaleLock.cs" />
     <Compile Include="Assets\Scripts\TransformPanel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1235,6 +1239,7 @@
     <ProjectReference Include="Unity.AI.Tracing.csproj" />
     <ProjectReference Include="Unity.AppUI.Redux.Editor.csproj" />
     <ProjectReference Include="Unity.XR.Interaction.Toolkit.Samples.StarterAssets.csproj" />
+    <ProjectReference Include="Unity.XR.Oculus.Editor.csproj" />
     <ProjectReference Include="Unity.Collections.csproj" />
     <ProjectReference Include="Unity.XR.Hands.Editor.csproj" />
     <ProjectReference Include="Unity.XR.OpenXR.Features.OculusQuestSupport.csproj" />
@@ -1251,6 +1256,7 @@
     <ProjectReference Include="Unity.Multiplayer.Center.Editor.csproj" />
     <ProjectReference Include="NativeFilePicker.Editor.csproj" />
     <ProjectReference Include="Unity.InferenceEngine.Tokenization.csproj" />
+    <ProjectReference Include="Unity.XR.Oculus.csproj" />
     <ProjectReference Include="Unity.XR.Interaction.Toolkit.csproj" />
     <ProjectReference Include="Unity.XR.Management.Editor.csproj" />
     <ProjectReference Include="Unity.VisualScripting.State.csproj" />

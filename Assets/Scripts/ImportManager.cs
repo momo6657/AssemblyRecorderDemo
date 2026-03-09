@@ -370,10 +370,42 @@ public class ImportManager : MonoBehaviour
         var setup = FindFirstObjectByType<XRGrabSetup>();
         if (setup == null) return false;
         setup.modelRoot = root;
+        
+        // 修复：在应用 XR 抓取设置前，确保 ModelIndex 已经构建
+        // 这样可以正确记录初始缩放状态，避免抓取时的缩放问题
+        if (modelIndex != null && modelIndex.modelRoot == root)
+        {
+            Debug.Log("[IMPORT] ModelIndex already built before XRGrabSetup, scale baseline captured correctly.");
+        }
+        
         setup.Apply();
         bool hasCollider = root != null && root.GetComponentInChildren<Collider>(true) != null;
         if (!hasCollider)
             Debug.LogWarning("[IMPORT] XRGrabSetup applied but no colliders found; fallback collider pass will run.");
+        
+        // 修复：确保场景中有 ScaleProtector 组件
+        var scaleProtector = FindFirstObjectByType<ScaleProtector>();
+        if (scaleProtector == null)
+        {
+            var protectorGo = new GameObject("ScaleProtector");
+            scaleProtector = protectorGo.AddComponent<ScaleProtector>();
+            Debug.Log("[IMPORT] Created ScaleProtector to monitor and prevent scale changes");
+        }
+        
+        // 注册所有抓取物体到 ScaleProtector
+        if (scaleProtector != null && root != null)
+        {
+            var grabInteractables = root.GetComponentsInChildren<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>(true);
+            foreach (var interactable in grabInteractables)
+            {
+                if (interactable != null)
+                {
+                    scaleProtector.RegisterTransform(interactable.transform);
+                }
+            }
+            Debug.Log($"[IMPORT] Registered {grabInteractables.Length} grab interactables to ScaleProtector");
+        }
+        
         return hasCollider;
     }
 

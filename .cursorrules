@@ -1,0 +1,165 @@
+# Assembly Recorder Demo - Cursor Rules
+
+## 🚨 重要：开始工作前必读
+
+在对本项目进行任何修改之前，你**必须**先阅读以下文档：
+
+1. **PROJECT_README.md** - 项目核心文档（必读）
+   - 包含项目概述、技术架构、业务流程、已知问题等
+   - 位置：`d:\unity\AssemblyRecorderDemo\PROJECT_README.md`
+
+2. **PROJECT_REQUIREMENTS.md** - 项目需求管理文档（必读）
+   - 包含功能需求、非功能需求、已知问题清单、需求变更流程
+   - 任何 Agent 都可以根据用户指示修改此文档
+   - 位置：`d:\unity\AssemblyRecorderDemo\PROJECT_REQUIREMENTS.md`
+
+3. **BUGFIX_SUMMARY.md** - Bug 修复详细报告（如果存在）
+   - 包含已修复问题的详细分析和解决方案
+   - 位置：`d:\unity\AssemblyRecorderDemo\BUGFIX_SUMMARY.md`
+
+## 📋 工作流程
+
+### 1. 接手任务时
+- ✅ 阅读 `PROJECT_README.md` 了解项目全貌
+- ✅ 阅读 `PROJECT_REQUIREMENTS.md` 了解当前需求和约束
+- ✅ 查看"已知问题与解决方案"章节，避免重复修复或破坏已修复的功能
+- ✅ 查看"项目变更记录"了解最近的修改
+- ✅ 如果有相关日志文件，先分析日志
+
+### 2. 修改代码时
+- ⚠️ 遵循项目代码规范（见 PROJECT_README.md）
+- ⚠️ 添加必要的调试日志
+- ⚠️ 不要破坏已修复的 Bug
+- ⚠️ 保持代码风格一致
+
+### 3. 用户提出需求变更时
+- ✅ 更新 `PROJECT_REQUIREMENTS.md`：
+  - 更新版本号（如 v1.0.0 → v1.1.0）
+  - 更新版本历史表
+  - 更新相应的需求章节
+- ✅ 同步更新 `PROJECT_README.md` 的"项目变更记录"
+- ✅ 在 `PROJECT_CHANGELOG.md` 中添加条目
+- ✅ 向用户确认变更内容
+
+### 4. 完成任务后
+- ✅ 更新 `PROJECT_README.md` 的"项目变更记录"章节
+- ✅ 更新 `PROJECT_REQUIREMENTS.md` 的"已知问题清单"
+- ✅ 在 `PROJECT_CHANGELOG.md` 中添加详细条目
+- ✅ 如果修复了 Bug，在"已知问题与解决方案"中记录
+- ✅ 如果是重大变更，考虑创建独立的文档
+
+## 🎯 项目关键信息速查
+
+### 项目类型
+Unity 双端（手机 + Meta Quest）3D 装配录制与回放系统
+
+### 核心文件
+- **手机端回放**：`Assets/Scripts/PhoneStepPlayback.cs`
+- **Quest 端录制**：`Assets/Scripts/QuestStepSession.cs`
+- **模型导入**：`Assets/Scripts/ImportManager.cs`
+- **模型索引**：`Assets/Scripts/ModelIndex.cs`
+- **网络层**：`Assets/Scripts/net/ApiClient.cs`
+
+### 调试方法
+```bash
+# 客户端日志
+adb logcat -s Unity
+
+# 服务端
+cd "D:\assemble server"
+.\.venv\Scripts\python.exe -u server.py
+```
+
+### 日志关键字
+- `[PHONE]` - 手机端
+- `[QUEST]` - Quest 端
+- `[IMPORT]` - 模型导入
+- `[PLAYBACK]` - 回放
+- `[RecordingListUI]` - 录制列表
+
+## 🐛 已修复的关键 Bug（不要破坏）
+
+### 1. 动画播放位置偏移问题 (2026-03-04)
+- **文件**：`PhoneStepPlayback.cs`
+- **修复**：添加了 `_loadedModelId` 缓存机制和 `EnsureModelLoaded()` 三层检查
+- **不要**：移除或修改 `_loadedModelId` 相关代码
+- **详细**：见 `BUGFIX_SUMMARY.md`
+
+### 2. 步骤列表只显示 Step2
+- **文件**：`StepListUI.cs`
+- **修复**：重新按 step 数重建 UI
+
+### 3. 录制列表为空
+- **文件**：`RecordingListUI.cs`, `QuestStepSession.cs`
+- **修复**：统一使用 recording API，支持全量列表
+
+## 🚫 不要做的事情
+
+- ❌ 不要恢复 legacy steps API（已废弃）
+- ❌ 不要移除已有的调试日志
+- ❌ 不要修改 `_loadedModelId` 缓存机制
+- ❌ 不要在没有充分理由的情况下重构大量代码
+- ❌ 不要创建不必要的文档文件（除非明确需要）
+
+## 📝 代码规范速查
+
+### 命名
+```csharp
+// 类名：PascalCase
+public class PhoneStepPlayback { }
+
+// 方法名：PascalCase
+public async Task LoadRecording(string id) { }
+
+// 公共字段：camelCase
+public int currentIndex;
+
+// 私有字段：_camelCase
+private string _loadedModelId;
+```
+
+### 日志
+```csharp
+Debug.Log($"[MODULE] message with {variable}");
+Debug.LogWarning($"[MODULE] warning");
+Debug.LogError($"[MODULE] error: {exception}");
+```
+
+### 异步
+```csharp
+// 优先使用 async Task
+public async Task<bool> LoadData() { }
+
+// UI 回调可以用 async void
+public async void OnButtonClick() { }
+```
+
+## 🔄 项目记忆更新规则
+
+每次完成重要修改后，必须更新以下内容：
+
+1. **PROJECT_README.md**
+   - 在"项目变更记录"章节添加条目
+   - 如果修复了 Bug，更新"已知问题与解决方案"
+   - 如果添加了新功能，更新相应章节
+
+2. **独立文档**（如果需要）
+   - 重大 Bug 修复：创建 `BUGFIX_*.md`
+   - 新功能：创建 `FEATURE_*.md`
+   - API 变更：更新 `API_DOCUMENTATION.md`
+
+3. **本文件 (.cursorrules)**
+   - 如果有新的关键 Bug 修复，添加到"已修复的关键 Bug"
+   - 如果有新的禁止事项，添加到"不要做的事情"
+
+## 💡 提示
+
+- 📖 不确定时，先查文档再问用户
+- 🔍 遇到问题时，先查看日志文件
+- 🧪 修改后建议用户测试验证
+- 📝 重要修改一定要记录到文档
+
+---
+
+**最后更新**：2026-03-04
+**文档版本**：v1.0.0

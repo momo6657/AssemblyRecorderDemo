@@ -99,6 +99,10 @@ public class QuestStepSession : MonoBehaviour
     [Header("Runtime")]
     public StepsData data = new StepsData();
     public int currentIndex = -1;
+    
+    // ✅ 新增：记录开始录制时的状态（不是导入时的初始状态）
+    readonly Dictionary<string, PartState> _recordingStartSnapshot = new Dictionary<string, PartState>();
+    bool _hasRecordingStartSnapshot = false;
 
     string _boundTaskId;
     string _boundModelId;
@@ -178,6 +182,11 @@ public class QuestStepSession : MonoBehaviour
         data.steps.Clear();
         currentIndex = -1;
         _segmentPrepared = false;
+        
+        // ✅ 修复：清除录制开始快照
+        _recordingStartSnapshot.Clear();
+        _hasRecordingStartSnapshot = false;
+        Debug.Log("[QuestStepSession] Cleared recording start snapshot");
     }
 
     public void ResetToBasePose()
@@ -213,6 +222,23 @@ public class QuestStepSession : MonoBehaviour
 
         if (string.IsNullOrEmpty(_boundModelId) && questPollTask != null)
             _boundModelId = questPollTask.currentModelId;
+
+        // ✅ 修复：如果这是第一次录制步骤，保存当前状态作为"录制开始状态"
+        if (!_hasRecordingStartSnapshot)
+        {
+            // 使用 _segmentStartSnapshot 作为录制开始状态
+            // 因为 PrepareSegmentFromCurrentPose 会在第一次录制前被调用
+            if (_segmentStartSnapshot.Count > 0)
+            {
+                _recordingStartSnapshot.Clear();
+                foreach (var kv in _segmentStartSnapshot)
+                {
+                    _recordingStartSnapshot[kv.Key] = CloneState(kv.Value);
+                }
+                _hasRecordingStartSnapshot = true;
+                Debug.Log($"[QuestStepSession] Captured recording start snapshot with {_recordingStartSnapshot.Count} parts (from segment start)");
+            }
+        }
 
         // Important: only initialize baseline when there is none.
         // If we always rebuild baseline here, movement delta becomes zero.
@@ -250,7 +276,13 @@ public class QuestStepSession : MonoBehaviour
             if (moved) anyMoved = true;
 
             if (!recordTrajectory) continue;
-            if (recordOnlyMovedParts && !moved) continue;
+            
+            // ✅ 修复：即使零件没有移动，也要记录 trajectory
+            // 这样回放时可以确保所有零件都从正确的位置开始
+            // 只有当 recordOnlyMovedParts=true 且零件没有移动时才跳过
+            // 但如果有录制开始快照，就必须记录，以确保从正确位置开始
+            bool shouldRecord = moved || !recordOnlyMovedParts || _hasRecordingStartSnapshot;
+            if (!shouldRecord) continue;
 
             var traj = BuildTrajectory(id, from, to, duration);
             if (traj != null) frame.trajectories.Add(traj);
@@ -289,6 +321,26 @@ public class QuestStepSession : MonoBehaviour
             SetStatus("[QuestStepSession] BeginStep failed: no active taskId.");
             return;
         }
+        
+        // ✅ 修复：如果这是第一次开始录制，保存当前状态作为"录制开始状态"
+        if (!_hasRecordingStartSnapshot)
+        {
+            _recordingStartSnapshot.Clear();
+            var snapshot = CaptureCurrentSnapshot();
+            Debug.Log($"[QuestStepSession] BeginStep: Capturing snapshot with {snapshot.Count} parts");
+            
+            foreach (var kv in snapshot)
+            {
+                _recordingStartSnapshot[kv.Key] = CloneState(kv.Value);
+                Debug.Log($"[QuestStepSession] BeginStep: {kv.Key} pos={kv.Value.localPos}");
+            }
+            _hasRecordingStartSnapshot = true;
+            Debug.Log($"[QuestStepSession] Captured recording start snapshot with {_recordingStartSnapshot.Count} parts");
+        }
+        else
+        {
+            Debug.Log($"[QuestStepSession] BeginStep: Already have recording start snapshot with {_recordingStartSnapshot.Count} parts");
+        }
 
         if (!PrepareSegmentFromCurrentPose())
         {
@@ -317,14 +369,75 @@ public class QuestStepSession : MonoBehaviour
 
         if (index < 0)
         {
-            ResetToBasePose();
-            SetStatus("[QuestStepSession] JumpTo base pose");
+            // ✅ 修复：跳到"录制开始状态"而不是"初始状态"
+            if (_hasRecordingStartSnapshot && _recordingStartSnapshot.Count > 0)
+            {
+                Debug.Log("[QuestStepSession] JumpTo recording start pose");
+                
+                // 先恢复父级关系
+                foreach (var kv in modelIndex.map)
+                {
+                    var id = kv.Key;
+                    var t = kv.Value;
+                    if (t == null) continue;
+                    
+                    if (modelIndex.TryGetOriginalParent(id, out var originalParent))
+                    {
+                        if (t.parent != originalParent)
+                        {
+                            t.SetParent(originalParent, true);
+                        }
+                    }
+                }
+                
+                // 应用录制开始时的状态
+                foreach (var kv in _recordingStartSnapshot)
+                {
+                    var id = kv.Key;
+                    var ps = kv.Value;
+                    if (!modelIndex.map.TryGetValue(id, out var t) || t == null) continue;
+                    t.localPosition = ps.localPos;
+                    t.localRotation = ps.localRot;
+                    t.localScale = ps.localScale;
+                }
+                
+                SetStatus("[QuestStepSession] JumpTo recording start pose");
+            }
+            else
+            {
+                // 如果没有录制开始快照，才恢复到初始状态
+                ResetToBasePose();
+                SetStatus("[QuestStepSession] JumpTo base pose");
+            }
+            currentIndex = -1;
             return;
         }
 
         index = Mathf.Clamp(index, 0, data.steps.Count - 1);
         var frame = data.steps[index];
 
+        // ✅ 修复：在应用步骤之前，先恢复所有零件的父级关系
+        if (modelIndex != null)
+        {
+            foreach (var kv in modelIndex.map)
+            {
+                var id = kv.Key;
+                var t = kv.Value;
+                if (t == null) continue;
+                
+                // 恢复到原始父级
+                if (modelIndex.TryGetOriginalParent(id, out var originalParent))
+                {
+                    if (t.parent != originalParent)
+                    {
+                        Debug.Log($"[QuestStepSession] JumpTo: restoring parent for {id}");
+                        t.SetParent(originalParent, true);
+                    }
+                }
+            }
+        }
+
+        // 应用步骤的状态
         for (int i = 0; i < frame.parts.Count; i++)
         {
             var ps = frame.parts[i];
@@ -356,7 +469,32 @@ public class QuestStepSession : MonoBehaviour
 
     IEnumerator CoPlayStep(int index)
     {
-        JumpTo(index - 1);
+        // ✅ 修复：每一步播放都从录制开始状态开始，而不是从前一步结束状态开始
+        
+        // ✅ 锁定模型根节点位置，确保动画在当前位置播放
+        Transform modelRoot = modelIndex?.modelRoot;
+        
+        if (modelRoot == null)
+        {
+            Debug.LogWarning("[QuestStepSession] ModelRoot is null, cannot play step");
+            _playCo = null;
+            yield break;
+        }
+        
+        Vector3 lockedPosition = modelRoot.position;
+        Quaternion lockedRotation = modelRoot.rotation;
+        
+        // ✅ 修复：始终跳到录制开始状态（-1），而不是前一步
+        // 这样每一步都从相同的起始位置开始
+        JumpTo(-1);
+        
+        // ✅ JumpTo 后重新锁定位置
+        modelRoot = modelIndex?.modelRoot;
+        if (modelRoot != null)
+        {
+            modelRoot.position = lockedPosition;
+            modelRoot.rotation = lockedRotation;
+        }
 
         var frame = data.steps[index];
         float duration = Mathf.Max(0.02f, frame.duration);
@@ -364,14 +502,16 @@ public class QuestStepSession : MonoBehaviour
         if (frame.trajectories == null || frame.trajectories.Count == 0)
         {
             JumpTo(index);
+            // ✅ JumpTo 后再次恢复位置
+            modelRoot = modelIndex?.modelRoot;
+            if (modelRoot != null)
+            {
+                modelRoot.position = lockedPosition;
+                modelRoot.rotation = lockedRotation;
+            }
             _playCo = null;
             yield break;
         }
-
-        // ✅ 修复：锁定模型根节点位置，防止动画播放时模型跳动
-        Transform modelRoot = modelIndex?.modelRoot;
-        Vector3 lockedPosition = modelRoot != null ? modelRoot.position : Vector3.zero;
-        Quaternion lockedRotation = modelRoot != null ? modelRoot.rotation : Quaternion.identity;
 
         float elapsed = 0f;
         while (elapsed < duration)
@@ -379,7 +519,8 @@ public class QuestStepSession : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp(elapsed, 0f, duration);
 
-            // ✅ 每帧强制锁定模型根节点位置，确保动画在当前位置播放
+            // ✅ 每帧强制锁定模型根节点位置
+            modelRoot = modelIndex?.modelRoot;
             if (modelRoot != null)
             {
                 modelRoot.position = lockedPosition;
@@ -397,6 +538,13 @@ public class QuestStepSession : MonoBehaviour
         }
 
         JumpTo(index);
+        // ✅ 最后再次恢复位置
+        modelRoot = modelIndex?.modelRoot;
+        if (modelRoot != null)
+        {
+            modelRoot.position = lockedPosition;
+            modelRoot.rotation = lockedRotation;
+        }
         _playCo = null;
     }
 
@@ -585,7 +733,7 @@ public class QuestStepSession : MonoBehaviour
             var id = kv.Key;
             var t = kv.Value;
             if (t == null) continue;
-            dict[id] = PartState.From(id, t);
+            dict[id] = CaptureStableState(id, t);
         }
 
         return dict;
@@ -610,7 +758,7 @@ public class QuestStepSession : MonoBehaviour
                 _segmentSamples[id] = list;
             }
 
-            var sample = TrajectorySample.From(time, t);
+            var sample = CaptureStableSample(id, time, t);
             if (list.Count == 0)
             {
                 list.Add(sample);
@@ -629,8 +777,60 @@ public class QuestStepSession : MonoBehaviour
         }
     }
 
+    PartState CaptureStableState(string id, Transform t)
+    {
+        if (t == null) return null;
+
+        Vector3 localPos = t.localPosition;
+        Quaternion localRot = t.localRotation;
+        Vector3 localScale = t.localScale;
+
+        if (modelIndex != null)
+            modelIndex.TryGetStableLocalPose(id, t, out localPos, out localRot, out localScale);
+
+        return new PartState
+        {
+            id = id,
+            localPos = localPos,
+            localRot = localRot,
+            localScale = localScale
+        };
+    }
+
+    TrajectorySample CaptureStableSample(string id, float time, Transform t)
+    {
+        if (t == null) return null;
+
+        Vector3 localPos = t.localPosition;
+        Quaternion localRot = t.localRotation;
+        Vector3 localScale = t.localScale;
+
+        if (modelIndex != null)
+            modelIndex.TryGetStableLocalPose(id, t, out localPos, out localRot, out localScale);
+
+        return new TrajectorySample
+        {
+            t = time,
+            localPos = localPos,
+            localRot = localRot,
+            localScale = localScale
+        };
+    }
+
     PartTrajectory BuildTrajectory(string id, PartState from, PartState to, float duration)
     {
+        // ✅ 修复：如果有录制开始快照，使用它作为 from 状态
+        // 这样可以确保每一步的起始位置都是 BeginStep 时的位置
+        if (_hasRecordingStartSnapshot && _recordingStartSnapshot.TryGetValue(id, out var recordingStart))
+        {
+            Debug.Log($"[QuestStepSession] BuildTrajectory: {id} using recording start pos={recordingStart.localPos} (was {from.localPos})");
+            from = CloneState(recordingStart);
+        }
+        else
+        {
+            Debug.LogWarning($"[QuestStepSession] BuildTrajectory: {id} NO recording start snapshot! Using from={from.localPos}");
+        }
+        
         var traj = new PartTrajectory
         {
             id = id,
@@ -664,6 +864,7 @@ public class QuestStepSession : MonoBehaviour
             });
         }
 
+        // ✅ 修复：确保第一个 sample 使用录制开始状态
         var first = traj.samples[0];
         if (HasMoved(first, from))
         {
@@ -678,6 +879,9 @@ public class QuestStepSession : MonoBehaviour
         else
         {
             first.t = 0f;
+            first.localPos = from.localPos;
+            first.localRot = from.localRot;
+            first.localScale = from.localScale;
             traj.samples[0] = first;
         }
 
@@ -698,6 +902,7 @@ public class QuestStepSession : MonoBehaviour
             traj.samples[traj.samples.Count - 1] = last;
         }
 
+        Debug.Log($"[QuestStepSession] BuildTrajectory: {id} from={traj.from.localPos} to={traj.to.localPos} samples={traj.samples.Count}");
         return traj;
     }
 

@@ -23,6 +23,7 @@ public class ModelIndex : MonoBehaviour
         public TRS(Vector3 p, Quaternion r, Vector3 s) { pos = p; rot = r; scale = s; }
     }
     Dictionary<string, TRS> _base = new Dictionary<string, TRS>();
+    readonly Dictionary<string, Transform> _baseParents = new Dictionary<string, Transform>();
 
     /// <summary>
     /// 旧接口：Build()
@@ -59,6 +60,7 @@ public class ModelIndex : MonoBehaviour
     {
         map.Clear();
         _base.Clear();
+        _baseParents.Clear();
 
         if (modelRoot == null)
         {
@@ -77,6 +79,9 @@ public class ModelIndex : MonoBehaviour
 
             if (!_base.ContainsKey(id))
                 _base.Add(id, new TRS(t.localPosition, t.localRotation, t.localScale));
+
+            if (!_baseParents.ContainsKey(id))
+                _baseParents.Add(id, t.parent);
 
             // Quest 抓取需要 collider：先保证有 collider（手机端也不坏）
             bool allowAutoCollider = autoAddBoxColliderForRenderers;
@@ -130,6 +135,9 @@ public class ModelIndex : MonoBehaviour
             var t = kv.Value;
             if (t == null) continue;
 
+            if (_baseParents.TryGetValue(id, out var parent) && t.parent != parent)
+                t.SetParent(parent, false);
+
             if (_base.TryGetValue(id, out var trs))
             {
                 t.localPosition = trs.pos;
@@ -148,6 +156,32 @@ public class ModelIndex : MonoBehaviour
         if (rebuild) Build();
     }
 
+    public bool TryGetOriginalParent(string id, out Transform parent)
+    {
+        return _baseParents.TryGetValue(id, out parent);
+    }
+
+    public bool TryGetStableLocalPose(string id, Transform t, out Vector3 localPos, out Quaternion localRot, out Vector3 localScale)
+    {
+        localPos = t != null ? t.localPosition : Vector3.zero;
+        localRot = t != null ? t.localRotation : Quaternion.identity;
+        localScale = t != null ? t.localScale : Vector3.one;
+        if (t == null) return false;
+
+        if (!_baseParents.TryGetValue(id, out var originalParent))
+            originalParent = t.parent;
+
+        if (originalParent == t.parent)
+            return true;
+
+        Matrix4x4 parentWorldToLocal = originalParent != null ? originalParent.worldToLocalMatrix : Matrix4x4.identity;
+        Matrix4x4 localMatrix = parentWorldToLocal * t.localToWorldMatrix;
+        localPos = ExtractPosition(localMatrix);
+        localRot = ExtractRotation(localMatrix);
+        localScale = ExtractScale(localMatrix);
+        return true;
+    }
+
     /// <summary>
     /// 可选：通过 id 找零件
     /// </summary>
@@ -155,5 +189,27 @@ public class ModelIndex : MonoBehaviour
     {
         map.TryGetValue(id, out var t);
         return t;
+    }
+
+    static Vector3 ExtractPosition(Matrix4x4 m)
+    {
+        return new Vector3(m.m03, m.m13, m.m23);
+    }
+
+    static Vector3 ExtractScale(Matrix4x4 m)
+    {
+        var x = new Vector3(m.m00, m.m10, m.m20).magnitude;
+        var y = new Vector3(m.m01, m.m11, m.m21).magnitude;
+        var z = new Vector3(m.m02, m.m12, m.m22).magnitude;
+        return new Vector3(x, y, z);
+    }
+
+    static Quaternion ExtractRotation(Matrix4x4 m)
+    {
+        Vector3 forward = new Vector3(m.m02, m.m12, m.m22);
+        Vector3 upwards = new Vector3(m.m01, m.m11, m.m21);
+        if (forward.sqrMagnitude < 1e-8f || upwards.sqrMagnitude < 1e-8f)
+            return Quaternion.identity;
+        return Quaternion.LookRotation(forward.normalized, upwards.normalized);
     }
 }
