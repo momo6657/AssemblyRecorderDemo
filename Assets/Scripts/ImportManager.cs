@@ -470,117 +470,197 @@ public class ImportManager : MonoBehaviour
     {
         if (modelRoot == null) return;
 
-        Shader targetShader = Shader.Find("Universal Render Pipeline/Lit");
-        if (targetShader == null) targetShader = Shader.Find("Universal Render Pipeline/Simple Lit");
-        if (targetShader == null) targetShader = Shader.Find("Standard");
-        if (targetShader == null)
+        Shader urpLit = Shader.Find("Universal Render Pipeline/Lit");
+        if (urpLit == null)
         {
-            Debug.LogWarning("[IMPORT] Remap materials skipped: no fallback shader found.");
+            Debug.LogWarning("[IMPORT] URP/Lit shader not found, skip remap.");
             return;
         }
 
-        int rendererCount = 0;
-        int materialCount = 0;
-        int replacedCount = 0;
+        int total = 0, replaced = 0, ok = 0;
         var cache = new Dictionary<int, Material>();
         var renderers = modelRoot.GetComponentsInChildren<Renderer>(true);
 
         foreach (var r in renderers)
         {
             if (r == null) continue;
-            var mats = r.materials;
-            if (mats == null || mats.Length == 0) continue;
-            rendererCount++;
+            var mats = r.materials;  // 用 materials 而不是 sharedMaterials 获取实例化材质
+            if (mats == null || mats.Length == 0)
+            {
+                Debug.LogWarning($"[IMPORT] Renderer '{r.gameObject.name}' has no materials");
+                continue;
+            }
+            Debug.Log($"[IMPORT] Renderer '{r.gameObject.name}' has {mats.Length} materials");
 
             bool changed = false;
+            var newMats = new Material[mats.Length];
             for (int i = 0; i < mats.Length; i++)
             {
+                newMats[i] = mats[i];
+                total++;
                 var src = mats[i];
-                materialCount++;
-                if (src == null) continue;
+                
+                // 记录所有材质的 shader 名，用于诊断
+                if (src == null)
+                {
+                    Debug.LogWarning($"[IMPORT] Material[{i}] is NULL on renderer '{r.gameObject.name}'");
+                    continue;
+                }
 
-                bool unsupported = IsUnsupportedShader(src.shader);
-                if (remapOnlyWhenUnsupported && !unsupported) continue;
+                Debug.Log($"[IMPORT] Material[{i}] name='{src.name}' shader='{src.shader?.name}' supported={src.shader?.isSupported}");
+
+                // ✅ 只有已经是 URP/Lit 才跳过，其余全部替换
+                if (src.shader != null &&
+                    (src.shader.name == "Universal Render Pipeline/Lit" ||
+                     src.shader.name == "Universal Render Pipeline/Simple Lit"))
+                {
+                    ok++;
+                    continue;
+                }
 
                 int key = src.GetInstanceID();
                 if (!cache.TryGetValue(key, out var dst))
                 {
-                    dst = CreateFallbackMaterial(src, targetShader);
+                    dst = new Material(urpLit);
+                    dst.name = src.name + "_urp";
+                    CopyAllTexturesAndProperties(src, dst);
                     cache[key] = dst;
+                    Debug.Log($"[IMPORT] Remapped '{src.name}' shader='{src.shader?.name}' -> URP/Lit");
                 }
 
-                if (dst != null && mats[i] != dst)
-                {
-                    mats[i] = dst;
-                    replacedCount++;
-                    changed = true;
-                }
+                newMats[i] = dst;
+                replaced++;
+                changed = true;
             }
 
             if (changed)
-                r.materials = mats;
+                r.materials = newMats;
         }
 
-        Debug.Log("[IMPORT] Material remap done. renderers=" + rendererCount
-                  + " materials=" + materialCount
-                  + " replaced=" + replacedCount
-                  + " shader=" + targetShader.name);
+        Debug.Log($"[IMPORT] Remap done. total={total} ok={ok} replaced={replaced}");
+    }
+
+    /// <summary>
+    /// 从源材质中提取所有纹理和常用属性，复制到目标 URP/Lit 材质。
+    /// 这是解决 glTFast ShaderGraph shader 缺失问题的核心方法。
+    /// </summary>
+    static void CopyAllTexturesAndProperties(Material src, Material dst)
+    {
+        if (src == null || dst == null) return;
+
+        // ── 提取所有纹理 ──────────────────────────────────────────────
+        // glTFast 即使用了错误的 shader，纹理属性仍然被正确绑定
+        // 我们枚举所有纹理属性名并尝试读取
+        var texNames = new List<string>();
+        src.GetTexturePropertyNames(texNames);
+
+        // 纹理属性名映射：glTFast shader 属性名 → URP/Lit 属性名
+        var texMap = new Dictionary<string, string>
+        {
+            { "_BaseColorTexture",         "_BaseMap" },
+            { "_baseColorTexture",         "_BaseMap" },
+            { "baseColorTexture",          "_BaseMap" },
+            { "_MainTex",                  "_BaseMap" },
+            { "_BaseMap",                  "_BaseMap" },
+            { "_NormalTexture",            "_BumpMap" },
+            { "_normalTexture",            "_BumpMap" },
+            { "normalTexture",             "_BumpMap" },
+            { "_BumpMap",                  "_BumpMap" },
+            { "_MetallicRoughnessTexture", "_MetallicGlossMap" },
+            { "_metallicRoughnessTexture", "_MetallicGlossMap" },
+            { "metallicRoughnessTexture",  "_MetallicGlossMap" },
+            { "_MetallicGlossMap",         "_MetallicGlossMap" },
+            { "_OcclusionTexture",         "_OcclusionMap" },
+            { "_occlusionTexture",         "_OcclusionMap" },
+            { "occlusionTexture",          "_OcclusionMap" },
+            { "_OcclusionMap",             "_OcclusionMap" },
+            { "_EmissiveTexture",          "_EmissionMap" },
+            { "_emissiveTexture",          "_EmissionMap" },
+            { "emissiveTexture",           "_EmissionMap" },
+            { "_EmissionMap",              "_EmissionMap" },
+        };
+
+        bool hasNormal = false, hasMetallic = false, hasEmission = false;
+
+        foreach (var srcName in texNames)
+        {
+            var tex = src.GetTexture(srcName);
+            if (tex == null) continue;
+
+            string dstName = null;
+            texMap.TryGetValue(srcName, out dstName);
+
+            // 如果没有映射，尝试直接用相同名字
+            if (dstName == null)
+            {
+                if (dst.HasProperty(srcName)) dstName = srcName;
+                else continue;
+            }
+
+            if (!dst.HasProperty(dstName)) continue;
+            dst.SetTexture(dstName, tex);
+            Debug.Log($"[IMPORT] CopyTexture '{src.name}': {srcName} -> {dstName} ({tex.name})");
+
+            if (dstName == "_BumpMap") hasNormal = true;
+            if (dstName == "_MetallicGlossMap") hasMetallic = true;
+            if (dstName == "_EmissionMap") hasEmission = true;
+        }
+
+        // Enable keywords based on assigned textures
+        if (hasNormal) dst.EnableKeyword("_NORMALMAP");
+        if (hasMetallic) dst.EnableKeyword("_METALLICSPECGLOSSMAP");
+        if (hasEmission) dst.EnableKeyword("_EMISSION");
+
+        // ── 颜色属性 ──────────────────────────────────────────────────
+        string[] baseColorNames = { "_BaseColor", "_Color", "baseColorFactor", "_BaseColorFactor" };
+        foreach (var n in baseColorNames)
+        {
+            if (!src.HasProperty(n)) continue;
+            var c = src.GetColor(n);
+            if (dst.HasProperty("_BaseColor")) dst.SetColor("_BaseColor", c);
+            if (c.a < 1f)
+            {
+                dst.SetFloat("_Surface", 1f);
+                dst.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+                dst.SetOverrideTag("RenderType", "Transparent");
+                dst.renderQueue = (int)RenderQueue.Transparent;
+            }
+            break;
+        }
+
+        // ── Metallic / Smoothness ─────────────────────────────────────
+        if (src.HasProperty("_Metallic") && dst.HasProperty("_Metallic"))
+            dst.SetFloat("_Metallic", src.GetFloat("_Metallic"));
+        if (src.HasProperty("_Roughness") && dst.HasProperty("_Smoothness"))
+            dst.SetFloat("_Smoothness", 1f - src.GetFloat("_Roughness"));
+        else if (src.HasProperty("_Smoothness") && dst.HasProperty("_Smoothness"))
+            dst.SetFloat("_Smoothness", src.GetFloat("_Smoothness"));
+        else if (src.HasProperty("roughnessFactor") && dst.HasProperty("_Smoothness"))
+            dst.SetFloat("_Smoothness", 1f - src.GetFloat("roughnessFactor"));
+
+        // ── Emission color ─────────────────────────────────────────────
+        string[] emissionColorNames = { "_EmissionColor", "emissiveFactor", "_EmissiveFactor" };
+        foreach (var n in emissionColorNames)
+        {
+            if (!src.HasProperty(n)) continue;
+            var c = src.GetColor(n);
+            if (c != Color.black)
+            {
+                dst.SetColor("_EmissionColor", c);
+                dst.EnableKeyword("_EMISSION");
+            }
+            break;
+        }
     }
 
     IMaterialGenerator CreateRuntimeMaterialGenerator()
     {
-        if (!preferGltfUrpMaterialGenerator)
-            return null;
-
-        try
-        {
-            var rpAsset = GraphicsSettings.currentRenderPipeline;
-            if (rpAsset == null)
-            {
-                Debug.Log("[IMPORT] No SRP active, skip URP material generator.");
-                return null;
-            }
-
-            var assembly = typeof(IMaterialGenerator).Assembly;
-            var urpType = assembly.GetType("GLTFast.Materials.UniversalRPMaterialGenerator");
-            if (urpType == null)
-            {
-                Debug.LogWarning("[IMPORT] UniversalRPMaterialGenerator type not found.");
-                return null;
-            }
-
-            IMaterialGenerator generator = null;
-            var ctors = urpType.GetConstructors();
-            for (int i = 0; i < ctors.Length; i++)
-            {
-                var ctor = ctors[i];
-                var ps = ctor.GetParameters();
-                if (ps.Length == 1 && ps[0].ParameterType.IsAssignableFrom(rpAsset.GetType()))
-                {
-                    generator = ctor.Invoke(new object[] { rpAsset }) as IMaterialGenerator;
-                    break;
-                }
-            }
-
-            if (generator == null)
-            {
-                var emptyCtor = urpType.GetConstructor(Type.EmptyTypes);
-                if (emptyCtor != null)
-                    generator = emptyCtor.Invoke(null) as IMaterialGenerator;
-            }
-
-            if (generator != null)
-                Debug.Log("[IMPORT] Using glTFast material generator => " + generator.GetType().Name);
-            else
-                Debug.LogWarning("[IMPORT] Failed to create URP material generator, will use fallback remap.");
-
-            return generator;
-        }
-        catch (Exception ex)
-        {
-            Debug.LogWarning("[IMPORT] CreateRuntimeMaterialGenerator failed: " + ex.Message);
-            return null;
-        }
+        // ✅ 使用自定义 UrpLitMaterialGenerator
+        // glTFast 默认的 ShaderGraphMaterialGenerator 需要 Shader Graphs/glTF-pbrMetallicRoughness
+        // 该 shader 在 Android 构建中不存在，导致所有材质变成 InternalErrorShader（白色/紫色）
+        // UrpLitMaterialGenerator 直接使用 URP/Lit 并正确读取纹理
+        Debug.Log("[IMPORT] Using UrpLitMaterialGenerator");
+        return new UrpLitMaterialGenerator();
     }
 
     static bool IsUnsupportedShader(Shader shader)
@@ -595,23 +675,80 @@ public class ImportManager : MonoBehaviour
         var dst = new Material(targetShader);
         dst.name = src.name + "_URP";
 
-        Color c = Color.white;
-        if (TryReadColor(src, out var color)) c = color;
-        if (dst.HasProperty("_BaseColor")) dst.SetColor("_BaseColor", c);
-        if (dst.HasProperty("_Color")) dst.SetColor("_Color", c);
+        // ✅ 复制基础颜色
+        Color baseColor = Color.white;
+        if (TryReadColor(src, out var color)) baseColor = color;
+        if (dst.HasProperty("_BaseColor")) dst.SetColor("_BaseColor", baseColor);
+        if (dst.HasProperty("_Color")) dst.SetColor("_Color", baseColor);
 
-        var tex = TryReadMainTexture(src);
-        if (tex != null)
+        // ✅ 复制 Albedo/BaseColor 纹理
+        var baseTex = TryReadMainTexture(src);
+        if (baseTex != null)
         {
-            if (dst.HasProperty("_BaseMap")) dst.SetTexture("_BaseMap", tex);
-            else if (dst.HasProperty("_MainTex")) dst.SetTexture("_MainTex", tex);
+            if (dst.HasProperty("_BaseMap")) dst.SetTexture("_BaseMap", baseTex);
+            else if (dst.HasProperty("_MainTex")) dst.SetTexture("_MainTex", baseTex);
         }
 
+        // ✅ 复制法线贴图
+        Texture normalTex = TryReadTexture(src, new[] { "_BumpMap", "_NormalMap", "_NormalTexture", "_DetailNormalMap" });
+        if (normalTex != null && dst.HasProperty("_BumpMap"))
+        {
+            dst.SetTexture("_BumpMap", normalTex);
+            dst.EnableKeyword("_NORMALMAP");
+            float bumpScale = TryReadFloat(src, "_BumpScale", out var bs) ? bs : 1f;
+            if (dst.HasProperty("_BumpScale")) dst.SetFloat("_BumpScale", bumpScale);
+        }
+
+        // ✅ 复制金属度/粗糙度
         if (TryReadFloat(src, "_Metallic", out var metallic) && dst.HasProperty("_Metallic"))
             dst.SetFloat("_Metallic", metallic);
-        if (TryReadFloat(src, "_Glossiness", out var smoothness) && dst.HasProperty("_Smoothness"))
+        
+        // GLTFast 使用 _Roughness，URP 使用 _Smoothness (= 1 - roughness)
+        if (TryReadFloat(src, "_Roughness", out var roughness) && dst.HasProperty("_Smoothness"))
+            dst.SetFloat("_Smoothness", 1f - roughness);
+        else if (TryReadFloat(src, "_Glossiness", out var smoothness) && dst.HasProperty("_Smoothness"))
             dst.SetFloat("_Smoothness", smoothness);
 
+        // ✅ 复制金属度/粗糙度贴图
+        Texture metallicTex = TryReadTexture(src, new[] { "_MetallicGlossMap", "_MetallicRoughnessMap", "_MetallicRoughnessTexture" });
+        if (metallicTex != null && dst.HasProperty("_MetallicGlossMap"))
+        {
+            dst.SetTexture("_MetallicGlossMap", metallicTex);
+            dst.EnableKeyword("_METALLICSPECGLOSSMAP");
+        }
+
+        // ✅ 复制自发光
+        if (src.HasProperty("_EmissionColor") && dst.HasProperty("_EmissionColor"))
+        {
+            var emissionColor = src.GetColor("_EmissionColor");
+            dst.SetColor("_EmissionColor", emissionColor);
+            if (emissionColor != Color.black)
+                dst.EnableKeyword("_EMISSION");
+        }
+        Texture emissionTex = TryReadTexture(src, new[] { "_EmissionMap", "_EmissiveTexture" });
+        if (emissionTex != null && dst.HasProperty("_EmissionMap"))
+        {
+            dst.SetTexture("_EmissionMap", emissionTex);
+            dst.EnableKeyword("_EMISSION");
+        }
+
+        // ✅ 复制遮挡贴图
+        Texture occlusionTex = TryReadTexture(src, new[] { "_OcclusionMap", "_OcclusionTexture" });
+        if (occlusionTex != null && dst.HasProperty("_OcclusionMap"))
+            dst.SetTexture("_OcclusionMap", occlusionTex);
+
+        // ✅ 处理透明度
+        float alpha = baseColor.a;
+        if (alpha < 1f)
+        {
+            dst.SetFloat("_Surface", 1f);  // 0=Opaque, 1=Transparent
+            dst.SetFloat("_Blend", 0f);    // 0=Alpha, 1=Premultiply, 2=Additive, 3=Multiply
+            dst.SetOverrideTag("RenderType", "Transparent");
+            dst.renderQueue = (int)RenderQueue.Transparent;
+            dst.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+        }
+
+        Debug.Log($"[IMPORT] CreateFallbackMaterial: '{src.name}' baseTex={(baseTex != null)} normalTex={(normalTex != null)} metallic={metallic:F2} alpha={alpha:F2}");
         return dst;
     }
 
@@ -634,6 +771,17 @@ public class ImportManager : MonoBehaviour
         if (!mat.HasProperty(propertyName)) return false;
         value = mat.GetFloat(propertyName);
         return true;
+    }
+
+    static Texture TryReadTexture(Material mat, string[] propertyNames)
+    {
+        foreach (var n in propertyNames)
+        {
+            if (!mat.HasProperty(n)) continue;
+            var t = mat.GetTexture(n);
+            if (t != null) return t;
+        }
+        return null;
     }
 
     static Texture TryReadMainTexture(Material mat)

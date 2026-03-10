@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/QuestSence.unity
-    guid: 020686b2c0279214792853de859c210a
+    path: Assets/Scenes/PhoneScene.unity
+    guid: 5164c9bb53116c1448e4de6ffd0c6432
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 415a8b4bd7f1c984089cf47f3c4d9944, type: 2}
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}

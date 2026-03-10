@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\SelectionManager.cs" />
     <Compile Include="Assets\Scripts\StepPlayer.cs" />
     <Compile Include="Assets\Scripts\StepListUI.cs" />
+    <Compile Include="Assets\Scripts\UrpLitMaterialGenerator.cs" />
     <Compile Include="Assets\Scripts\ModelIndex.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\ScaleProtector.cs" />
