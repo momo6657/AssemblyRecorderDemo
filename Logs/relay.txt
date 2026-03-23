@@ -902,3 +902,510 @@
 [2026-03-10T13:17:49.904Z] [INFO] log Unity client connected with ID: editor-33540-ptlnyz
 [2026-03-10T13:17:49.904Z] [INFO] connection.established clientId=editor-33540-ptlnyz port=9001
 [2026-03-10T13:17:50.967Z] [DEBUG] log Server validation check - testing availability
+[2026-03-10T13:41:45.540Z] [INFO] log Domain reload signal received from client editor-33540-ptlnyz
+[2026-03-10T13:41:45.540Z] [DEBUG] log MessageSender blocked
+[2026-03-10T13:41:45.540Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-10T13:41:46.323Z] [WARN] connection.lost clientId=null
+[2026-03-10T13:41:46.323Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-10T13:41:46.323Z] [DEBUG] log MessageSender blocked
+[2026-03-10T13:41:46.323Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-10T13:41:46.323Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-10T13:41:46.323Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-10T13:41:49.846Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-10T13:41:49.846Z] [INFO] connection.established clientId=editor-33540-0bllgy port=9001
+[2026-03-10T13:41:49.846Z] [INFO] log Unity client connected with ID: editor-33540-0bllgy
+[2026-03-10T13:41:51.044Z] [DEBUG] log Server validation check - testing availability
+[2026-03-10T13:42:13.538Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:13.566Z] [DEBUG] message.received type=gateway/providers_request
+[2026-03-10T13:42:13.686Z] [DEBUG] log [provider-version] cursor-agent not found in PATH
+[2026-03-10T13:42:13.687Z] [DEBUG] log [provider-version] Fetched versions: [{"id":"codex","version":"0.9.4","isCustom":true},{"id":"gemini","version":"0.26.0","isCustom":true}]
+[2026-03-10T13:42:13.687Z] [DEBUG] log Sent provider versions: 2 providers
+[2026-03-10T13:42:13.688Z] [DEBUG] log [GatewayPrefs] seeded preferences with user's environment {"Claude Code":{},"Codex":{},"Gemini":{}}
+[2026-03-10T13:42:13.688Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":null,"Exists":false,"Error":null}
+[2026-03-10T13:42:13.768Z] [DEBUG] log [provider-version] cursor-agent not found in PATH
+[2026-03-10T13:42:13.768Z] [DEBUG] log [provider-version] Fetched versions: [{"id":"codex","version":"0.9.4","isCustom":true},{"id":"gemini","version":"0.26.0","isCustom":true}]
+[2026-03-10T13:42:13.768Z] [DEBUG] log [GatewayPrefs] Emitted PreferencesUpdated with 2 versions
+[2026-03-10T13:42:20.472Z] [DEBUG] message.received type=gateway/session/create
+[2026-03-10T13:42:20.473Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:20.480Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":{"Error":"","ProviderInfoList":[{"ProviderType":"claude-code","ProviderDisplayName":"Claude Code","HelpText":"Requires ANTHROPIC_API_KEY","Variables":[{"Name":"ANTHROPIC_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["ANTHROPIC_API_KEY"]},{"ProviderType":"codex","ProviderDisplayName":"Codex","HelpText":"Requires OPENAI_API_KEY","IsCustom":true,"Variables":[{"Name":"OPENAI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["OPENAI_API_KEY"]},{"ProviderType":"gemini","ProviderDisplayName":"Gemini","HelpText":"Requires GEMINI_API_KEY","IsCustom":true,"Variables":[{"Name":"GEMINI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["GEMINI_API_KEY"]},{"ProviderType":"cursor","ProviderDisplayName":"Cursor","HelpText":"Requires to be logged in to Cursor.","Variables":[],"RequiredEnvVarNames":[]}]},"Exists":true,"Error":null}
+[2026-03-10T13:42:20.613Z] [INFO] log Keytar loaded successfully
+[2026-03-10T13:42:20.616Z] [WARN] log Missing credentials for codex: OPENAI_API_KEY
+[2026-03-10T13:42:20.616Z] [DEBUG] message.received type=gateway/validate_executable
+[2026-03-10T13:42:20.616Z] [DEBUG] log Validating executable for codex
+[2026-03-10T13:42:20.616Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:20.621Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":{"Error":"","ProviderInfoList":[{"ProviderType":"claude-code","ProviderDisplayName":"Claude Code","HelpText":"Requires ANTHROPIC_API_KEY","Variables":[{"Name":"ANTHROPIC_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["ANTHROPIC_API_KEY"]},{"ProviderType":"codex","ProviderDisplayName":"Codex","HelpText":"Requires OPENAI_API_KEY","IsCustom":true,"Variables":[{"Name":"OPENAI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["OPENAI_API_KEY"]},{"ProviderType":"gemini","ProviderDisplayName":"Gemini","HelpText":"Requires GEMINI_API_KEY","IsCustom":true,"Variables":[{"Name":"GEMINI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["GEMINI_API_KEY"]},{"ProviderType":"cursor","ProviderDisplayName":"Cursor","HelpText":"Requires to be logged in to Cursor.","Variables":[],"RequiredEnvVarNames":[]}]},"Exists":true,"Error":null}
+[2026-03-10T13:42:20.621Z] [DEBUG] log [validate] Found Codex in gateway: D:\unity\AssemblyRecorderDemo\Library\PackageCache\com.unity.ai.assistant@5ecf2493a698\RelayApp~\gateway\codex-acp.exe
+[2026-03-10T13:42:32.631Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:32.789Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":{"Error":"","ProviderInfoList":[{"ProviderType":"claude-code","ProviderDisplayName":"Claude Code","HelpText":"Requires ANTHROPIC_API_KEY","Variables":[{"Name":"ANTHROPIC_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["ANTHROPIC_API_KEY"]},{"ProviderType":"codex","ProviderDisplayName":"Codex","HelpText":"Requires OPENAI_API_KEY","IsCustom":true,"Variables":[{"Name":"OPENAI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["OPENAI_API_KEY"]},{"ProviderType":"gemini","ProviderDisplayName":"Gemini","HelpText":"Requires GEMINI_API_KEY","IsCustom":true,"Variables":[{"Name":"GEMINI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["GEMINI_API_KEY"]},{"ProviderType":"cursor","ProviderDisplayName":"Cursor","HelpText":"Requires to be logged in to Cursor.","Variables":[],"RequiredEnvVarNames":[]}]},"Exists":true,"Error":null}
+[2026-03-10T13:42:32.875Z] [DEBUG] log [provider-version] cursor-agent not found in PATH
+[2026-03-10T13:42:32.875Z] [DEBUG] log [provider-version] Fetched versions: [{"id":"codex","version":"0.9.4","isCustom":true},{"id":"gemini","version":"0.26.0","isCustom":true}]
+[2026-03-10T13:42:32.877Z] [DEBUG] log [GatewayPrefs] Emitted PreferencesUpdated with 2 versions
+[2026-03-10T13:42:32.884Z] [DEBUG] message.received type=gateway/session/create
+[2026-03-10T13:42:32.884Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:32.887Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":{"Error":"","ProviderInfoList":[{"ProviderType":"claude-code","ProviderDisplayName":"Claude Code","HelpText":"Requires ANTHROPIC_API_KEY","Variables":[{"Name":"ANTHROPIC_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["ANTHROPIC_API_KEY"]},{"ProviderType":"codex","ProviderDisplayName":"Codex","HelpText":"Requires OPENAI_API_KEY","IsCustom":true,"Variables":[{"Name":"OPENAI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["OPENAI_API_KEY"]},{"ProviderType":"gemini","ProviderDisplayName":"Gemini","HelpText":"Requires GEMINI_API_KEY","IsCustom":true,"Variables":[{"Name":"GEMINI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["GEMINI_API_KEY"]},{"ProviderType":"cursor","ProviderDisplayName":"Cursor","HelpText":"Requires to be logged in to Cursor.","Variables":[],"RequiredEnvVarNames":[]}]},"Exists":true,"Error":null}
+[2026-03-10T13:42:32.887Z] [WARN] log Missing credentials for codex: OPENAI_API_KEY
+[2026-03-10T13:42:32.941Z] [DEBUG] message.received type=gateway/validate_executable
+[2026-03-10T13:42:32.941Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:32.941Z] [DEBUG] log Validating executable for codex
+[2026-03-10T13:42:32.942Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":{"Error":"","ProviderInfoList":[{"ProviderType":"claude-code","ProviderDisplayName":"Claude Code","HelpText":"Requires ANTHROPIC_API_KEY","Variables":[{"Name":"ANTHROPIC_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["ANTHROPIC_API_KEY"]},{"ProviderType":"codex","ProviderDisplayName":"Codex","HelpText":"Requires OPENAI_API_KEY","IsCustom":true,"Variables":[{"Name":"OPENAI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["OPENAI_API_KEY"]},{"ProviderType":"gemini","ProviderDisplayName":"Gemini","HelpText":"Requires GEMINI_API_KEY","IsCustom":true,"Variables":[{"Name":"GEMINI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["GEMINI_API_KEY"]},{"ProviderType":"cursor","ProviderDisplayName":"Cursor","HelpText":"Requires to be logged in to Cursor.","Variables":[],"RequiredEnvVarNames":[]}]},"Exists":true,"Error":null}
+[2026-03-10T13:42:32.942Z] [DEBUG] log [validate] Found Codex in gateway: D:\unity\AssemblyRecorderDemo\Library\PackageCache\com.unity.ai.assistant@5ecf2493a698\RelayApp~\gateway\codex-acp.exe
+[2026-03-10T13:42:39.598Z] [DEBUG] message.received type=gateway/session/create
+[2026-03-10T13:42:39.598Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:39.605Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":{"Error":"","ProviderInfoList":[{"ProviderType":"claude-code","ProviderDisplayName":"Claude Code","HelpText":"Requires ANTHROPIC_API_KEY","Variables":[{"Name":"ANTHROPIC_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["ANTHROPIC_API_KEY"]},{"ProviderType":"codex","ProviderDisplayName":"Codex","HelpText":"Requires OPENAI_API_KEY","IsCustom":true,"Variables":[{"Name":"OPENAI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false},{"Name":"","Value":"","InKeychain":false,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["OPENAI_API_KEY"]},{"ProviderType":"gemini","ProviderDisplayName":"Gemini","HelpText":"Requires GEMINI_API_KEY","IsCustom":true,"Variables":[{"Name":"GEMINI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["GEMINI_API_KEY"]},{"ProviderType":"cursor","ProviderDisplayName":"Cursor","HelpText":"Requires to be logged in to Cursor.","Variables":[],"RequiredEnvVarNames":[]}]},"Exists":true,"Error":null}
+[2026-03-10T13:42:39.605Z] [WARN] log Missing credentials for codex: OPENAI_API_KEY
+[2026-03-10T13:42:39.617Z] [DEBUG] log Validating executable for codex
+[2026-03-10T13:42:39.617Z] [DEBUG] message.received type=gateway/validate_executable
+[2026-03-10T13:42:39.617Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:39.618Z] [DEBUG] log [validate] Found Codex in gateway: D:\unity\AssemblyRecorderDemo\Library\PackageCache\com.unity.ai.assistant@5ecf2493a698\RelayApp~\gateway\codex-acp.exe
+[2026-03-10T13:42:39.618Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":{"Error":"","ProviderInfoList":[{"ProviderType":"claude-code","ProviderDisplayName":"Claude Code","HelpText":"Requires ANTHROPIC_API_KEY","Variables":[{"Name":"ANTHROPIC_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["ANTHROPIC_API_KEY"]},{"ProviderType":"codex","ProviderDisplayName":"Codex","HelpText":"Requires OPENAI_API_KEY","IsCustom":true,"Variables":[{"Name":"OPENAI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false},{"Name":"","Value":"","InKeychain":false,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["OPENAI_API_KEY"]},{"ProviderType":"gemini","ProviderDisplayName":"Gemini","HelpText":"Requires GEMINI_API_KEY","IsCustom":true,"Variables":[{"Name":"GEMINI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["GEMINI_API_KEY"]},{"ProviderType":"cursor","ProviderDisplayName":"Cursor","HelpText":"Requires to be logged in to Cursor.","Variables":[],"RequiredEnvVarNames":[]}]},"Exists":true,"Error":null}
+[2026-03-10T13:42:41.217Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:41.217Z] [DEBUG] message.received type=gateway/session/create
+[2026-03-10T13:42:41.224Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":{"Error":"","ProviderInfoList":[{"ProviderType":"claude-code","ProviderDisplayName":"Claude Code","HelpText":"Requires ANTHROPIC_API_KEY","Variables":[{"Name":"ANTHROPIC_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["ANTHROPIC_API_KEY"]},{"ProviderType":"codex","ProviderDisplayName":"Codex","HelpText":"Requires OPENAI_API_KEY","IsCustom":true,"Variables":[{"Name":"","Value":"","InKeychain":false,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["OPENAI_API_KEY"]},{"ProviderType":"gemini","ProviderDisplayName":"Gemini","HelpText":"Requires GEMINI_API_KEY","IsCustom":true,"Variables":[{"Name":"GEMINI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["GEMINI_API_KEY"]},{"ProviderType":"cursor","ProviderDisplayName":"Cursor","HelpText":"Requires to be logged in to Cursor.","Variables":[],"RequiredEnvVarNames":[]}]},"Exists":true,"Error":null}
+[2026-03-10T13:42:41.224Z] [WARN] log Missing credentials for codex: OPENAI_API_KEY
+[2026-03-10T13:42:41.278Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:41.278Z] [DEBUG] message.received type=gateway/validate_executable
+[2026-03-10T13:42:41.278Z] [DEBUG] log Validating executable for codex
+[2026-03-10T13:42:41.279Z] [DEBUG] log [validate] Found Codex in gateway: D:\unity\AssemblyRecorderDemo\Library\PackageCache\com.unity.ai.assistant@5ecf2493a698\RelayApp~\gateway\codex-acp.exe
+[2026-03-10T13:42:41.279Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":{"Error":"","ProviderInfoList":[{"ProviderType":"claude-code","ProviderDisplayName":"Claude Code","HelpText":"Requires ANTHROPIC_API_KEY","Variables":[{"Name":"ANTHROPIC_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["ANTHROPIC_API_KEY"]},{"ProviderType":"codex","ProviderDisplayName":"Codex","HelpText":"Requires OPENAI_API_KEY","IsCustom":true,"Variables":[{"Name":"","Value":"","InKeychain":false,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["OPENAI_API_KEY"]},{"ProviderType":"gemini","ProviderDisplayName":"Gemini","HelpText":"Requires GEMINI_API_KEY","IsCustom":true,"Variables":[{"Name":"GEMINI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["GEMINI_API_KEY"]},{"ProviderType":"cursor","ProviderDisplayName":"Cursor","HelpText":"Requires to be logged in to Cursor.","Variables":[],"RequiredEnvVarNames":[]}]},"Exists":true,"Error":null}
+[2026-03-10T13:42:42.712Z] [DEBUG] message.received type=gateway/session/create
+[2026-03-10T13:42:42.712Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:42.715Z] [DEBUG] log [SharedTask] get preferences: reusing in-flight task
+[2026-03-10T13:42:42.721Z] [WARN] log Missing credentials for codex: OPENAI_API_KEY
+[2026-03-10T13:42:42.721Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":{"Error":"","ProviderInfoList":[{"ProviderType":"claude-code","ProviderDisplayName":"Claude Code","HelpText":"Requires ANTHROPIC_API_KEY","Variables":[{"Name":"ANTHROPIC_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["ANTHROPIC_API_KEY"]},{"ProviderType":"codex","ProviderDisplayName":"Codex","HelpText":"Requires OPENAI_API_KEY","IsCustom":true,"Variables":[{"Name":"","Value":"","InKeychain":false,"IsSet":false,"IsUpdated":false},{"Name":"OPENAI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["OPENAI_API_KEY"]},{"ProviderType":"gemini","ProviderDisplayName":"Gemini","HelpText":"Requires GEMINI_API_KEY","IsCustom":true,"Variables":[{"Name":"GEMINI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["GEMINI_API_KEY"]},{"ProviderType":"cursor","ProviderDisplayName":"Cursor","HelpText":"Requires to be logged in to Cursor.","Variables":[],"RequiredEnvVarNames":[]}]},"Exists":true,"Error":null}
+[2026-03-10T13:42:42.793Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:42.793Z] [DEBUG] message.received type=gateway/validate_executable
+[2026-03-10T13:42:42.793Z] [DEBUG] log Validating executable for codex
+[2026-03-10T13:42:42.793Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":{"Error":"","ProviderInfoList":[{"ProviderType":"claude-code","ProviderDisplayName":"Claude Code","HelpText":"Requires ANTHROPIC_API_KEY","Variables":[{"Name":"ANTHROPIC_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["ANTHROPIC_API_KEY"]},{"ProviderType":"codex","ProviderDisplayName":"Codex","HelpText":"Requires OPENAI_API_KEY","IsCustom":true,"Variables":[{"Name":"","Value":"","InKeychain":false,"IsSet":false,"IsUpdated":false},{"Name":"OPENAI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["OPENAI_API_KEY"]},{"ProviderType":"gemini","ProviderDisplayName":"Gemini","HelpText":"Requires GEMINI_API_KEY","IsCustom":true,"Variables":[{"Name":"GEMINI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["GEMINI_API_KEY"]},{"ProviderType":"cursor","ProviderDisplayName":"Cursor","HelpText":"Requires to be logged in to Cursor.","Variables":[],"RequiredEnvVarNames":[]}]},"Exists":true,"Error":null}
+[2026-03-10T13:42:42.794Z] [DEBUG] log [validate] Found Codex in gateway: D:\unity\AssemblyRecorderDemo\Library\PackageCache\com.unity.ai.assistant@5ecf2493a698\RelayApp~\gateway\codex-acp.exe
+[2026-03-10T13:42:44.200Z] [DEBUG] message.received type=gateway/session/create
+[2026-03-10T13:42:44.200Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:44.207Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":{"Error":"","ProviderInfoList":[{"ProviderType":"claude-code","ProviderDisplayName":"Claude Code","HelpText":"Requires ANTHROPIC_API_KEY","Variables":[{"Name":"ANTHROPIC_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["ANTHROPIC_API_KEY"]},{"ProviderType":"codex","ProviderDisplayName":"Codex","HelpText":"Requires OPENAI_API_KEY","IsCustom":true,"Variables":[{"Name":"OPENAI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["OPENAI_API_KEY"]},{"ProviderType":"gemini","ProviderDisplayName":"Gemini","HelpText":"Requires GEMINI_API_KEY","IsCustom":true,"Variables":[{"Name":"GEMINI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["GEMINI_API_KEY"]},{"ProviderType":"cursor","ProviderDisplayName":"Cursor","HelpText":"Requires to be logged in to Cursor.","Variables":[],"RequiredEnvVarNames":[]}]},"Exists":true,"Error":null}
+[2026-03-10T13:42:44.207Z] [WARN] log Missing credentials for codex: OPENAI_API_KEY
+[2026-03-10T13:42:44.300Z] [DEBUG] message.received type=gateway/validate_executable
+[2026-03-10T13:42:44.300Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:44.300Z] [DEBUG] log Validating executable for codex
+[2026-03-10T13:42:44.301Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":{"Error":"","ProviderInfoList":[{"ProviderType":"claude-code","ProviderDisplayName":"Claude Code","HelpText":"Requires ANTHROPIC_API_KEY","Variables":[{"Name":"ANTHROPIC_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["ANTHROPIC_API_KEY"]},{"ProviderType":"codex","ProviderDisplayName":"Codex","HelpText":"Requires OPENAI_API_KEY","IsCustom":true,"Variables":[{"Name":"OPENAI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["OPENAI_API_KEY"]},{"ProviderType":"gemini","ProviderDisplayName":"Gemini","HelpText":"Requires GEMINI_API_KEY","IsCustom":true,"Variables":[{"Name":"GEMINI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["GEMINI_API_KEY"]},{"ProviderType":"cursor","ProviderDisplayName":"Cursor","HelpText":"Requires to be logged in to Cursor.","Variables":[],"RequiredEnvVarNames":[]}]},"Exists":true,"Error":null}
+[2026-03-10T13:42:44.301Z] [DEBUG] log [validate] Found Codex in gateway: D:\unity\AssemblyRecorderDemo\Library\PackageCache\com.unity.ai.assistant@5ecf2493a698\RelayApp~\gateway\codex-acp.exe
+[2026-03-10T13:42:45.694Z] [DEBUG] message.received type=gateway/validate_executable
+[2026-03-10T13:42:45.694Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:45.694Z] [DEBUG] log Validating executable for cursor
+[2026-03-10T13:42:45.712Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":{"Error":"","ProviderInfoList":[{"ProviderType":"claude-code","ProviderDisplayName":"Claude Code","HelpText":"Requires ANTHROPIC_API_KEY","Variables":[{"Name":"ANTHROPIC_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["ANTHROPIC_API_KEY"]},{"ProviderType":"codex","ProviderDisplayName":"Codex","HelpText":"Requires OPENAI_API_KEY","IsCustom":true,"Variables":[{"Name":"OPENAI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["OPENAI_API_KEY"]},{"ProviderType":"gemini","ProviderDisplayName":"Gemini","HelpText":"Requires GEMINI_API_KEY","IsCustom":true,"Variables":[{"Name":"GEMINI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["GEMINI_API_KEY"]},{"ProviderType":"cursor","ProviderDisplayName":"Cursor","HelpText":"Requires to be logged in to Cursor.","Variables":[],"RequiredEnvVarNames":[]}]},"Exists":true,"Error":null}
+[2026-03-10T13:42:46.697Z] [DEBUG] message.received type=gateway/session/create
+[2026-03-10T13:42:46.697Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:46.702Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":{"Error":"","ProviderInfoList":[{"ProviderType":"claude-code","ProviderDisplayName":"Claude Code","HelpText":"Requires ANTHROPIC_API_KEY","Variables":[{"Name":"ANTHROPIC_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["ANTHROPIC_API_KEY"]},{"ProviderType":"codex","ProviderDisplayName":"Codex","HelpText":"Requires OPENAI_API_KEY","IsCustom":true,"Variables":[{"Name":"OPENAI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["OPENAI_API_KEY"]},{"ProviderType":"gemini","ProviderDisplayName":"Gemini","HelpText":"Requires GEMINI_API_KEY","IsCustom":true,"Variables":[{"Name":"GEMINI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["GEMINI_API_KEY"]},{"ProviderType":"cursor","ProviderDisplayName":"Cursor","HelpText":"Requires to be logged in to Cursor.","Variables":[{"Name":"","Value":"","InKeychain":false,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":[]}]},"Exists":true,"Error":null}
+[2026-03-10T13:42:46.702Z] [WARN] log Missing credentials for codex: OPENAI_API_KEY
+[2026-03-10T13:42:46.758Z] [DEBUG] message.received type=gateway/validate_executable
+[2026-03-10T13:42:46.758Z] [DEBUG] log Validating executable for codex
+[2026-03-10T13:42:46.759Z] [DEBUG] log [GatewayPrefs] getPreferences completed successfully with 4 providers. Loaded from preferences: {"Success":true,"Value":{"Error":"","ProviderInfoList":[{"ProviderType":"claude-code","ProviderDisplayName":"Claude Code","HelpText":"Requires ANTHROPIC_API_KEY","Variables":[{"Name":"ANTHROPIC_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["ANTHROPIC_API_KEY"]},{"ProviderType":"codex","ProviderDisplayName":"Codex","HelpText":"Requires OPENAI_API_KEY","IsCustom":true,"Variables":[{"Name":"OPENAI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["OPENAI_API_KEY"]},{"ProviderType":"gemini","ProviderDisplayName":"Gemini","HelpText":"Requires GEMINI_API_KEY","IsCustom":true,"Variables":[{"Name":"GEMINI_API_KEY","Value":"","InKeychain":true,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":["GEMINI_API_KEY"]},{"ProviderType":"cursor","ProviderDisplayName":"Cursor","HelpText":"Requires to be logged in to Cursor.","Variables":[{"Name":"","Value":"","InKeychain":false,"IsSet":false,"IsUpdated":false}],"RequiredEnvVarNames":[]}]},"Exists":true,"Error":null}
+[2026-03-10T13:42:46.758Z] [DEBUG] log [SharedTask] get preferences: starting new task
+[2026-03-10T13:42:46.759Z] [DEBUG] log [validate] Found Codex in gateway: D:\unity\AssemblyRecorderDemo\Library\PackageCache\com.unity.ai.assistant@5ecf2493a698\RelayApp~\gateway\codex-acp.exe
+[2026-03-10T14:07:20.848Z] [INFO] log Shutdown request received from client editor-33540-0bllgy
+[2026-03-10T14:07:20.849Z] [INFO] log Unity client requested immediate shutdown - shutting down now, reason: Shutdown requested by client
+[2026-03-10T14:07:20.850Z] [INFO] log Shutdown: Initiating graceful shutdown: Shutdown requested by client
+[2026-03-10T14:07:20.946Z] [DEBUG] log MessageSender blocked
+[2026-03-10T14:07:20.946Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-10T14:07:20.946Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-10T14:07:20.946Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-10T14:07:20.946Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-10T14:07:20.946Z] [WARN] connection.lost clientId=null
+[2026-03-15T08:18:59.865Z] [INFO] log Parsed config: {"port":9001,"mcpClientPort":9002,"editorPid":"29688","shutdownDelaySeconds":180}
+[2026-03-15T08:18:59.865Z] [INFO] relay.startup port=9001 mcpClientPort=9002 editorPid=29688
+[2026-03-15T08:18:59.866Z] [INFO] log Creating RelayEditor...
+[2026-03-15T08:18:59.865Z] [INFO] log Command line arguments: ["bun","B:/~BUN/root/relay_win.exe","--relay","--port","9001","--mcp-client-port","9002","--editor-pid","29688","--shutdown-delay","180","--log-dir","D:\\unity\\AssemblyRecorderDemo\\Logs"]
+[2026-03-15T08:18:59.866Z] [INFO] log Initializing relay components...
+[2026-03-15T08:18:59.870Z] [INFO] log MCP Client initialized at port: 9002
+[2026-03-15T08:18:59.865Z] [INFO] log Starting relay server...
+[2026-03-15T08:18:59.870Z] [INFO] log WebSocket server started
+[2026-03-15T08:18:59.870Z] [INFO] log Relay server initialization completed
+[2026-03-15T08:18:59.865Z] [INFO] log === RELAY SERVER STARTED ===
+[2026-03-15T08:18:59.900Z] [INFO] log Unity MCP Relay server started | Port: 9002 | Endpoints: /mcp/start-server, /mcp/stop-server, /mcp/server-status, /mcp/call-tool
+[2026-03-15T08:19:06.770Z] [INFO] connection.established clientId=editor-29688-5ijhkl port=9001
+[2026-03-15T08:19:06.770Z] [INFO] log Unity client connected with ID: editor-29688-5ijhkl
+[2026-03-15T08:19:07.506Z] [DEBUG] log MessageSender blocked
+[2026-03-15T08:19:07.506Z] [WARN] connection.lost clientId=null
+[2026-03-15T08:19:07.506Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T08:19:07.506Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T08:19:07.506Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T08:19:07.506Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T08:19:07.506Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-15T08:19:07.507Z] [INFO] connection.established clientId=editor-29688-35kley port=9001
+[2026-03-15T08:19:07.507Z] [INFO] log Unity client connected with ID: editor-29688-35kley
+[2026-03-15T08:19:07.508Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T08:19:09.257Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T08:28:26.360Z] [INFO] log Domain reload signal received from client editor-29688-35kley
+[2026-03-15T08:28:26.360Z] [DEBUG] log MessageSender blocked
+[2026-03-15T08:28:26.360Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T08:28:27.549Z] [DEBUG] log MessageSender blocked
+[2026-03-15T08:28:27.549Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T08:28:27.551Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T08:28:27.552Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T08:28:27.551Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T08:28:27.551Z] [WARN] connection.lost clientId=null
+[2026-03-15T08:28:34.460Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-15T08:28:34.462Z] [INFO] connection.established clientId=editor-29688-87y06z port=9001
+[2026-03-15T08:28:34.462Z] [INFO] log Unity client connected with ID: editor-29688-87y06z
+[2026-03-15T08:28:36.640Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T08:34:44.108Z] [INFO] log Domain reload signal received from client editor-29688-87y06z
+[2026-03-15T08:34:44.110Z] [DEBUG] log MessageSender blocked
+[2026-03-15T08:34:44.110Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T08:34:44.855Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T08:34:44.855Z] [DEBUG] log MessageSender blocked
+[2026-03-15T08:34:44.855Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T08:34:44.855Z] [WARN] connection.lost clientId=null
+[2026-03-15T08:34:44.855Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T08:34:44.857Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T08:34:47.939Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-15T08:34:47.939Z] [INFO] connection.established clientId=editor-29688-4s0l3n port=9001
+[2026-03-15T08:34:47.939Z] [INFO] log Unity client connected with ID: editor-29688-4s0l3n
+[2026-03-15T08:34:49.090Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T08:52:34.981Z] [INFO] log Domain reload signal received from client editor-29688-4s0l3n
+[2026-03-15T08:52:34.983Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T08:52:34.983Z] [DEBUG] log MessageSender blocked
+[2026-03-15T08:52:35.760Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T08:52:35.760Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T08:52:35.760Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T08:52:35.760Z] [WARN] connection.lost clientId=null
+[2026-03-15T08:52:35.760Z] [DEBUG] log MessageSender blocked
+[2026-03-15T08:52:35.760Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T08:52:40.861Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-15T08:52:40.861Z] [INFO] connection.established clientId=editor-29688-w2dsg3 port=9001
+[2026-03-15T08:52:40.861Z] [INFO] log Unity client connected with ID: editor-29688-w2dsg3
+[2026-03-15T08:52:42.659Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T08:53:41.178Z] [INFO] log Domain reload signal received from client editor-29688-w2dsg3
+[2026-03-15T08:53:41.178Z] [DEBUG] log MessageSender blocked
+[2026-03-15T08:53:41.178Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T08:53:41.970Z] [DEBUG] log MessageSender blocked
+[2026-03-15T08:53:41.971Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T08:53:41.971Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T08:53:41.971Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T08:53:41.971Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T08:53:41.971Z] [WARN] connection.lost clientId=null
+[2026-03-15T08:53:45.175Z] [INFO] log Unity client connected with ID: editor-29688-ke56sa
+[2026-03-15T08:53:45.175Z] [INFO] connection.established clientId=editor-29688-ke56sa port=9001
+[2026-03-15T08:53:45.175Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-15T08:53:46.123Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T08:54:15.320Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T08:54:15.320Z] [DEBUG] log MessageSender blocked
+[2026-03-15T08:54:15.320Z] [INFO] log Domain reload signal received from client editor-29688-ke56sa
+[2026-03-15T08:54:16.008Z] [DEBUG] log MessageSender blocked
+[2026-03-15T08:54:16.008Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T08:54:16.008Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T08:54:16.008Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T08:54:16.008Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T08:54:16.008Z] [WARN] connection.lost clientId=null
+[2026-03-15T08:54:19.987Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-15T08:54:19.987Z] [INFO] log Unity client connected with ID: editor-29688-wp58gk
+[2026-03-15T08:54:19.987Z] [INFO] connection.established clientId=editor-29688-wp58gk port=9001
+[2026-03-15T08:54:23.699Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T09:06:43.484Z] [DEBUG] log MessageSender blocked
+[2026-03-15T09:06:43.484Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T09:06:43.484Z] [INFO] log Domain reload signal received from client editor-29688-wp58gk
+[2026-03-15T09:06:44.225Z] [DEBUG] log MessageSender blocked
+[2026-03-15T09:06:44.225Z] [WARN] connection.lost clientId=null
+[2026-03-15T09:06:44.225Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T09:06:44.225Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T09:06:44.225Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T09:06:44.225Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T09:06:47.790Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-15T09:06:47.790Z] [INFO] log Unity client connected with ID: editor-29688-0iy0y5
+[2026-03-15T09:06:47.790Z] [INFO] connection.established clientId=editor-29688-0iy0y5 port=9001
+[2026-03-15T09:06:48.744Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T09:30:26.483Z] [DEBUG] log MessageSender blocked
+[2026-03-15T09:30:26.483Z] [INFO] log Domain reload signal received from client editor-29688-0iy0y5
+[2026-03-15T09:30:26.484Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T09:30:27.327Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T09:30:27.327Z] [WARN] connection.lost clientId=null
+[2026-03-15T09:30:27.327Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T09:30:27.327Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T09:30:27.327Z] [DEBUG] log MessageSender blocked
+[2026-03-15T09:30:27.327Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T09:30:31.397Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-15T09:30:31.397Z] [INFO] log Unity client connected with ID: editor-29688-6qh7ck
+[2026-03-15T09:30:31.397Z] [INFO] connection.established clientId=editor-29688-6qh7ck port=9001
+[2026-03-15T09:30:32.950Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T09:54:09.009Z] [INFO] log Domain reload signal received from client editor-29688-6qh7ck
+[2026-03-15T09:54:09.009Z] [DEBUG] log MessageSender blocked
+[2026-03-15T09:54:09.009Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T09:54:09.759Z] [DEBUG] log MessageSender blocked
+[2026-03-15T09:54:09.761Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T09:54:09.761Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T09:54:09.761Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T09:54:09.761Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T09:54:09.761Z] [WARN] connection.lost clientId=null
+[2026-03-15T09:54:13.100Z] [INFO] log Unity client connected with ID: editor-29688-igttcw
+[2026-03-15T09:54:13.100Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-15T09:54:13.100Z] [INFO] connection.established clientId=editor-29688-igttcw port=9001
+[2026-03-15T09:54:14.021Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T10:56:04.213Z] [INFO] log Domain reload signal received from client editor-29688-igttcw
+[2026-03-15T10:56:04.213Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T10:56:04.213Z] [DEBUG] log MessageSender blocked
+[2026-03-15T10:56:05.026Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T10:56:05.026Z] [DEBUG] log MessageSender blocked
+[2026-03-15T10:56:05.026Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T10:56:05.031Z] [WARN] connection.lost clientId=null
+[2026-03-15T10:56:05.031Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T10:56:05.032Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T10:56:08.753Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-15T10:56:08.754Z] [INFO] log Unity client connected with ID: editor-29688-rhvyb5
+[2026-03-15T10:56:08.754Z] [INFO] connection.established clientId=editor-29688-rhvyb5 port=9001
+[2026-03-15T10:56:09.852Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T11:10:11.411Z] [INFO] log Domain reload signal received from client editor-29688-rhvyb5
+[2026-03-15T11:10:11.412Z] [DEBUG] log MessageSender blocked
+[2026-03-15T11:10:11.412Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T11:10:12.184Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T11:10:12.185Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T11:10:12.182Z] [DEBUG] log MessageSender blocked
+[2026-03-15T11:10:12.185Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T11:10:12.185Z] [WARN] connection.lost clientId=null
+[2026-03-15T11:10:12.185Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T11:10:15.578Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-15T11:10:15.578Z] [INFO] connection.established clientId=editor-29688-zeqkmk port=9001
+[2026-03-15T11:10:15.578Z] [INFO] log Unity client connected with ID: editor-29688-zeqkmk
+[2026-03-15T11:10:16.623Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T11:22:25.409Z] [INFO] log Domain reload signal received from client editor-29688-zeqkmk
+[2026-03-15T11:22:25.409Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T11:22:25.409Z] [DEBUG] log MessageSender blocked
+[2026-03-15T11:22:26.628Z] [DEBUG] log MessageSender blocked
+[2026-03-15T11:22:26.628Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T11:22:26.628Z] [WARN] connection.lost clientId=null
+[2026-03-15T11:22:26.628Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T11:22:26.628Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T11:22:26.628Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T11:22:33.309Z] [INFO] log Unity client connected with ID: editor-29688-ehr7fk
+[2026-03-15T11:22:33.309Z] [INFO] connection.established clientId=editor-29688-ehr7fk port=9001
+[2026-03-15T11:22:33.309Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-15T11:22:35.259Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T11:32:56.175Z] [INFO] log Domain reload signal received from client editor-29688-ehr7fk
+[2026-03-15T11:32:56.176Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T11:32:56.175Z] [DEBUG] log MessageSender blocked
+[2026-03-15T11:32:57.006Z] [DEBUG] log MessageSender blocked
+[2026-03-15T11:32:57.006Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T11:32:57.006Z] [WARN] connection.lost clientId=null
+[2026-03-15T11:32:57.006Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T11:32:57.006Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T11:32:57.007Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T11:33:00.631Z] [INFO] connection.established clientId=editor-29688-y71bgl port=9001
+[2026-03-15T11:33:00.630Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-15T11:33:00.630Z] [INFO] log Unity client connected with ID: editor-29688-y71bgl
+[2026-03-15T11:33:01.821Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T12:07:15.443Z] [INFO] log Domain reload signal received from client editor-29688-y71bgl
+[2026-03-15T12:07:15.443Z] [DEBUG] log MessageSender blocked
+[2026-03-15T12:07:15.444Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T12:07:16.261Z] [WARN] connection.lost clientId=null
+[2026-03-15T12:07:16.260Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T12:07:16.259Z] [DEBUG] log MessageSender blocked
+[2026-03-15T12:07:16.260Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T12:07:16.261Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T12:07:16.261Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T12:07:19.969Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-15T12:07:19.969Z] [INFO] connection.established clientId=editor-29688-mwipxo port=9001
+[2026-03-15T12:07:19.969Z] [INFO] log Unity client connected with ID: editor-29688-mwipxo
+[2026-03-15T12:07:21.165Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T12:29:06.622Z] [DEBUG] log MessageSender blocked
+[2026-03-15T12:29:06.622Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T12:29:06.623Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T12:29:06.623Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T12:29:06.623Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T12:29:06.623Z] [WARN] connection.lost clientId=null
+[2026-03-15T12:30:49.304Z] [INFO] relay.startup port=9003 mcpClientPort=9004 editorPid=41092
+[2026-03-15T12:30:49.305Z] [INFO] log Creating RelayEditor...
+[2026-03-15T12:30:49.304Z] [INFO] log Command line arguments: ["bun","B:/~BUN/root/relay_win.exe","--relay","--port","9003","--mcp-client-port","9004","--editor-pid","41092","--shutdown-delay","180","--log-dir","D:\\unity\\AssemblyRecorderDemo\\Logs"]
+[2026-03-15T12:30:49.304Z] [INFO] log Starting relay server...
+[2026-03-15T12:30:49.305Z] [INFO] log Initializing relay components...
+[2026-03-15T12:30:49.304Z] [INFO] log === RELAY SERVER STARTED ===
+[2026-03-15T12:30:49.305Z] [INFO] log Parsed config: {"port":9003,"mcpClientPort":9004,"editorPid":"41092","shutdownDelaySeconds":180}
+[2026-03-15T12:30:49.311Z] [INFO] log WebSocket server started
+[2026-03-15T12:30:49.311Z] [INFO] log Relay server initialization completed
+[2026-03-15T12:30:49.311Z] [INFO] log MCP Client initialized at port: 9004
+[2026-03-15T12:30:49.344Z] [INFO] log Unity MCP Relay server started | Port: 9004 | Endpoints: /mcp/start-server, /mcp/stop-server, /mcp/server-status, /mcp/call-tool
+[2026-03-15T12:31:40.706Z] [INFO] connection.established clientId=editor-41092-n9qbgd port=9003
+[2026-03-15T12:31:40.706Z] [INFO] log Unity client connected with ID: editor-41092-n9qbgd
+[2026-03-15T12:31:43.520Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T12:32:06.708Z] [INFO] log Shutdown: Initiating graceful shutdown: Dedicated client disconnected
+[2026-03-15T12:35:36.255Z] [INFO] log Domain reload signal received from client editor-41092-n9qbgd
+[2026-03-15T12:35:36.255Z] [DEBUG] log MessageSender blocked
+[2026-03-15T12:35:36.256Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T12:35:37.016Z] [DEBUG] log MessageSender blocked
+[2026-03-15T12:35:37.016Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T12:35:37.017Z] [WARN] connection.lost clientId=null
+[2026-03-15T12:35:37.017Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T12:35:37.017Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T12:35:37.017Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T12:35:43.519Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-15T12:35:43.521Z] [INFO] connection.established clientId=editor-41092-6vn4f0 port=9003
+[2026-03-15T12:35:43.519Z] [INFO] log Unity client connected with ID: editor-41092-6vn4f0
+[2026-03-15T12:35:44.771Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T12:57:48.978Z] [INFO] log Domain reload signal received from client editor-41092-6vn4f0
+[2026-03-15T12:57:48.979Z] [DEBUG] log MessageSender blocked
+[2026-03-15T12:57:48.982Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T12:57:49.876Z] [DEBUG] log MessageSender blocked
+[2026-03-15T12:57:49.876Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T12:57:49.883Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T12:57:49.886Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T12:57:49.883Z] [WARN] connection.lost clientId=null
+[2026-03-15T12:57:49.887Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-15T12:57:53.630Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-15T12:57:53.631Z] [INFO] connection.established clientId=editor-41092-y23n82 port=9003
+[2026-03-15T12:57:53.630Z] [INFO] log Unity client connected with ID: editor-41092-y23n82
+[2026-03-15T12:57:54.714Z] [DEBUG] log Server validation check - testing availability
+[2026-03-15T13:07:07.181Z] [INFO] log Shutdown request received from client editor-41092-y23n82
+[2026-03-15T13:07:07.182Z] [INFO] log Unity client requested immediate shutdown - shutting down now, reason: Shutdown requested by client
+[2026-03-15T13:07:07.184Z] [INFO] log Shutdown: Initiating graceful shutdown: Shutdown requested by client
+[2026-03-15T13:07:07.265Z] [DEBUG] log MessageSender blocked
+[2026-03-15T13:07:07.265Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-15T13:07:07.265Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-15T13:07:07.265Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-15T13:07:07.265Z] [WARN] connection.lost clientId=null
+[2026-03-15T13:07:07.265Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-16T11:53:38.998Z] [INFO] relay.startup port=9001 mcpClientPort=9002 editorPid=18136
+[2026-03-16T11:53:38.999Z] [INFO] log Parsed config: {"port":9001,"mcpClientPort":9002,"editorPid":"18136","shutdownDelaySeconds":180}
+[2026-03-16T11:53:38.999Z] [INFO] log Command line arguments: ["bun","B:/~BUN/root/relay_win.exe","--relay","--port","9001","--mcp-client-port","9002","--editor-pid","18136","--shutdown-delay","180","--log-dir","D:\\unity\\AssemblyRecorderDemo\\Logs"]
+[2026-03-16T11:53:38.999Z] [INFO] log Creating RelayEditor...
+[2026-03-16T11:53:38.999Z] [INFO] log Initializing relay components...
+[2026-03-16T11:53:38.999Z] [INFO] log Starting relay server...
+[2026-03-16T11:53:39.002Z] [INFO] log WebSocket server started
+[2026-03-16T11:53:39.003Z] [INFO] log MCP Client initialized at port: 9002
+[2026-03-16T11:53:38.999Z] [INFO] log === RELAY SERVER STARTED ===
+[2026-03-16T11:53:39.002Z] [INFO] log Relay server initialization completed
+[2026-03-16T11:53:39.036Z] [INFO] log Unity MCP Relay server started | Port: 9002 | Endpoints: /mcp/start-server, /mcp/stop-server, /mcp/server-status, /mcp/call-tool
+[2026-03-16T11:53:47.110Z] [INFO] log Unity client connected with ID: editor-18136-jad7ds
+[2026-03-16T11:53:47.110Z] [INFO] connection.established clientId=editor-18136-jad7ds port=9001
+[2026-03-16T11:53:47.797Z] [DEBUG] log MessageSender blocked
+[2026-03-16T11:53:47.797Z] [WARN] connection.lost clientId=null
+[2026-03-16T11:53:47.797Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-16T11:53:47.797Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-16T11:53:47.797Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-16T11:53:47.797Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-16T11:53:47.798Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-16T11:53:47.798Z] [INFO] log Unity client connected with ID: editor-18136-s1rgaa
+[2026-03-16T11:53:47.798Z] [INFO] connection.established clientId=editor-18136-s1rgaa port=9001
+[2026-03-16T11:53:47.798Z] [DEBUG] log Server validation check - testing availability
+[2026-03-16T11:53:48.223Z] [DEBUG] log Server validation check - testing availability
+[2026-03-16T12:30:55.251Z] [INFO] log Domain reload signal received from client editor-18136-s1rgaa
+[2026-03-16T12:30:55.252Z] [DEBUG] log MessageSender blocked
+[2026-03-16T12:30:55.252Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-16T12:30:56.021Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-16T12:30:56.021Z] [DEBUG] log MessageSender blocked
+[2026-03-16T12:30:56.026Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-16T12:30:56.026Z] [WARN] connection.lost clientId=null
+[2026-03-16T12:30:56.026Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-16T12:30:56.026Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-16T12:30:59.678Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-16T12:30:59.680Z] [INFO] log Unity client connected with ID: editor-18136-7t1hp1
+[2026-03-16T12:30:59.681Z] [INFO] connection.established clientId=editor-18136-7t1hp1 port=9001
+[2026-03-16T12:31:00.863Z] [DEBUG] log Server validation check - testing availability
+[2026-03-16T13:08:57.804Z] [INFO] log Shutdown request received from client editor-18136-7t1hp1
+[2026-03-16T13:08:57.807Z] [INFO] log Unity client requested immediate shutdown - shutting down now, reason: Shutdown requested by client
+[2026-03-16T13:08:57.809Z] [INFO] log Shutdown: Initiating graceful shutdown: Shutdown requested by client
+[2026-03-16T13:08:57.891Z] [DEBUG] log MessageSender blocked
+[2026-03-16T13:08:57.892Z] [WARN] connection.lost clientId=null
+[2026-03-16T13:08:57.892Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-16T13:08:57.892Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-16T13:08:57.893Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-16T13:08:57.894Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-23T08:34:17.304Z] [INFO] relay.startup port=9001 mcpClientPort=9002 editorPid=30292
+[2026-03-23T08:34:17.305Z] [INFO] log Parsed config: {"port":9001,"mcpClientPort":9002,"editorPid":"30292","shutdownDelaySeconds":180}
+[2026-03-23T08:34:17.305Z] [INFO] log Command line arguments: ["bun","B:/~BUN/root/relay_win.exe","--relay","--port","9001","--mcp-client-port","9002","--editor-pid","30292","--shutdown-delay","180","--log-dir","D:\\unity\\AssemblyRecorderDemo\\Logs"]
+[2026-03-23T08:34:17.305Z] [INFO] log Creating RelayEditor...
+[2026-03-23T08:34:17.305Z] [INFO] log Initializing relay components...
+[2026-03-23T08:34:17.305Z] [INFO] log Starting relay server...
+[2026-03-23T08:34:17.305Z] [INFO] log === RELAY SERVER STARTED ===
+[2026-03-23T08:34:17.309Z] [INFO] log WebSocket server started
+[2026-03-23T08:34:17.309Z] [INFO] log Relay server initialization completed
+[2026-03-23T08:34:17.310Z] [INFO] log MCP Client initialized at port: 9002
+[2026-03-23T08:34:17.330Z] [INFO] log Unity MCP Relay server started | Port: 9002 | Endpoints: /mcp/start-server, /mcp/stop-server, /mcp/server-status, /mcp/call-tool
+[2026-03-23T08:34:24.246Z] [INFO] log Unity client connected with ID: editor-30292-6rbo5v
+[2026-03-23T08:34:24.246Z] [INFO] connection.established clientId=editor-30292-6rbo5v port=9001
+[2026-03-23T08:34:24.352Z] [DEBUG] log MessageSender blocked
+[2026-03-23T08:34:24.352Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-23T08:34:24.352Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-23T08:34:24.352Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-23T08:34:24.352Z] [WARN] connection.lost clientId=null
+[2026-03-23T08:34:24.353Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-23T08:34:24.353Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-23T08:34:24.353Z] [INFO] log Unity client connected with ID: editor-30292-mu305y
+[2026-03-23T08:34:24.354Z] [INFO] connection.established clientId=editor-30292-mu305y port=9001
+[2026-03-23T08:34:24.356Z] [DEBUG] log Server validation check - testing availability
+[2026-03-23T08:34:24.483Z] [DEBUG] log Server validation check - testing availability
+[2026-03-23T08:38:43.918Z] [INFO] log Domain reload signal received from client editor-30292-mu305y
+[2026-03-23T08:38:43.918Z] [DEBUG] log MessageSender blocked
+[2026-03-23T08:38:43.918Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-23T08:38:44.628Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-23T08:38:44.628Z] [DEBUG] log MessageSender blocked
+[2026-03-23T08:38:44.630Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-23T08:38:44.631Z] [WARN] connection.lost clientId=null
+[2026-03-23T08:38:44.631Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-23T08:38:44.631Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-23T08:38:47.911Z] [INFO] log Unity client connected with ID: editor-30292-qta7sd
+[2026-03-23T08:38:47.911Z] [INFO] connection.established clientId=editor-30292-qta7sd port=9001
+[2026-03-23T08:38:47.910Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-23T08:38:55.141Z] [DEBUG] log Server validation check - testing availability
+[2026-03-23T08:38:55.666Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-23T08:38:55.666Z] [DEBUG] log MessageSender blocked
+[2026-03-23T08:38:55.666Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-23T08:38:55.666Z] [WARN] connection.lost clientId=null
+[2026-03-23T08:38:55.667Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-23T08:38:55.667Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-23T08:38:55.667Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-23T08:38:55.667Z] [INFO] log Unity client connected with ID: editor-30292-mg6ng0
+[2026-03-23T08:38:55.667Z] [INFO] connection.established clientId=editor-30292-mg6ng0 port=9001
+[2026-03-23T08:38:56.554Z] [DEBUG] log Server validation check - testing availability
+[2026-03-23T08:42:00.543Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-23T08:42:00.543Z] [INFO] log Domain reload signal received from client editor-30292-mg6ng0
+[2026-03-23T08:42:00.543Z] [DEBUG] log MessageSender blocked
+[2026-03-23T08:42:01.496Z] [DEBUG] log MessageSender blocked
+[2026-03-23T08:42:01.496Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-23T08:42:01.498Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-23T08:42:01.499Z] [WARN] connection.lost clientId=null
+[2026-03-23T08:42:01.499Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-23T08:42:01.500Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-23T08:42:04.669Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-23T08:42:04.669Z] [INFO] connection.established clientId=editor-30292-3iazq2 port=9001
+[2026-03-23T08:42:04.669Z] [INFO] log Unity client connected with ID: editor-30292-3iazq2
+[2026-03-23T08:42:05.973Z] [DEBUG] log Server validation check - testing availability
+[2026-03-23T09:00:01.892Z] [INFO] log Domain reload signal received from client editor-30292-3iazq2
+[2026-03-23T09:00:01.892Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-23T09:00:01.892Z] [DEBUG] log MessageSender blocked
+[2026-03-23T09:00:02.693Z] [DEBUG] log MessageSender blocked
+[2026-03-23T09:00:02.693Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-23T09:00:02.693Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-23T09:00:02.693Z] [WARN] connection.lost clientId=null
+[2026-03-23T09:00:02.693Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-23T09:00:02.693Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-23T09:00:05.688Z] [INFO] connection.established clientId=editor-30292-z9eagw port=9001
+[2026-03-23T09:00:05.688Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-23T09:00:05.688Z] [INFO] log Unity client connected with ID: editor-30292-z9eagw
+[2026-03-23T09:00:07.761Z] [DEBUG] log Server validation check - testing availability
+[2026-03-23T09:47:53.131Z] [INFO] log Shutdown request received from client editor-30292-z9eagw
+[2026-03-23T09:47:53.132Z] [INFO] log Shutdown: Initiating graceful shutdown: Shutdown requested by client
+[2026-03-23T09:47:53.132Z] [INFO] log Unity client requested immediate shutdown - shutting down now, reason: Shutdown requested by client
+[2026-03-23T09:47:53.212Z] [DEBUG] log MessageSender blocked
+[2026-03-23T09:47:53.212Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-23T09:47:53.212Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-23T09:47:53.212Z] [WARN] connection.lost clientId=null
+[2026-03-23T09:47:53.212Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-23T09:47:53.213Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-23T10:09:38.800Z] [INFO] relay.startup port=9001 mcpClientPort=9002 editorPid=3452
+[2026-03-23T10:09:38.800Z] [INFO] log Parsed config: {"port":9001,"mcpClientPort":9002,"editorPid":"3452","shutdownDelaySeconds":180}
+[2026-03-23T10:09:38.800Z] [INFO] log Command line arguments: ["bun","B:/~BUN/root/relay_win.exe","--relay","--port","9001","--mcp-client-port","9002","--editor-pid","3452","--shutdown-delay","180","--log-dir","D:\\unity\\AssemblyRecorderDemo\\Logs"]
+[2026-03-23T10:09:38.800Z] [INFO] log Creating RelayEditor...
+[2026-03-23T10:09:38.800Z] [INFO] log Initializing relay components...
+[2026-03-23T10:09:38.803Z] [INFO] log WebSocket server started
+[2026-03-23T10:09:38.800Z] [INFO] log === RELAY SERVER STARTED ===
+[2026-03-23T10:09:38.803Z] [INFO] log MCP Client initialized at port: 9002
+[2026-03-23T10:09:38.800Z] [INFO] log Starting relay server...
+[2026-03-23T10:09:38.803Z] [INFO] log Relay server initialization completed
+[2026-03-23T10:09:38.838Z] [INFO] log Unity MCP Relay server started | Port: 9002 | Endpoints: /mcp/start-server, /mcp/stop-server, /mcp/server-status, /mcp/call-tool
+[2026-03-23T10:09:45.606Z] [INFO] log Unity client connected with ID: editor-3452-ne7d8x
+[2026-03-23T10:09:45.606Z] [INFO] connection.established clientId=editor-3452-ne7d8x port=9001
+[2026-03-23T10:09:46.286Z] [DEBUG] log MessageSender blocked
+[2026-03-23T10:09:46.286Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-23T10:09:46.286Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-23T10:09:46.286Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-23T10:09:46.287Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-23T10:09:46.287Z] [INFO] connection.established clientId=editor-3452-wgj8rm port=9001
+[2026-03-23T10:09:46.286Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-23T10:09:46.286Z] [WARN] connection.lost clientId=null
+[2026-03-23T10:09:46.287Z] [INFO] log Unity client connected with ID: editor-3452-wgj8rm
+[2026-03-23T10:09:46.289Z] [DEBUG] log Server validation check - testing availability
+[2026-03-23T10:09:46.547Z] [DEBUG] log Server validation check - testing availability

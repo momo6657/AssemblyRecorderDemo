@@ -123,102 +123,55 @@ public class ImportManager : MonoBehaviour
         _isLoading = true;
         try
         {
-            return await LoadInternalAsync(fullPath);
-        }
-        finally
-        {
-            _isLoading = false;
-        }
-    }
-
-    async Task<bool> LoadInternalAsync(string fullPath)
-    {
-        try
-        {
-            LogStatus("[IMPORT] fullPath=" + fullPath);
-
-            if (string.IsNullOrEmpty(fullPath))
-            {
-                LogStatus("[IMPORT][ERR] Path is null/empty");
-                return false;
-            }
-
-            if (!File.Exists(fullPath))
-            {
-                LogStatus("[IMPORT][ERR] File not found: " + fullPath);
-                return false;
-            }
-
-            long len = new FileInfo(fullPath).Length;
-            LogStatus("[IMPORT] file size=" + len + " bytes");
-
-            byte[] bytes = File.ReadAllBytes(fullPath);
-            Debug.Log("[IMPORT] read bytes len=" + (bytes != null ? bytes.Length : 0));
-            if (bytes != null && bytes.Length >= 4)
-                Debug.Log($"[IMPORT] header bytes: {bytes[0]:X2} {bytes[1]:X2} {bytes[2]:X2} {bytes[3]:X2}");
-
+            // 检测平台
+            bool isQuest = Application.platform == RuntimePlatform.Android && 
+                          UnityEngine.XR.XRSettings.enabled;
+            
             var previousModel = _currentModel;
+            bool success = false;
 
-            if (resetSpawnRootTransform && spawnRoot != null)
+            if (isQuest)
             {
-                spawnRoot.localPosition = Vector3.zero;
-                spawnRoot.localRotation = Quaternion.identity;
-                spawnRoot.localScale = Vector3.one;
+                // Quest 端使用深度优化加载器
+                Debug.Log("[IMPORT] Using QuestImportOptimizer for Quest platform");
+                var questOptimizer = new QuestImportOptimizer();
+                questOptimizer.ProgressChanged += (progress, stage) =>
+                {
+                    LogStatus($"[IMPORT] {stage} ({progress:F0}%)");
+                };
+
+                success = await questOptimizer.LoadGltfOptimizedAsync(
+                    fullPath,
+                    spawnRoot,
+                    CreateRuntimeMaterialGenerator(),
+                    (root) =>
+                    {
+                        ProcessLoadedModel(root, previousModel);
+                    }
+                );
+            }
+            else
+            {
+                // 手机端使用标准优化加载器
+                Debug.Log("[IMPORT] Using ImportOptimizer for phone platform");
+                var optimizer = new ImportOptimizer(false);
+                optimizer.ProgressChanged += (progress, stage) =>
+                {
+                    LogStatus($"[IMPORT] {stage} ({progress:F0}%)");
+                };
+
+                success = await optimizer.LoadGltfOptimizedAsync(
+                    fullPath,
+                    spawnRoot,
+                    CreateRuntimeMaterialGenerator(),
+                    (root) =>
+                    {
+                        ProcessLoadedModel(root, previousModel);
+                    }
+                );
             }
 
-            var logger = new ConsoleLogger();
-            var materialGenerator = CreateRuntimeMaterialGenerator();
-            var gltf = new GltfImport(materialGenerator: materialGenerator, logger: logger);
-
-#pragma warning disable CS0618
-            bool ok = await gltf.LoadGltfBinary(bytes);
-#pragma warning restore CS0618
-
-            Debug.Log("[IMPORT] LoadGltfBinary ok=" + ok);
-            if (!ok)
-            {
-                LogStatus("[IMPORT][ERR] glTF binary load failed");
-                return false;
-            }
-
-            var root = new GameObject("ImportedModel");
-            root.transform.SetParent(spawnRoot, false);
-
-            bool instOk = await gltf.InstantiateMainSceneAsync(root.transform);
-            Debug.Log("[IMPORT] Instantiate ok=" + instOk);
-            if (!instOk)
-            {
-                Destroy(root);
-                LogStatus("[IMPORT][ERR] Instantiate failed");
-                return false;
-            }
-
-            // Keep this unconditional for runtime safety:
-            // even if glTF's original shader graph is unavailable in build,
-            // this guarantees a visible URP-compatible material.
-            RemapImportedMaterials(root);
-
-            if (destroyPrevious && previousModel != null && previousModel != root)
-            {
-                Debug.Log("[IMPORT] replacing previous model => " + previousModel.name);
-                Destroy(previousModel);
-            }
-
-            _currentModel = root;
-            CleanupDuplicateImportedModels(_currentModel);
-            LogStatus("[IMPORT] Success");
-
-            TryPlaceInFrontOfXrCamera(_currentModel);
-
-            bool xrGrabApplied = TryApplyXrGrab(root.transform);
-            if (!xrGrabApplied)
-                EnsureColliders(_currentModel);
-
-            RebuildModelIndex(root.transform);
-            BindSelection(root.transform);
-            BindOrbit(root.transform);
-            TryFocusAndFrame(root);
-            return true;
+            return success;
         }
         catch (Exception ex)
         {
@@ -226,6 +179,111 @@ public class ImportManager : MonoBehaviour
             LogStatus("[IMPORT][EXCEPTION] " + ex.Message);
             return false;
         }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+
+    /// <summary>
+    /// 处理加载完成的模型（共享逻辑）
+    /// 分帧执行后处理，避免卡顿
+    /// </summary>
+    private void ProcessLoadedModel(GameObject root, GameObject previousModel)
+    {
+        if (destroyPrevious && previousModel != null && previousModel != root)
+        {
+            Debug.Log("[IMPORT] replacing previous model => " + previousModel.name);
+            Destroy(previousModel);
+        }
+
+        _currentModel = root;
+        CleanupDuplicateImportedModels(_currentModel);
+        LogStatus("[IMPORT] Success");
+
+        // 分帧执行后处理，避免卡顿
+        StartCoroutine(ProcessLoadedModelCoroutine(root));
+    }
+
+    /// <summary>
+    /// 异步处理加载完成的模型（分帧执行）
+    /// </summary>
+    private System.Collections.IEnumerator ProcessLoadedModelCoroutine(GameObject root)
+    {
+        // 第一帧：XR 相关处理
+        Debug.Log("[IMPORT] Starting post-processing...");
+        TryPlaceInFrontOfXrCamera(_currentModel);
+        yield return null;
+
+        // 第二帧起：分帧应用 XR Grab（XRGrabSetup.ApplyAsync 内部每个 part 都会 yield）
+        Debug.Log("[IMPORT] Applying XR Grab (async)...");
+        var setup = FindFirstObjectByType<XRGrabSetup>();
+        if (setup != null)
+        {
+            setup.modelRoot = root.transform;
+            yield return setup.ApplyAsync();
+            Debug.Log("[IMPORT] XR Grab applied");
+
+            // 确保有 collider
+            bool hasCollider = root.GetComponentInChildren<Collider>(true) != null;
+            if (!hasCollider)
+            {
+                Debug.Log("[IMPORT] No colliders after XRGrab, ensuring colliders...");
+                EnsureColliders(_currentModel);
+            }
+
+            // 注册到 ScaleProtector
+            var scaleProtector = FindFirstObjectByType<ScaleProtector>();
+            if (scaleProtector == null)
+            {
+                var protectorGo = new GameObject("ScaleProtector");
+                scaleProtector = protectorGo.AddComponent<ScaleProtector>();
+                Debug.Log("[IMPORT] Created ScaleProtector");
+            }
+            if (scaleProtector != null)
+            {
+                var grabs = root.GetComponentsInChildren<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>(true);
+                foreach (var g in grabs)
+                    if (g != null) scaleProtector.RegisterTransform(g.transform);
+                Debug.Log($"[IMPORT] Registered {grabs.Length} grab interactables to ScaleProtector");
+            }
+        }
+        else
+        {
+            Debug.Log("[IMPORT] XRGrabSetup not found, ensuring colliders...");
+            EnsureColliders(_currentModel);
+        }
+        yield return null;
+
+        // 模型索引（分帧执行）
+        Debug.Log("[IMPORT] Rebuilding model index...");
+        yield return RebuildModelIndexAsync(root.transform);
+
+        // 选择管理
+        Debug.Log("[IMPORT] Binding selection...");
+        BindSelection(root.transform);
+        yield return null;
+
+        // 轨道相机
+        Debug.Log("[IMPORT] Binding orbit...");
+        BindOrbit(root.transform);
+        yield return null;
+
+        // 相机聚焦
+        Debug.Log("[IMPORT] Framing camera...");
+        TryFocusAndFrame(root);
+        
+        Debug.Log("[IMPORT] Post-processing complete");
+    }
+
+    /// <summary>
+    /// 异步重建模型索引（分帧执行）
+    /// </summary>
+    private System.Collections.IEnumerator RebuildModelIndexAsync(Transform root)
+    {
+        Debug.Log("[IMPORT] Rebuilding model index...");
+        RebuildModelIndex(root);
+        yield return null;
     }
 
     void RebuildModelIndex(Transform root)

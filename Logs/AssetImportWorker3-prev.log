@@ -1,0 +1,906 @@
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.3/staging' branch; Version is '6000.3.9f1 (7a9955a4f2fa) revision 8034645'; Using compiler version '194234433'; Build Type 'Release'
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-沐" at "2026-03-23T08:41:16.7670433Z"
+OS: 'Windows 11  (10.0.26200) CoreCountrySpecific' Language: 'zh' Physical Memory: 32475 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-03-23T08:41:16Z
+
+COMMAND LINE ARGUMENTS:
+D:\Unity Internnational\6000.3.9f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker3
+-projectPath
+D:/unity/AssemblyRecorderDemo
+-logFile
+Logs/AssetImportWorker3.log
+-srvPort
+52947
+-licensingIpc
+LicenseClient-沐
+-job-worker-count
+13
+-background-job-worker-count
+8
+-gc-helper-count
+1
+-name
+AssetImport
+Successfully changed project path to: D:/unity/AssemblyRecorderDemo
+D:/unity/AssemblyRecorderDemo
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+Player connection [32832]  Target information:
+
+Player connection [32832]  * "[IP] 10.152.243.163 [Port] 0 [Flags] 2 [Guid] 2957365798 [EditorId] 2957365798 [Version] 1048832 [Id] WindowsEditor(7,LAPTOP) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [32832]  * "[IP] 2.0.0.1 [Port] 0 [Flags] 2 [Guid] 2957365798 [EditorId] 2957365798 [Version] 1048832 [Id] WindowsEditor(7,LAPTOP) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [32832]  * "[IP] 198.18.0.1 [Port] 0 [Flags] 2 [Guid] 2957365798 [EditorId] 2957365798 [Version] 1048832 [Id] WindowsEditor(7,LAPTOP) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [32832] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [32832] Host joined alternative multi-casting on [225.0.0.222:34997]...
+JobSystem: Creating JobQueue using job-worker-count value 13
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Library Redirect Path: Library/
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+[Licensing::Module] Licensing is not yet initialized.
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.17.4+4293ba1
+  Session Id:              f812e722e6d14923a598768540721e03
+  Correlation Id:          d3a44d1cdaa170b9b3e0bf1b0a72647d
+  External correlation Id: 3707981682936391749
+  Machine Id:              /K+uJUKyQ9AtqiujAhf/Di5Mf4g=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-沐" (connect: 0.00s, validation: 0.00s, handshake: 1.57s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-沐-notifications" at "2026-03-23T08:41:18.3379591Z"
+[Licensing::Module] Licensing Background thread has ended after 1.57s
+[Licensing::Module] Licensing is initialized (took 0.31s).
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: F4-KSNM-8VVP-T5T8-2VBU-XXXX
+  Product: Unity Personal
+  Type: ULF
+  Expiration: 2026-04-02T09:34:05Z
+[Licensing::Module] License group:
+  Id: ewogICJzdWJzR3JvdXAiIDogInVuaXR5IGVkaXRvciIsCiAgIm5hbWVzcGFjZSIgOiAidW5pdHlfZWRpdG9yIiwKICAidHlwZSIgOiAiRURJVE9SIiwKICAidGFnIiA6ICJVbml0eVBlcnNvbmFsXXXX
+  Product: Unity Personal Version
+  Type: Assigned
+  Expiration: Unlimited
+Refreshing native plugins compatible for Editor in 30.99 ms, found 14 plugins.
+Preloading 2 native plugins for Editor in 2.33 ms.
+Initialize engine version: 6000.3.9f1 (7a9955a4f2fa)
+[Subsystems] Discovering subsystems at path D:/Unity Internnational/6000.3.9f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/unity/AssemblyRecorderDemo/Assets
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 4070 Laptop GPU (ID=0x2860)
+    Vendor:   NVIDIA
+    VRAM:     7948 MB
+    Driver:   32.0.15.8180
+Initialize mono
+Mono path[0] = 'D:/Unity Internnational/6000.3.9f1/Editor/Data/Managed'
+Mono path[1] = 'D:/Unity Internnational/6000.3.9f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'D:/Unity Internnational/6000.3.9f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56128
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: D:/Unity Internnational/6000.3.9f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Register platform support module: D:/Unity Internnational/6000.3.9f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+Registered in 0.005187 seconds.
+- Loaded All Assemblies, in  0.466 seconds
+Native extension for Android target not found
+Android Extension - Scanning For ADB Devices 373 ms
+Native extension for WindowsStandalone target not found
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.750 seconds
+Domain Reload Profiling: 1203ms
+	BeginReloadAssembly (191ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (1ms)
+	RebuildCommonClasses (32ms)
+	RebuildNativeTypeToScriptingClass (9ms)
+	initialDomainReloadingComplete (57ms)
+	LoadAllAssembliesAndSetupDomain (164ms)
+		LoadAssemblies (173ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (160ms)
+			TypeCache.Refresh (158ms)
+				TypeCache.ScanAssembly (148ms)
+			BuildScriptInfoCaches (0ms)
+			ResolveRequiredComponents (0ms)
+	FinalizeReload (750ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (704ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (446ms)
+			SetLoadedEditorAssemblies (4ms)
+			BeforeProcessingInitializeOnLoad (77ms)
+			ProcessInitializeOnLoadAttributes (116ms)
+			ProcessInitializeOnLoadMethodAttributes (60ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+========================================================================
+Worker process is ready to serve import requests
+Import Worker Mode flag is 0x00
+Begin MonoManager ReloadAssembly
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: F4-KSNM-8VVP-T5T8-2VBU-XXXX
+  Product: Unity Personal
+  Type: ULF
+  Expiration: 2026-04-02T09:34:05Z
+[Licensing::Module] License group:
+  Id: ewogICJzdWJzR3JvdXAiIDogInVuaXR5IGVkaXRvciIsCiAgIm5hbWVzcGFjZSIgOiAidW5pdHlfZWRpdG9yIiwKICAidHlwZSIgOiAiRURJVE9SIiwKICAidGFnIiA6ICJVbml0eVBlcnNvbmFsXXXX
+  Product: Unity Personal Version
+  Type: Assigned
+  Expiration: Unlimited
+Duplicate assembly 'System.Runtime.CompilerServices.Unsafe.dll' with different versions detected, using 'Packages/com.unity.ai.assistant/Plugins/Shared/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' and ignoring 'Packages/com.unity.collections/Unity.Collections.Tests/System.Runtime.CompilerServices.Unsafe/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file LoadedFromMemory is not a mono symbol file
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Button/ButtonManager.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Button/ButtonManagerEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Charts/PieChart.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Charts/PieChartEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Context Menu/ContextMenuContent.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Context Menu/ContextMenuContentEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Context Menu/ContextMenuContentMobile.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Context Menu/ContextMenuManager.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Context Menu/ContextMenuManagerEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Context Menu/ContextMenuSubMenu.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Core/MUIPInternalTools.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Demo/DemoElementSway.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Demo/DemoElementSwayParent.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Demo/DemoListShadow.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Demo/InputSystemChecker.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Demo/LaunchURL.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Dropdown/CustomDropdown.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Dropdown/CustomDropdownEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Dropdown/DropdownMultiSelect.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Dropdown/DropdownMultiSelectEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Editor Handlers/MUIPEditorHandler.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Horizontal Selector/HorizontalSelector.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Horizontal Selector/HorizontalSelectorEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Icon/AnimatedIconHandler.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Icon/IconLibrary.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Icon/IconLibraryEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Icon/IconManager.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Icon/IconManagerEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Input Field/CustomInputField.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Layout Group/LayoutGroupFix.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Layout Group/RadialLayoutGroup.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Layout Group/RadialLayoutGroupEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/ListView/ListView.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/ListView/ListViewEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/ListView/ListViewItem.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/ListView/ListViewRow.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Modal Window/ModalWindowManager.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Modal Window/ModalWindowManagerEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Notification/NotificationManager.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Notification/NotificationManagerEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Notification/NotificationStacking.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Progress Bar/PBFilled.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Progress Bar/ProgressBar.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Progress Bar/ProgressBarEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Rendering/Ripple.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Rendering/UIGradient.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Rendering/UIGradientEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Slider/RadialSlider.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Slider/RadialSliderEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Slider/RangeMaxSlider.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Slider/RangeMinSlider.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Slider/RangeSlider.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Slider/SliderInput.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Slider/SliderManager.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Slider/SliderManagerEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Switch/SwitchManager.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Switch/SwitchManagerEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Toggle/CustomToggle.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Tooltip/TooltipContent.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Tooltip/TooltipManager.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Tooltip/TooltipManagerEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManager.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerAnimatedIcon.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerButton.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerButtonEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerContextMenu.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerCustom.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerDropdown.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerDropdownItem.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerHSelector.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerInputField.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerModalWindow.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerNotification.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerPieChart.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerProgressBar.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerProgressBarLoop.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerProgressBarLoopEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerScrollbar.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerSlider.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerSliderEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerSwitch.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerToggle.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerTooltip.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/UI Manager/UIManagerWindowManager.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Window/WindowDragger.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Window/WindowManager.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Window/WindowManagerButton.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Scripts/Window/WindowManagerEditor.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Editor/Scripts/ContextMenu.cs'
+Asset path could not be found for script compilation file '/Assets/Modern UI Pack/Editor/Scripts/InitMUIP.cs'
+- Loaded All Assemblies, in  1.464 seconds
+Refreshing native plugins compatible for Editor in 20.74 ms, found 14 plugins.
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+Package Manager log level set to [2]
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Duplicate assembly 'System.Runtime.CompilerServices.Unsafe.dll' with different versions detected, using 'Packages/com.unity.ai.assistant/Plugins/Shared/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' and ignoring 'Packages/com.unity.collections/Unity.Collections.Tests/System.Runtime.CompilerServices.Unsafe/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Refreshing native plugins compatible for Editor in 21.27 ms, found 14 plugins.
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NullReferenceException: Object reference not set to an instance of an object
+  at Unity.XR.Oculus.OculusLoader.AssetPathToAbsolutePath (System.String assetPath) [0x0003d] in .\Library\PackageCache\com.unity.xr.oculus@68ef97a4d91e\Runtime\OculusLoader.cs:312 
+  at Unity.XR.Oculus.OculusLoader.EditorLoadOVRPlugin () [0x0008c] in .\Library\PackageCache\com.unity.xr.oculus@68ef97a4d91e\Runtime\OculusLoader.cs:297 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <1eb9db207454431c84a47bcd81e79c37>:0 
+   --- End of inner exception stack trace ---
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <1eb9db207454431c84a47bcd81e79c37>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <1eb9db207454431c84a47bcd81e79c37>:0 
+  at UnityEditor.EditorAssemblies.ProcessInitializeOnLoadMethodAttributes () [0x00087] in <5016c3a47c2a4a0cbfa8e12eb592279b>:0 
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadMethodAttributes ()
+
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
+Mono: successfully reloaded assembly
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+- Finished resetting the current domain, in  3.867 seconds
+Domain Reload Profiling: 5299ms
+	BeginReloadAssembly (224ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (6ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (27ms)
+	RebuildCommonClasses (37ms)
+	RebuildNativeTypeToScriptingClass (10ms)
+	initialDomainReloadingComplete (81ms)
+	LoadAllAssembliesAndSetupDomain (1080ms)
+		LoadAssemblies (751ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (471ms)
+			TypeCache.Refresh (369ms)
+				TypeCache.ScanAssembly (345ms)
+			BuildScriptInfoCaches (87ms)
+			ResolveRequiredComponents (10ms)
+	FinalizeReload (3867ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (3613ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (8ms)
+			SetLoadedEditorAssemblies (4ms)
+			BeforeProcessingInitializeOnLoad (230ms)
+			ProcessInitializeOnLoadAttributes (2982ms)
+			ProcessInitializeOnLoadMethodAttributes (374ms)
+			AfterProcessingInitializeOnLoad (14ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (6ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
+Refreshing native plugins compatible for Editor in 20.95 ms, found 14 plugins.
+Preloading 2 native plugins for Editor in 0.21 ms.
+Unloading 59 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 11352 unused Assets / (19.1 MB). Loaded Objects now: 12199.
+Memory consumption went from 227.8 MB to 208.6 MB.
+Total: 17.774800 ms (FindLiveObjects: 0.682700 ms CreateObjectMapping: 0.465100 ms MarkObjects: 13.040300 ms  DeleteObjects: 3.585700 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 3978.707820 seconds.
+  path: Assets/Modern UI Pack/Textures/Border/Radial/512px/Radial Outline 512px - 6x.png
+  artifactKey: Guid(994f9969403770242aef5a235e6edb37) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Border/Radial/512px/Radial Outline 512px - 6x.png using Guid(994f9969403770242aef5a235e6edb37) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'bb3cc8d3217b91d3835e34d0a178fb45') in 0.1194426 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/Modern UI Pack/Animations/Progress Bar/Standard Run.anim
+  artifactKey: Guid(4cf39d6b10010c8449c36ace3f68ff57) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Animations/Progress Bar/Standard Run.anim using Guid(4cf39d6b10010c8449c36ace3f68ff57) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'fa483715032811aeb7795ecf6062c5c0') in 0.0123591 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Modern UI Pack/Prefabs/Animated Icon/Slider.prefab
+  artifactKey: Guid(8312f800bd5b9d248a9e7f74ef3dea31) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Prefabs/Animated Icon/Slider.prefab using Guid(8312f800bd5b9d248a9e7f74ef3dea31) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'df1754f9aa1334307aecee6aafb37312') in 0.0043286 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Modern UI Pack/Textures/Icon/Communication & Social/Facebook.png
+  artifactKey: Guid(1e64f8ba631ae514e9a68eaf3620f9a9) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Icon/Communication & Social/Facebook.png using Guid(1e64f8ba631ae514e9a68eaf3620f9a9) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '082addf117fbf98cdd4d5a4617173ab4') in 0.0093059 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Modern UI Pack/Textures/Icon/Navigation/Search.png
+  artifactKey: Guid(6d669c2082983644b9d4a34c0b22b1e4) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Icon/Navigation/Search.png using Guid(6d669c2082983644b9d4a34c0b22b1e4) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '2779d39c6bced3ab79af3cf3c1c60558') in 0.008769 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Modern UI Pack/Textures/Icon/UI Elements/Toggle.png
+  artifactKey: Guid(20f1f3b1b41ffb0408544ed98dae6591) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Icon/UI Elements/Toggle.png using Guid(20f1f3b1b41ffb0408544ed98dae6591) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '2176629a58bbe095c9a9ab749b3cb51a') in 0.0113755 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Modern UI Pack/Animations/Input Field/Standard Instant In.anim
+  artifactKey: Guid(5d327e040dca0cd46a5025586b7876b8) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Animations/Input Field/Standard Instant In.anim using Guid(5d327e040dca0cd46a5025586b7876b8) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '880ed95b17bc944c70e1484e2f6e2a8e') in 0.0056243 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Modern UI Pack/Textures/Border/Rounded/512px/Rounded Outline 512px - 8x.png
+  artifactKey: Guid(16bf965717fca95428341c7f5af630b6) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Border/Rounded/512px/Rounded Outline 512px - 8x.png using Guid(16bf965717fca95428341c7f5af630b6) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'efa484a4a4ab725d6f1e6aa71805fb86') in 0.0092971 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Modern UI Pack/Textures/Border/Rounded/32px/Rounded Outline 32px - 1x.png
+  artifactKey: Guid(c8a47b132ee4eff48bfeb344ad857e12) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Border/Rounded/32px/Rounded Outline 32px - 1x.png using Guid(c8a47b132ee4eff48bfeb344ad857e12) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '9870be36447cc4870819149860c28971') in 0.0100594 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Modern UI Pack/Prefabs/Notification/Popup Notification.prefab
+  artifactKey: Guid(61db1f75e1a0bc84a9e6e1cffcd47b99) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Prefabs/Notification/Popup Notification.prefab using Guid(61db1f75e1a0bc84a9e6e1cffcd47b99) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '8f74140d6853eca59c0d238be8fdf45d') in 0.0045926 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Modern UI Pack/Textures/Icon/UI Elements/Movable Window.png
+  artifactKey: Guid(19d7c542909d24440b53be37889f8f3c) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Icon/UI Elements/Movable Window.png using Guid(19d7c542909d24440b53be37889f8f3c) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '1ca92a6b6597ca604f922d7175493a56') in 0.0085171 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Modern UI Pack/Textures/Shadow/Radial Shadow.png
+  artifactKey: Guid(0755a77d5bd80d94eaba57a2d5d0f55e) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Shadow/Radial Shadow.png using Guid(0755a77d5bd80d94eaba57a2d5d0f55e) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '5b69b752bd90656df890b5f61453f68a') in 0.0088932 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/Modern UI Pack/Textures/Border/Radial/256px/Radial Outline 256px - 4x.png
+  artifactKey: Guid(d03863d699f2a3e4ab3cf64663a5447f) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Border/Radial/256px/Radial Outline 256px - 4x.png using Guid(d03863d699f2a3e4ab3cf64663a5447f) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '0a70ba95a6be2ddcd175de341d95aa44') in 0.0135145 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000010 seconds.
+  path: Assets/Modern UI Pack/Animations/Progress Bar/Circle Pie.anim
+  artifactKey: Guid(4823ba6f5ca1d2e4281810e7f51292e8) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Animations/Progress Bar/Circle Pie.anim using Guid(4823ba6f5ca1d2e4281810e7f51292e8) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'dc553c1ddd2e5580fba7578fe33b6a30') in 0.0070396 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Modern UI Pack/Textures/Icon/UI Elements/Progress Bar.png
+  artifactKey: Guid(692a50acc1b51e747b22a0a765cf262d) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Icon/UI Elements/Progress Bar.png using Guid(692a50acc1b51e747b22a0a765cf262d) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '608ff3585e44316aa8fcfcb50927e10a') in 0.0119673 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Modern UI Pack/Animations/Animated Icon/Heart Pop.controller
+  artifactKey: Guid(71330a5645a0c9c4e8ed687be8e6ad97) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Animations/Animated Icon/Heart Pop.controller using Guid(71330a5645a0c9c4e8ed687be8e6ad97) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '160664eefa2ead94ed7a2b52cd3ad4b6') in 0.0071229 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 6
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/Modern UI Pack/Textures/Border/Rounded/128px/Rounded Outline 128px - 5x.png
+  artifactKey: Guid(9b971acfa0164c04a815dbe10f1b520f) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Border/Rounded/128px/Rounded Outline 128px - 5x.png using Guid(9b971acfa0164c04a815dbe10f1b520f) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '0572ea326fea9b3a57ba13fc83c476dc') in 0.0117927 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Modern UI Pack/Textures/Border/Radial/1024px/Radial Outline 1024px - 1x.png
+  artifactKey: Guid(7fe3e3ef9e5ebd04d9fe53b5637a6ad9) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Border/Radial/1024px/Radial Outline 1024px - 1x.png using Guid(7fe3e3ef9e5ebd04d9fe53b5637a6ad9) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'f65fb5b98b9add6f6f6268fdb5bd75a8') in 0.027753 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Modern UI Pack/Textures/Icon/Map/Map Filled.png
+  artifactKey: Guid(4caf56eb275238349b0e7ed2db462f92) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Icon/Map/Map Filled.png using Guid(4caf56eb275238349b0e7ed2db462f92) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '9b6b5e4cb05e8b28ed411a380faf3046') in 0.0081943 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/Modern UI Pack/Prefabs/Button/Basic - Gradient/Red.prefab
+  artifactKey: Guid(b2a7c376ecaa0374ba8b5a0143a9178e) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Prefabs/Button/Basic - Gradient/Red.prefab using Guid(b2a7c376ecaa0374ba8b5a0143a9178e) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '50065e10fd4a5a226b50a4c9f6bde005') in 0.0055263 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Modern UI Pack/Animations/Notifications/Popup In.anim
+  artifactKey: Guid(f92faccc502a9474bb0f29cec9a225b0) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Animations/Notifications/Popup In.anim using Guid(f92faccc502a9474bb0f29cec9a225b0) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '04feccaa573dc3587e976ade17d523e6') in 0.0061449 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/Modern UI Pack/Prefabs/Button/Rounded/Red.prefab
+  artifactKey: Guid(ba237f0b98bfe07488da1cdd8a9716bf) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Prefabs/Button/Rounded/Red.prefab using Guid(ba237f0b98bfe07488da1cdd8a9716bf) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '69a1446808d85aa98421e02f51a0db5a') in 0.004684 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Modern UI Pack/Prefabs/Button/Rounded - Outline/Purple.prefab
+  artifactKey: Guid(86cb4e3642063504bbeb097c0e7d397b) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Prefabs/Button/Rounded - Outline/Purple.prefab using Guid(86cb4e3642063504bbeb097c0e7d397b) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '7af228eddc3919fd04e5ad85ea5b158e') in 0.0048367 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Modern UI Pack/Prefabs/Button/Basic/Pink.prefab
+  artifactKey: Guid(c6a73aa55ded287468b2cfe91a838a7b) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Prefabs/Button/Basic/Pink.prefab using Guid(c6a73aa55ded287468b2cfe91a838a7b) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '92b4280039814be219a4c5a7951d9b2c') in 0.003899 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Modern UI Pack/Fonts/OpenSans-BoldItalic SDF.asset
+  artifactKey: Guid(b03b7a4c74cd6294ca732f49684716ee) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Fonts/OpenSans-BoldItalic SDF.asset using Guid(b03b7a4c74cd6294ca732f49684716ee) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'f8ad771952fa48bf5ad71ad1b2dd4685') in 0.0391142 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 9
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Modern UI Pack/Animations/Animated Icon/MB Fade.anim
+  artifactKey: Guid(0072406f93530e74bb5f393f9f53ccfb) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Animations/Animated Icon/MB Fade.anim using Guid(0072406f93530e74bb5f393f9f53ccfb) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '3ade921e21858094aa0eddd1cd33e705') in 0.0049596 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Modern UI Pack/Textures/Border/Rounded/64px/Rounded Outline 64px - 5x.png
+  artifactKey: Guid(96e1134e2cfaa854fae06efdc637ce31) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Border/Rounded/64px/Rounded Outline 64px - 5x.png using Guid(96e1134e2cfaa854fae06efdc637ce31) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '62aec02bb5bdf06c068ae5e50ec3acc0') in 0.0085102 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Modern UI Pack/Textures/Border/Rounded/512px/Rounded Filled 512px.png
+  artifactKey: Guid(cca3ca807d25c1844b79eeb77e944d05) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Border/Rounded/512px/Rounded Filled 512px.png using Guid(cca3ca807d25c1844b79eeb77e944d05) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '2efcdcff36607bc1094bb5040546082a') in 0.0081755 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Modern UI Pack/Prefabs/Button/Basic
+  artifactKey: Guid(6c7b57a56bb88de4a993433f7ec44c95) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Prefabs/Button/Basic using Guid(6c7b57a56bb88de4a993433f7ec44c95) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'fdc7c534c7854612b12600933a722b9d') in 0.0035193 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/Modern UI Pack/Textures/Icon/Navigation/Close.png
+  artifactKey: Guid(88dca061d041a2a4596563e6a38f66c8) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Icon/Navigation/Close.png using Guid(88dca061d041a2a4596563e6a38f66c8) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'a71c8edeb7a9a1f8d653b9a75468d08f') in 0.0116903 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/Modern UI Pack/Textures/Icon/Navigation/Arrow Simple Down.png
+  artifactKey: Guid(a75ddb2acfe03174c87f41bd9fc3f406) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Icon/Navigation/Arrow Simple Down.png using Guid(a75ddb2acfe03174c87f41bd9fc3f406) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '86a077c2431701f201d76a6d68b832f8') in 0.0075424 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Modern UI Pack/Textures/Icon/Device/Lightbulb.png
+  artifactKey: Guid(6ca804909faea644aa355ec5c5a9e1ba) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Icon/Device/Lightbulb.png using Guid(6ca804909faea644aa355ec5c5a9e1ba) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '8ed04541f9c3af8fae89807227abe931') in 0.0085138 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/Modern UI Pack/Fonts/Roboto-Regular.ttf
+  artifactKey: Guid(24f52a8f823a19b4fb681e93eb6dee3d) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Fonts/Roboto-Regular.ttf using Guid(24f52a8f823a19b4fb681e93eb6dee3d) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'a03cadadbe5a3ce8ea41952e4f6888a0') in 0.0089595 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Modern UI Pack/Textures/Icon/Media/Play.png
+  artifactKey: Guid(2f2ed1a167dc67349a42cb44a3d9b115) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Icon/Media/Play.png using Guid(2f2ed1a167dc67349a42cb44a3d9b115) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '8a346b0b5cbce691a14ace1cb39610e0') in 0.0075199 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Modern UI Pack/Prefabs/Button/Rounded/Brown.prefab
+  artifactKey: Guid(e8e9fe43b467bcf46a644b9efa5c8fad) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Prefabs/Button/Rounded/Brown.prefab using Guid(e8e9fe43b467bcf46a644b9efa5c8fad) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'b40e93f223f3a6e927e5091168805d86') in 0.0042804 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000036 seconds.
+  path: Assets/Modern UI Pack/Textures/Icon/Others
+  artifactKey: Guid(57b3390395d23c541b79a955abaae1c3) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Icon/Others using Guid(57b3390395d23c541b79a955abaae1c3) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'facd65d8b77e315c74853a418ac30c36') in 0.0035597 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Modern UI Pack/Prefabs/Button/Basic - Gradient/Pink.prefab
+  artifactKey: Guid(381c8036e244a8345bf6eb2093922dfc) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Prefabs/Button/Basic - Gradient/Pink.prefab using Guid(381c8036e244a8345bf6eb2093922dfc) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '538384e08df26690054d7a79c8f8622d') in 0.0087992 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000010 seconds.
+  path: Assets/Modern UI Pack/Animations/Notifications/Sliding In.anim
+  artifactKey: Guid(eaf853a0c9875f24c9280aec215add4b) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Animations/Notifications/Sliding In.anim using Guid(eaf853a0c9875f24c9280aec215add4b) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'b2155a9aade298803ae540e9f89fde76') in 0.0066692 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Modern UI Pack/Prefabs/Spinner/Spinner - Radial Run.prefab
+  artifactKey: Guid(3cf075bc2055d8142abf73b67b9862b5) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Prefabs/Spinner/Spinner - Radial Run.prefab using Guid(3cf075bc2055d8142abf73b67b9862b5) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '1f176d2be11c87fc6f9c7b98d3e599d0') in 0.0046884 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Modern UI Pack/Animations/Progress Bar/Circle Pie.controller
+  artifactKey: Guid(671d36c09c7e9d043bf995530c38c3c8) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Animations/Progress Bar/Circle Pie.controller using Guid(671d36c09c7e9d043bf995530c38c3c8) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '52a6a2046232167a9b36fe2f77a6089b') in 0.0057759 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 4
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/Modern UI Pack/Prefabs/Slider/Gradient/Slider - Gradient (Input).prefab
+  artifactKey: Guid(4b5c2d45d85f8f54a8b5c1df3c1d77d0) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Prefabs/Slider/Gradient/Slider - Gradient (Input).prefab using Guid(4b5c2d45d85f8f54a8b5c1df3c1d77d0) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'd32a21c4fe25dcdcf4f69c895de12fef') in 0.0052336 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Modern UI Pack/Textures/Border/Rounded/256px/Rounded Filled 256px.png
+  artifactKey: Guid(5e16c7aea118d68498053518146c9cf9) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Border/Rounded/256px/Rounded Filled 256px.png using Guid(5e16c7aea118d68498053518146c9cf9) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '1ed73411ccfe1e45c76ca4929010d3cd') in 0.008186 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/Modern UI Pack/Textures/Icon/Device/Headphones Filled.png
+  artifactKey: Guid(00b92cf396be96d49b9a933654bceda0) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Icon/Device/Headphones Filled.png using Guid(00b92cf396be96d49b9a933654bceda0) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '36a7c9b057232d1861e92e964240311c') in 0.009181 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/Modern UI Pack/Textures/Demo
+  artifactKey: Guid(5f223d0936217244dba61f0340a4b2a5) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Demo using Guid(5f223d0936217244dba61f0340a4b2a5) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '113ff13fab1c5f76765fca4069008e1e') in 0.003472 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Modern UI Pack/Animations/Animated Icon/Load Out.anim
+  artifactKey: Guid(5499e66841436ff4c82b7fccd6b8f696) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Animations/Animated Icon/Load Out.anim using Guid(5499e66841436ff4c82b7fccd6b8f696) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '7929f32b3996aed9a261069fa61322d4') in 0.0065797 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Modern UI Pack/Prefabs/Other/Canvas.prefab
+  artifactKey: Guid(6e5b520bc74672f41bf648e578bb78a4) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Prefabs/Other/Canvas.prefab using Guid(6e5b520bc74672f41bf648e578bb78a4) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '44c228ddf22da94c958485dbd5c9a54c') in 0.0044936 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000087 seconds.
+  path: Assets/Modern UI Pack/Animations/Context Menu/Sub Menu In.anim
+  artifactKey: Guid(c59bad1dd326f4845ad565b482a28e9e) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Animations/Context Menu/Sub Menu In.anim using Guid(c59bad1dd326f4845ad565b482a28e9e) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '4084b67161a53b2ff17c21dfc53fefa5') in 0.0070198 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/Modern UI Pack/Animations/Progress Bar/Radial PB Filled.controller
+  artifactKey: Guid(a37eee480bdac8840b18bd62eb52eff2) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Animations/Progress Bar/Radial PB Filled.controller using Guid(a37eee480bdac8840b18bd62eb52eff2) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'c279937875109a9e6a76cddef829c29a') in 0.0053494 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 6
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/Modern UI Pack/Fonts/OpenSans-Bold SDF.asset
+  artifactKey: Guid(fa328c1ae3ffb6b4583cf371153b0be6) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Fonts/OpenSans-Bold SDF.asset using Guid(fa328c1ae3ffb6b4583cf371153b0be6) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'ac5473bc257d2dff30dc4948f7979c61') in 0.0203829 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 12
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Modern UI Pack/Animations/Horizontal Selector/HS Idle.anim
+  artifactKey: Guid(beb8aaba7a2f6fd43ac676777a381cb3) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Animations/Horizontal Selector/HS Idle.anim using Guid(beb8aaba7a2f6fd43ac676777a381cb3) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '8dfdcbc1153a2b879bbb1a1794922b65') in 0.0067893 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Modern UI Pack/Prefabs/Button/Basic/Red.prefab
+  artifactKey: Guid(5bccc645041cec04a8b3b2d55e4c92e6) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Prefabs/Button/Basic/Red.prefab using Guid(5bccc645041cec04a8b3b2d55e4c92e6) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '5e7e1be4e6e5987d61dadc5ec557d46c') in 0.0043546 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Modern UI Pack/Prefabs/Slider/Radial/Slider - Radial (Gradient).prefab
+  artifactKey: Guid(ffbf9ff5a4563d94089bd6e49e76ca3e) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Prefabs/Slider/Radial/Slider - Radial (Gradient).prefab using Guid(ffbf9ff5a4563d94089bd6e49e76ca3e) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '4be8c5515e2df419a2af74e18aac68b2') in 0.0042151 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000011 seconds.
+  path: Assets/Modern UI Pack/Textures/Border/Radial/64px/Radial Outline 64px - 8x.png
+  artifactKey: Guid(58ab3b48dda45144499c9531012f013f) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Border/Radial/64px/Radial Outline 64px - 8x.png using Guid(58ab3b48dda45144499c9531012f013f) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '1ad78a3ebb48e15d5031d4b234d6d7ff') in 0.0098671 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Modern UI Pack/Prefabs/Button/Basic - Outline Gradient/Blue.prefab
+  artifactKey: Guid(c83b828b4cbce32478ca503b50614a87) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Prefabs/Button/Basic - Outline Gradient/Blue.prefab using Guid(c83b828b4cbce32478ca503b50614a87) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '05cd14f6123478193360a8ed379fcced') in 0.0043841 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Modern UI Pack/Textures/Icon/Map/Location Mark Filled.png
+  artifactKey: Guid(5d4d7b3319a44e14280767ecdd357eb8) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Icon/Map/Location Mark Filled.png using Guid(5d4d7b3319a44e14280767ecdd357eb8) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '8d8157308399a4da7b3ff411a695c26b') in 0.0072219 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Modern UI Pack/Textures/Border/Rounded/128px/Rounded Outline 128px - 2x.png
+  artifactKey: Guid(06dec0b1685f62c4d85c8ecce2b95366) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Border/Rounded/128px/Rounded Outline 128px - 2x.png using Guid(06dec0b1685f62c4d85c8ecce2b95366) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: 'ddb9a141d35fd242c7ea7b65186b2413') in 0.0087976 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Modern UI Pack/Prefabs/Button/Rounded - Gradient
+  artifactKey: Guid(773a09ce32081ad4bbba6453a2a50423) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Prefabs/Button/Rounded - Gradient using Guid(773a09ce32081ad4bbba6453a2a50423) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '360ef80f932dddf8fd3f562e30141b01') in 0.0041192 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000010 seconds.
+  path: Assets/Modern UI Pack/Textures/Border/Rounded/1024px/Rounded Outline 1024px - 5x.png
+  artifactKey: Guid(30d40c185a062b040966d888d396fb0d) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d)
+Start importing Assets/Modern UI Pack/Textures/Border/Rounded/1024px/Rounded Outline 1024px - 5x.png using Guid(30d40c185a062b040966d888d396fb0d) Importer(2089858483,b0f066a214c2f5e87bad3c948f4d605d) (ScriptedImporter) -> (artifact id: '955be9618882d4856d73bd6f5afebd7f') in 0.012718 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Duplicate assembly 'System.Runtime.CompilerServices.Unsafe.dll' with different versions detected, using 'Packages/com.unity.ai.assistant/Plugins/Shared/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' and ignoring 'Packages/com.unity.collections/Unity.Collections.Tests/System.Runtime.CompilerServices.Unsafe/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Symbol file LoadedFromMemory is not a mono symbol file
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  1.406 seconds
+Refreshing native plugins compatible for Editor in 15.45 ms, found 14 plugins.
+Native extension for Android target not found
+Native extension for WindowsStandalone target not found
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Duplicate assembly 'System.Runtime.CompilerServices.Unsafe.dll' with different versions detected, using 'Packages/com.unity.ai.assistant/Plugins/Shared/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' and ignoring 'Packages/com.unity.collections/Unity.Collections.Tests/System.Runtime.CompilerServices.Unsafe/System.Runtime.CompilerServices.Unsafe.dll, AssemblyName=System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Refreshing native plugins compatible for Editor in 15.93 ms, found 14 plugins.
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NullReferenceException: Object reference not set to an instance of an object
+  at Unity.XR.Oculus.OculusLoader.AssetPathToAbsolutePath (System.String assetPath) [0x0003d] in .\Library\PackageCache\com.unity.xr.oculus@68ef97a4d91e\Runtime\OculusLoader.cs:312 
+  at Unity.XR.Oculus.OculusLoader.EditorLoadOVRPlugin () [0x0008c] in .\Library\PackageCache\com.unity.xr.oculus@68ef97a4d91e\Runtime\OculusLoader.cs:297 
+  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <1eb9db207454431c84a47bcd81e79c37>:0 
+   --- End of inner exception stack trace ---
+  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00083] in <1eb9db207454431c84a47bcd81e79c37>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <1eb9db207454431c84a47bcd81e79c37>:0 
+  at UnityEditor.EditorAssemblies.ProcessInitializeOnLoadMethodAttributes () [0x00087] in <5016c3a47c2a4a0cbfa8e12eb592279b>:0 
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadMethodAttributes ()
+
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
+Mono: successfully reloaded assembly
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+- Finished resetting the current domain, in  4.666 seconds
+Domain Reload Profiling: 6037ms
+	BeginReloadAssembly (371ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (5ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (84ms)
+	RebuildCommonClasses (30ms)
+	RebuildNativeTypeToScriptingClass (13ms)
+	initialDomainReloadingComplete (70ms)
+	LoadAllAssembliesAndSetupDomain (887ms)
+		LoadAssemblies (726ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (323ms)
+			TypeCache.Refresh (9ms)
+				TypeCache.ScanAssembly (0ms)
+			BuildScriptInfoCaches (297ms)
+			ResolveRequiredComponents (11ms)
+	FinalizeReload (4666ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (4430ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (9ms)
+			SetLoadedEditorAssemblies (6ms)
+			BeforeProcessingInitializeOnLoad (265ms)
+			ProcessInitializeOnLoadAttributes (3810ms)
+			ProcessInitializeOnLoadMethodAttributes (329ms)
+			AfterProcessingInitializeOnLoad (11ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (15ms)
+Refreshing native plugins compatible for Editor in 13.61 ms, found 14 plugins.
+Preloading 2 native plugins for Editor in 0.16 ms.
+Unloading 59 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 11576 unused Assets / (23.5 MB). Loaded Objects now: 12309.
+Memory consumption went from 276.4 MB to 252.9 MB.
+Total: 18.957000 ms (FindLiveObjects: 0.734700 ms CreateObjectMapping: 0.502500 ms MarkObjects: 12.011600 ms  DeleteObjects: 5.706900 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

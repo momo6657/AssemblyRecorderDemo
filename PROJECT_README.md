@@ -35,7 +35,7 @@
 ## 🏗️ 技术架构
 
 ### 技术栈
-- **客户端**：Unity 2022+ (C#, URP, TextMeshPro, XR Interaction Toolkit, OpenXR, glTFast)
+- **客户端**：Unity 6 (C#, URP, TextMeshPro, XR Interaction Toolkit, OpenXR, glTFast)
 - **服务端**：Python Flask (简易 HTTP 服务，内存 + JSON 文件落盘)
 - **平台**：Android Phone + Meta Quest (Android/OpenXR)
 - **调试**：`adb logcat -s Unity`
@@ -264,7 +264,7 @@ PhoneStepPlayback.CoPlayStep() (轨迹插值动画播放)
 ## 🔧 开发环境配置
 
 ### Unity 配置
-- **Unity 版本**：2022.3 LTS 或更高
+- **Unity 版本**：6000.3.9 LTS 或更高
 - **平台**：Android
 - **渲染管线**：URP (Universal Render Pipeline)
 - **XR 插件**：OpenXR, XR Interaction Toolkit
@@ -438,3 +438,16 @@ public async void OnButtonClick()
 ---
 
 > 💡 **提示**：本文档会持续更新，请确保在开始工作前阅读最新版本！
+---
+
+## 🔄 项目变更记录（更新）
+
+### 2026-03-15
+- ✅ 大模型导入性能优化（Phase 1）
+- ✅ 改用 glTFast `Load(Uri)` 避免一次性读取大文件
+- ✅ 添加加载进度显示和超时机制
+- ✅ 优化材质处理逻辑（材质去重、跳过已正确材质）
+- ✅ 创建 `ImportOptimizer.cs` 和 `LoadingProgressUI.cs`
+- ✅ 创建 `PERFORMANCE_OPTIMIZATION.md` 优化文档
+- ✅ 修复 glTFast 6.16 材质属性名称问题（小写字段）
+- ✅ 创建 `UrpLitMaterialGenerator.cs` 自定义材质生成器

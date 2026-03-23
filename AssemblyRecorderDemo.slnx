@@ -32,6 +32,7 @@
   <Project Path="Unity.AI.Sound.csproj" />
   <Project Path="Unity.XR.Hands.csproj" />
   <Project Path="glTFast.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Unity.InferenceEngine.Tokenization.csproj" />
   <Project Path="Unity.VisualScripting.Core.csproj" />
   <Project Path="Unity.InferenceEngine.Editor.csproj" />
@@ -45,7 +46,6 @@
   <Project Path="Unity.AI.Pbr.csproj" />
   <Project Path="UnityEngine.TestRunner.csproj" />
   <Project Path="Unity.PerformanceTesting.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Unity.TextMeshPro.csproj" />
   <Project Path="Unity.RenderPipelines.Core.Runtime.csproj" />
   <Project Path="glTFast.Export.csproj" />
