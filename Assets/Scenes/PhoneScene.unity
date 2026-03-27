@@ -6160,7 +6160,7 @@ Camera:
   m_GameObject: {fileID: 982388373}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.42138356, g: 0.42138356, b: 0.42138356, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -10519,7 +10519,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6935161933652290342, guid: bca0613880a8cfb4aa403ca0b267fa64, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 109.74
       objectReference: {fileID: 0}
     - target: {fileID: 6935161933652290342, guid: bca0613880a8cfb4aa403ca0b267fa64, type: 3}
       propertyPath: m_SizeDelta.y
@@ -10643,7 +10643,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8487073503039818650, guid: bca0613880a8cfb4aa403ca0b267fa64, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 109.74
       objectReference: {fileID: 0}
     - target: {fileID: 8487073503039818650, guid: bca0613880a8cfb4aa403ca0b267fa64, type: 3}
       propertyPath: m_SizeDelta.y
@@ -11189,7 +11189,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1672198289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12463,6 +12463,7 @@ MonoBehaviour:
   preferGltfUrpMaterialGenerator: 1
   remapImportedMaterialsToUrpLit: 1
   remapOnlyWhenUnsupported: 0
+  modelBrightnessMultiplier: 3
 --- !u!1 &1815012675
 GameObject:
   m_ObjectHideFlags: 0

@@ -1658,3 +1658,16 @@
 [2026-03-27T03:01:58.022Z] [INFO] log Unity client connected with ID: editor-22752-l7yh0y
 [2026-03-27T03:01:58.022Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
 [2026-03-27T03:01:58.647Z] [DEBUG] log Server validation check - testing availability
+[2026-03-27T03:43:47.038Z] [INFO] log Domain reload signal received from client editor-22752-l7yh0y
+[2026-03-27T03:43:47.038Z] [DEBUG] log MessageSender blocked
+[2026-03-27T03:43:47.039Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-27T03:43:48.408Z] [DEBUG] acp.queue.pause depth=0
+[2026-03-27T03:43:48.408Z] [DEBUG] log MessageSender blocked
+[2026-03-27T03:43:48.409Z] [WARN] connection.lost clientId=null
+[2026-03-27T03:43:48.408Z] [INFO] log Client disconnected - blocking incoming messages and caching for replay
+[2026-03-27T03:43:48.409Z] [WARN] log Client disconnected - sessions will persist until auto-shutdown, reason: Client disconnected
+[2026-03-27T03:43:48.409Z] [INFO] log Auto-shutdown timer started due to client disconnection
+[2026-03-27T03:43:55.057Z] [DEBUG] log MessageSender unblocked (0 messages pending replay)
+[2026-03-27T03:43:55.057Z] [INFO] log Unity client connected with ID: editor-22752-jox66w
+[2026-03-27T03:43:55.057Z] [INFO] connection.established clientId=editor-22752-jox66w port=9001
+[2026-03-27T03:43:57.122Z] [DEBUG] log Server validation check - testing availability

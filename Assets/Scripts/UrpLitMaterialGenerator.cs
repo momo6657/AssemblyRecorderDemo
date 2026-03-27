@@ -14,6 +14,12 @@ public class UrpLitMaterialGenerator : IMaterialGenerator
     ICodeLogger _logger;
     public void SetLogger(ICodeLogger logger) => _logger = logger;
 
+    /// <summary>
+    /// 亮度倍数，应用于模型所有材质的 BaseColor RGB 通道。
+    /// 1.0 = 原始亮度，2.0 = 两倍亮度，以此类推。不影响 Alpha 和纹理内容。
+    /// </summary>
+    public float brightnessMultiplier = 1.0f;
+
     static Shader _urpLit;
     static Shader GetUrpLit()
     {
@@ -50,9 +56,10 @@ public class UrpLitMaterialGenerator : IMaterialGenerator
             var pbr = gltfMaterial.PbrMetallicRoughness;
             if (pbr != null)
             {
-                // Base color
+                // Base color（应用亮度倍数到 RGB，保留原始 Alpha）
                 var bc = pbr.BaseColor;
-                var baseColor = new Color(bc.r, bc.g, bc.b, bc.a);
+                float bm = brightnessMultiplier;
+                var baseColor = new Color(bc.r * bm, bc.g * bm, bc.b * bm, bc.a);
                 mat.SetColor("_BaseColor", baseColor);
 
                 // Base color texture
@@ -151,7 +158,7 @@ public class UrpLitMaterialGenerator : IMaterialGenerator
             Debug.LogWarning($"[UrpLitMaterial] '{mat.name}': {ex.Message}");
         }
 
-        Debug.Log($"[UrpLitMaterial] Generated '{mat.name}'");
+        Debug.Log($"[UrpLitMaterial] Generated '{mat.name}' brightness={brightnessMultiplier:F2}");
         return mat;
     }
 

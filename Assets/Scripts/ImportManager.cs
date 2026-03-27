@@ -55,6 +55,11 @@ public class ImportManager : MonoBehaviour
     public bool remapImportedMaterialsToUrpLit = true;
     public bool remapOnlyWhenUnsupported = false;
 
+    [Header("Brightness")]
+    [Tooltip("模型材质亮度倍数。1.0 = 原始，2.0 = 两倍亮度。仅影响 BaseColor RGB，不改变纹理内容。")]
+    [Range(0.5f, 5.0f)]
+    public float modelBrightnessMultiplier = 2.0f;
+
     Material _debugVisibleMat;
     Coroutine _attachRoutine;
 
@@ -717,8 +722,8 @@ public class ImportManager : MonoBehaviour
         // glTFast 默认的 ShaderGraphMaterialGenerator 需要 Shader Graphs/glTF-pbrMetallicRoughness
         // 该 shader 在 Android 构建中不存在，导致所有材质变成 InternalErrorShader（白色/紫色）
         // UrpLitMaterialGenerator 直接使用 URP/Lit 并正确读取纹理
-        Debug.Log("[IMPORT] Using UrpLitMaterialGenerator");
-        return new UrpLitMaterialGenerator();
+        Debug.Log($"[IMPORT] Using UrpLitMaterialGenerator, brightnessMultiplier={modelBrightnessMultiplier}");
+        return new UrpLitMaterialGenerator { brightnessMultiplier = modelBrightnessMultiplier };
     }
 
     static bool IsUnsupportedShader(Shader shader)
