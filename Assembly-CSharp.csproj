@@ -186,6 +186,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\Modern UI Pack\Read Me.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
+    <None Include="Assets\Real Stars Skybox\Demo Scene\Documentation.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
@@ -1354,9 +1355,11 @@
     <ProjectReference Include="Unity.XR.Oculus.csproj" />
     <ProjectReference Include="Unity.XR.Interaction.Toolkit.csproj" />
     <ProjectReference Include="Unity.XR.Management.Editor.csproj" />
+    <ProjectReference Include="Unity.XR.MockHMD.Editor.csproj" />
     <ProjectReference Include="Unity.VisualScripting.State.csproj" />
     <ProjectReference Include="Unity.AppUI.Navigation.Editor.csproj" />
     <ProjectReference Include="Unity.RenderPipeline.Universal.ShaderLibrary.csproj" />
+    <ProjectReference Include="Unity.XR.MockHMD.csproj" />
     <ProjectReference Include="Unity.Collections.Editor.csproj" />
     <ProjectReference Include="Unity.Serialization.Editor.csproj" />
     <ProjectReference Include="Unity.ShaderGraph.Editor.csproj" />

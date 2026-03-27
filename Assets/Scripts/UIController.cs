@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using Michsky.MUIP;
 
 public class UIController : MonoBehaviour
 {
@@ -11,14 +12,16 @@ public class UIController : MonoBehaviour
 
     [Header("UI")]
     public TextMeshProUGUI statusText;
-    public TMP_InputField jumpInput;
+    public TMPro.TMP_InputField jumpInput;
 
-    public UnityEngine.UI.Button btnStartRec;
-    public UnityEngine.UI.Button btnFinishRec;
-    public UnityEngine.UI.Button btnPrev;
-    public UnityEngine.UI.Button btnNext;
-    public UnityEngine.UI.Button btnJump;
-    public UnityEngine.UI.Button btnSave;
+    // Modern UI Pack ButtonManager 字段
+    // 如果未使用 MUIP 可以保持为 null，将自动回退到原生 Button
+    public ButtonManager btnStartRec;
+    public ButtonManager btnFinishRec;
+    public ButtonManager btnPrev;
+    public ButtonManager btnNext;
+    public ButtonManager btnJump;
+    public ButtonManager btnSave;
 
     void Awake()
     {
@@ -48,12 +51,12 @@ public class UIController : MonoBehaviour
                     (total > 0 ? "" : "Hint: Prev/Next auto-load latest; input RecordingId + Jump loads a specific one.");
             }
 
-            if (btnStartRec != null) btnStartRec.interactable = true;
-            if (btnFinishRec != null) btnFinishRec.interactable = total > 0;
-            if (btnPrev != null) btnPrev.interactable = true;
-            if (btnNext != null) btnNext.interactable = true;
-            if (btnJump != null) btnJump.interactable = total > 0;
-            if (btnSave != null) btnSave.interactable = false;
+            SetInteractable(btnStartRec, true);
+            SetInteractable(btnFinishRec, total > 0);
+            SetInteractable(btnPrev, true);
+            SetInteractable(btnNext, true);
+            SetInteractable(btnJump, total > 0);
+            SetInteractable(btnSave, false);
             return;
         }
 
@@ -71,12 +74,18 @@ public class UIController : MonoBehaviour
         bool hasProject = player.project != null;
         bool recording = recorder.isRecording;
 
-        if (btnStartRec != null) btnStartRec.interactable = hasProject && !recording;
-        if (btnFinishRec != null) btnFinishRec.interactable = hasProject && recording;
-        if (btnPrev != null) btnPrev.interactable = hasProject && !recording;
-        if (btnNext != null) btnNext.interactable = hasProject && !recording;
-        if (btnJump != null) btnJump.interactable = hasProject && !recording;
-        if (btnSave != null) btnSave.interactable = hasProject && !recording;
+        SetInteractable(btnStartRec, hasProject && !recording);
+        SetInteractable(btnFinishRec, hasProject && recording);
+        SetInteractable(btnPrev, hasProject && !recording);
+        SetInteractable(btnNext, hasProject && !recording);
+        SetInteractable(btnJump, hasProject && !recording);
+        SetInteractable(btnSave, hasProject && !recording);
+    }
+
+    /// 使用 MUIP ButtonManager.Interactable() 设置可交互性
+    void SetInteractable(ButtonManager btn, bool value)
+    {
+        if (btn != null) btn.Interactable(value);
     }
 
     public void JumpToStepFromInput()

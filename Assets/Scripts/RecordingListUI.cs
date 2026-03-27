@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Michsky.MUIP;
 
 public class RecordingListUI : MonoBehaviour
 {
     [Header("Refs")]
     public PhoneStepPlayback phonePlayback;
     public Transform content;
-    public Button itemPrefab;
+    public GameObject itemPrefab;   // 改为 GameObject，兼容任何 UI 框架的按钮
     public TMP_Text statusText;
 
     [Header("Optional Filters")]
@@ -25,7 +26,7 @@ public class RecordingListUI : MonoBehaviour
 
     bool _busy;
     float _lastRefreshAt = -999f;
-    readonly List<Button> _spawned = new List<Button>();
+    readonly List<GameObject> _spawned = new List<GameObject>();
 
     // 公开方法供 UI Button 调用
     public void ForceRefresh()
@@ -150,15 +151,29 @@ public class RecordingListUI : MonoBehaviour
             var rec = items[i];
             if (rec == null) continue;
 
-            var btn = Instantiate(itemPrefab, content);
-            _spawned.Add(btn);
+            var go = Instantiate(itemPrefab, content);
+            _spawned.Add(go);
 
-            var label = btn.GetComponentInChildren<TextMeshProUGUI>();
-            if (label != null) label.text = BuildItemLabel(rec);
+            // 构建标签文本
+            string labelText = BuildItemLabel(rec);
+
+            // 优先通过 MUIP ButtonManager.buttonText 设置文字（避免被 MUIP 覆盖）
+            var muipBtnLabel = go.GetComponent<ButtonManager>();
+            if (muipBtnLabel == null) muipBtnLabel = go.GetComponentInChildren<ButtonManager>();
+            if (muipBtnLabel != null)
+            {
+                muipBtnLabel.buttonText = labelText;
+                muipBtnLabel.UpdateUI();
+            }
+            else
+            {
+                var label = go.GetComponentInChildren<TextMeshProUGUI>();
+                if (label != null) label.text = labelText;
+            }
 
             if (!hasLayout)
             {
-                var rt = btn.GetComponent<RectTransform>();
+                var rt = go.GetComponent<RectTransform>();
                 if (rt != null)
                 {
                     float h = rt.sizeDelta.y > 1f ? rt.sizeDelta.y : itemHeight;
@@ -172,8 +187,28 @@ public class RecordingListUI : MonoBehaviour
             }
 
             string rid = rec.GetRecordingId();
-            btn.onClick.RemoveAllListeners();
-            btn.onClick.AddListener(() => OnRecordingClicked(rid));
+
+            // 注册点击事件：优先用 MUIP ButtonManager，否则用原生 Button
+            // muipBtnLabel 已在上方查找过，复用变量
+            if (muipBtnLabel != null)
+            {
+                muipBtnLabel.onClick.RemoveAllListeners();
+                muipBtnLabel.onClick.AddListener(() => OnRecordingClicked(rid));
+            }
+            else
+            {
+                var btn = go.GetComponent<Button>();
+                if (btn == null) btn = go.GetComponentInChildren<Button>();
+                if (btn != null)
+                {
+                    btn.onClick.RemoveAllListeners();
+                    btn.onClick.AddListener(() => OnRecordingClicked(rid));
+                }
+                else
+                {
+                    Debug.LogWarning($"[RecordingListUI] itemPrefab '{go.name}' has no ButtonManager or Button component");
+                }
+            }
         }
 
         if (!hasLayout)
@@ -230,7 +265,7 @@ public class RecordingListUI : MonoBehaviour
     {
         for (int i = _spawned.Count - 1; i >= 0; i--)
         {
-            if (_spawned[i] != null) Destroy(_spawned[i].gameObject);
+            if (_spawned[i] != null) Destroy(_spawned[i]);
         }
         _spawned.Clear();
 
@@ -239,7 +274,7 @@ public class RecordingListUI : MonoBehaviour
         {
             var child = content.GetChild(i);
             if (child == null) continue;
-            if (itemPrefab != null && child.gameObject == itemPrefab.gameObject) continue;
+            if (itemPrefab != null && child.gameObject == itemPrefab) continue;
             Destroy(child.gameObject);
         }
     }
