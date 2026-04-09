@@ -37,9 +37,12 @@ public class PhoneStepPlayback : MonoBehaviour
     string _loadedTaskId;
     string _loadedRecordingId;
     bool _busy;
+    string _lastStatus = "";
     
     // 记录当前已加载的模型ID，避免重复加载
     private string _loadedModelId = null;
+
+    public string LastStatus => _lastStatus;
 
     /// <summary>
     /// 清除模型缓存，强制下次重新加载
@@ -1086,6 +1089,7 @@ public class PhoneStepPlayback : MonoBehaviour
 
     void SetStatus(string msg)
     {
+        _lastStatus = msg ?? "";
         Debug.Log(msg);
         if (statusText != null) statusText.text = msg;
     }

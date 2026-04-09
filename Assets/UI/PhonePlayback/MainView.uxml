@@ -1,0 +1,96 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="MainStyle.uss" />
+    <ui:VisualElement name="app-root" class="app-root">
+        <ui:VisualElement name="background-vignette" class="background-vignette" />
+        <ui:VisualElement name="background-glow" class="background-glow" />
+
+        <ui:VisualElement name="top-left-area" class="floating-area top-left-area module-shell">
+            <ui:Button name="btn-import" text="Import GLB" class="toolbar-button utility-button" />
+            <ui:Button name="btn-restore-import" text="Import" class="minimized-pill" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="top-right-area" class="floating-area top-right-area module-shell">
+            <ui:VisualElement name="status-panel" class="glass-panel status-panel">
+                <ui:VisualElement class="panel-header">
+                    <ui:Label text="Playback" class="micro-title" />
+                    <ui:VisualElement class="panel-actions-row">
+                        <ui:VisualElement class="status-inline">
+                            <ui:VisualElement name="status-dot" class="status-dot is-loaded" />
+                            <ui:Label name="status-badge" text="Loaded" class="status-badge" />
+                        </ui:VisualElement>
+                        <ui:Button name="btn-min-status" text="–" class="mini-toggle-button" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="status-main-row">
+                    <ui:VisualElement class="status-main-block">
+                        <ui:Label text="Current Step" class="caption" />
+                        <ui:Label name="current-step-value" text="0 / 0" class="hero-value" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="divider subtle-divider" />
+                <ui:VisualElement class="meta-block">
+                    <ui:Label text="Recording" class="caption" />
+                    <ui:Label name="task-recording-value" text="-" class="muted-body compact-body" />
+                </ui:VisualElement>
+                <ui:VisualElement class="meta-block last-message-block">
+                    <ui:Label text="Message" class="caption" />
+                    <ui:Label name="message-value" text="Ready" class="muted-body compact-body" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Button name="btn-restore-status" text="Status" class="minimized-pill edge-right-pill" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="left-rail-area" class="floating-area left-rail-area module-shell stack-vertical">
+            <ui:VisualElement name="recordings-panel" class="glass-panel panel-card recordings-panel module-shell">
+                <ui:VisualElement class="panel-header rail-header">
+                    <ui:Label text="Library" class="panel-title" />
+                    <ui:VisualElement class="panel-actions-row">
+                        <ui:Button name="btn-refresh-recordings" text="↻" class="icon-button utility-button small-button" />
+                        <ui:Button name="btn-min-library" text="–" class="mini-toggle-button" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:ScrollView name="recordings-list" class="recordings-list" mode="Vertical" />
+            </ui:VisualElement>
+            <ui:Button name="btn-restore-library" text="Library" class="minimized-pill edge-left-pill" />
+
+            <ui:VisualElement name="task-panel" class="glass-panel panel-card task-panel subtle-task-panel module-shell">
+                <ui:VisualElement class="panel-header compact-panel-header">
+                    <ui:Label text="Create Task" class="task-panel-title" />
+                    <ui:VisualElement class="panel-actions-row">
+                        <ui:Label text="Hidden Utility" class="task-panel-chip" />
+                        <ui:Button name="btn-min-task" text="–" class="mini-toggle-button" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:TextField name="task-title-input" label="Title" value="" class="dark-text-field compact-field" />
+                <ui:TextField name="user-id-input" label="User" value="" class="dark-text-field compact-field" />
+                <ui:Button name="btn-create-task" text="Create New Task" class="secondary-action-button" />
+            </ui:VisualElement>
+            <ui:Button name="btn-restore-task" text="Create" class="minimized-pill edge-left-pill" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="bottom-right-area" class="floating-area bottom-right-area module-shell stack-vertical viewer-stack">
+            <ui:VisualElement name="timeline-panel" class="glass-panel panel-card steps-panel module-shell">
+                <ui:VisualElement class="panel-header viewer-header">
+                    <ui:Label text="Steps" class="panel-title" />
+                    <ui:Button name="btn-min-steps" text="–" class="mini-toggle-button" />
+                </ui:VisualElement>
+                <ui:ScrollView name="steps-list" class="steps-list" mode="Vertical" />
+            </ui:VisualElement>
+            <ui:Button name="btn-restore-steps" text="Steps" class="minimized-pill edge-right-pill" />
+
+            <ui:VisualElement name="controls-panel" class="glass-panel controls-panel compact-controls module-shell">
+                <ui:TextField name="step-input" value="" class="step-input" />
+                <ui:Button name="btn-jump" text="Jump" class="utility-button control-button" />
+                <ui:Button name="btn-min-jump" text="–" class="mini-toggle-button" />
+            </ui:VisualElement>
+            <ui:Button name="btn-restore-jump" text="Jump" class="minimized-pill edge-right-pill" />
+
+            <ui:VisualElement name="nav-row" class="nav-row module-shell">
+                <ui:Button name="btn-prev" text="◀ Prev" class="viewer-nav-button muted-nav-button" />
+                <ui:Button name="btn-next" text="Play Next ▶" class="viewer-nav-button primary-button" />
+                <ui:Button name="btn-min-nav" text="–" class="mini-toggle-button nav-min-button" />
+            </ui:VisualElement>
+            <ui:Button name="btn-restore-nav" text="Controls" class="minimized-pill edge-right-pill" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -208,10 +208,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Btn Prev(2)
       objectReference: {fileID: 0}
-    - target: {fileID: 1758771418987514, guid: 00fb93f398d6ab646b81586940087692, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 37966886526932799, guid: 00fb93f398d6ab646b81586940087692, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -5432,7 +5428,6 @@ MonoBehaviour:
   cam: {fileID: 982388375}
   highlightMat: {fileID: 2100000, guid: aaf122dfe35f6de48beae7d2b11df205, type: 2}
   orbitCamera: {fileID: 0}
-  playbackUiController: {fileID: 0}
   ignoreTapOverUI: 1
   highlightBlend: 0.18
   highlightTint: {r: 0.85, g: 0.92, b: 1, a: 1}
@@ -5464,10 +5459,6 @@ PrefabInstance:
     - target: {fileID: 1758771418987514, guid: 00fb93f398d6ab646b81586940087692, type: 3}
       propertyPath: m_Name
       value: "Btn_RefreshRecordings\uFF081\uFF09"
-      objectReference: {fileID: 0}
-    - target: {fileID: 1758771418987514, guid: 00fb93f398d6ab646b81586940087692, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 37966886526932799, guid: 00fb93f398d6ab646b81586940087692, type: 3}
       propertyPath: m_AnchorMax.y
@@ -7995,7 +7986,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1113345438
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10281,10 +10272,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Btn Next(2)
       objectReference: {fileID: 0}
-    - target: {fileID: 1758771418987514, guid: 00fb93f398d6ab646b81586940087692, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 37966886526932799, guid: 00fb93f398d6ab646b81586940087692, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -11226,7 +11213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1562815785
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13838,7 +13825,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OrbitPinchCamera
   target: {fileID: 0}
   cameraTransform: {fileID: 982388376}
-  playbackUiController: {fileID: 0}
   ignoreInputOverUI: 1
   rotateSpeed: 0.2
   minPitch: -20
@@ -14741,12 +14727,12 @@ MonoBehaviour:
   serviceLocator: {fileID: 0}
   autoRefreshRecordingsOnEnable: 1
   pollUiInterval: 0.15
-  showImportButton: 0
+  showImportButton: 1
   showStatusPanel: 1
   showRecordingsPanel: 1
-  showTaskPanel: 0
+  showTaskPanel: 1
   showTimelinePanel: 1
-  showJumpControls: 0
+  showJumpControls: 1
   showNavigationButtons: 1
 --- !u!114 &1951444325
 MonoBehaviour:

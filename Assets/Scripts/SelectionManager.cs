@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem.EnhancedTouch;
@@ -14,6 +15,7 @@ public class SelectionManager : MonoBehaviour
     public Camera cam;
     public Material highlightMat;
     public OrbitPinchCamera orbitCamera;
+    public PhonePlaybackUIDocumentController playbackUiController;
 
     [Header("UI Guard")]
     public bool ignoreTapOverUI = true;
@@ -45,6 +47,7 @@ public class SelectionManager : MonoBehaviour
         if (cam == null) cam = Camera.main;
         if (index == null) index = FindAnyObjectByType<ModelIndex>();
         if (orbitCamera == null) orbitCamera = FindAnyObjectByType<OrbitPinchCamera>();
+        if (playbackUiController == null) playbackUiController = FindAnyObjectByType<PhonePlaybackUIDocumentController>();
     }
 
     public void BindModel(Transform root)
@@ -101,8 +104,7 @@ public class SelectionManager : MonoBehaviour
         var t = touches[0];
         if (t.phase != TouchPhaseET.Began) return;
 
-        if (ignoreTapOverUI && EventSystem.current != null &&
-            EventSystem.current.IsPointerOverGameObject(t.touchId))
+        if (ignoreTapOverUI && IsTouchOverInteractiveUi(t.screenPosition, t.touchId))
             return;
 
         TryPick(t.screenPosition);
@@ -116,11 +118,19 @@ public class SelectionManager : MonoBehaviour
         var t = Input.GetTouch(0);
         if (t.phase != TouchPhase.Began) return;
 
-        if (ignoreTapOverUI && EventSystem.current != null &&
-            EventSystem.current.IsPointerOverGameObject(t.fingerId))
+        if (ignoreTapOverUI && IsTouchOverInteractiveUi(t.position, t.fingerId))
             return;
 
         TryPick(t.position);
+    }
+
+    bool IsTouchOverInteractiveUi(Vector2 screenPosition, int pointerId)
+    {
+        if (playbackUiController == null) playbackUiController = FindAnyObjectByType<PhonePlaybackUIDocumentController>();
+        if (playbackUiController != null)
+            return playbackUiController.IsPointerOverInteractiveUi(screenPosition);
+
+        return false;
     }
 
     void TryPick(Vector2 screenPos)

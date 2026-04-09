@@ -35,7 +35,7 @@
 ## 🏗️ 技术架构
 
 ### 技术栈
-- **客户端**：Unity 6 (C#, URP, TextMeshPro, XR Interaction Toolkit, OpenXR, glTFast)
+- **客户端**：Unity 6 (C#, URP, TextMeshPro, XR Interaction Toolkit, OpenXR, glTFast, UI Toolkit)
 - **服务端**：Python Flask (简易 HTTP 服务，内存 + JSON 文件落盘)
 - **平台**：Android Phone + Meta Quest (Android/OpenXR)
 - **调试**：`adb logcat -s Unity`
@@ -50,9 +50,10 @@
 - **任务与回放**
   - `PhoneCreateTask.cs` - 创建任务并上传模型
   - `PhoneStepPlayback.cs` - 步骤回放与动画插值
-  - `RecordingListUI.cs` - 录制列表管理
-  - `StepListUI.cs` - 步骤列表显示
-  - `UIController.cs` - UI 总控制器
+  - `PhonePlaybackUIDocumentController.cs` - UI Toolkit 手机端主界面控制器
+  - `RecordingListUI.cs` - 录制列表管理（旧 UGUI）
+  - `StepListUI.cs` - 步骤列表显示（旧 UGUI）
+  - `UIController.cs` - UI 总控制器（旧 UGUI）
 
 #### 🥽 Quest 端 (QuestSence.unity)
 - **任务与录制**
@@ -79,7 +80,7 @@
 ## 🔄 核心业务流程
 
 ### 1. 手机端创建任务流程
-```
+```text
 用户导入 GLB 模型
   ↓
 ImportManager.LoadGlbFromPathAsync()
@@ -94,7 +95,7 @@ POST /createTask (创建任务元数据)
 ```
 
 ### 2. Quest 端录制流程
-```
+```text
 QuestPollTask 轮询 GET /pollTask
   ↓
 获取 pending 任务
@@ -115,8 +116,8 @@ POST /uploadRecordingSteps (上传步骤数据)
 ```
 
 ### 3. 手机端回放流程
-```
-RecordingListUI.RefreshList()
+```text
+PhonePlaybackUIDocumentController.RefreshRecordingsAsync()
   ↓
 GET /listRecordings (获取录制列表)
   ↓
@@ -124,11 +125,11 @@ GET /listRecordings (获取录制列表)
   ↓
 GET /downloadRecording (下载录制元数据)
   ↓
-GET /downloadRecordingSteps (下载步骤数据)
+GET /downloadRecordingSteps (下载录制步骤数据)
   ↓
 PhoneStepPlayback.EnsureModelLoaded() (加载模型)
   ↓
-用户点击 "Play Step" 或 "Next"
+用户点击 Step / Prev / Next
   ↓
 PhoneStepPlayback.CoPlayStep() (轨迹插值动画播放)
   ↓
@@ -165,32 +166,6 @@ PhoneStepPlayback.CoPlayStep() (轨迹插值动画播放)
 }
 ```
 
-### RecordingSteps (录制步骤)
-```json
-{
-  "recordingId": "r1772625108433",
-  "modelId": "m_20260304_195122_383",
-  "steps": [
-    {
-      "duration": 2.5,
-      "parts": [...],
-      "trajectories": [
-        {
-          "id": "ImportedModel/Part1",
-          "from": { "localPos": {...}, "localRot": {...}, "localScale": {...} },
-          "to": { "localPos": {...}, "localRot": {...}, "localScale": {...} },
-          "samples": [
-            { "t": 0.0, "localPos": {...}, "localRot": {...}, "localScale": {...} },
-            { "t": 0.1, "localPos": {...}, "localRot": {...}, "localScale": {...} },
-            ...
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
-
 ---
 
 ## 🐛 已知问题与解决方案
@@ -200,7 +175,7 @@ PhoneStepPlayback.CoPlayStep() (轨迹插值动画播放)
 #### 1. 动画播放位置偏移问题 (2026-03-04)
 **问题**：手机端播放动画时，模型会先移动到远处，然后执行动作，最后再返回原位。
 
-**根本原因**：`EnsureModelLoaded()` 没有检查模型是否已加载，每次播放都重新加载模型，导致 `modelRoot` 引用失效和位置重置。
+**根本原因**：`EnsureModelLoaded()` 没有检查模型是否已加载，每次调用都会重新加载模型。
 
 **解决方案**：
 - 添加 `_loadedModelId` 缓存机制
@@ -209,37 +184,34 @@ PhoneStepPlayback.CoPlayStep() (轨迹插值动画播放)
 
 **修改文件**：`Assets/Scripts/PhoneStepPlayback.cs`
 
-**详细文档**：`BUGFIX_SUMMARY.md`
+#### 2. 手机端 UI 切换到 UI Toolkit 观看器样式 (2026-04-09)
+**目标**：把手机端播放页升级为更接近苹果风纯播放器的深灰卡片式 UI。
 
-#### 2. Quest 模型"出现一瞬间后消失"
-**根因**：XR Origin 重力/移动设置导致相机/玩家坠落。
+**解决方案**：
+- 新增 `PhonePlaybackUIDocumentController.cs`
+- 新增 `Assets/UI/PhonePlayback/MainView.uxml`
+- 新增 `Assets/UI/PhonePlayback/MainStyle.uss`
+- 新增 `Assets/UI/PhonePlayback/PhonePlaybackPanelSettings.asset`
+- `PhoneCreateTask.cs` 增加 UI Toolkit 输入兼容和状态缓存
+- `PhoneStepPlayback.cs` 增加 `LastStatus` 供状态卡读取
+- `PhonePlaybackUIDocumentController.cs` 增加每个模块独立的运行时显示/隐藏开关
+- Inspector 取消勾选时对应模块直接隐藏，仅在模块内点击减号时进入最小化
+- 每个 UI 模块内置最小化按钮，并在对应边缘保留恢复按钮
+- 修正 `PhonePlaybackPanelSettings.asset` 与 `PhonePlaybackPanelSettings_Real.asset` 的缩放设置，使真机分辨率下与编辑器布局一致
+- 进一步提高真机 `PhonePlaybackPanelSettings_Real.asset` 的缩放倍率，并放大主要 UI 模块尺寸与字号
+- 针对 1260x2600 纵屏再次大幅提升移动端面板宽度、按钮高度与列表可读性
+- 修正真机配置被回退的问题：确保 `PhonePlaybackPanelSettings_Real.asset` 使用参考分辨率缩放并显著增大 `m_Scale`
+- 再次显著增大所有 UI 模块，尤其放大顶部 Import 按钮区与右上状态卡
+- 继续增大顶部两个模块，同时缩窄底部左右模块宽度并提高高度，避免重叠
+- 统一放大所有文字字号，使文字与当前放大的 UI 模块匹配
+- 针对 Import GLB、Playback 状态区、Jump / Prev / Play Next 等仍偏小的文字继续增大字号
+- 修复 UI Toolkit 大面积容器拦截触摸的问题，恢复零件选中与单指旋转视角
+- 进一步把输入屏蔽逻辑收敛到真正可交互控件，避免普通卡片背景区域错误拦截触摸
+- 结合手机端日志确认输入链路绑定正常后，移除 EventSystem 的兜底拦截，避免 UI Toolkit 全屏面板误伤模型点击与旋转
+- Create Task 与 Import GLB 保留但默认隐藏，不改变原有逻辑
+- 保留老版本录制的步骤展示方式，因此右下区域显示为 `Steps`
 
-**方案**：关闭不当重力影响，修正 XR 移动设置。
-
-**风险**：XR Rig 参数被改回后会复发。
-
-#### 3. Insecure connection not allowed
-**根因**：Android/Unity 明文 HTTP 限制。
-
-**方案**：允许 HTTP（Player Settings → Network Security 配置）。
-
-**风险**：生产环境建议 HTTPS + 域名证书。
-
-#### 4. 手机列表一直空
-**根因A**：Quest 上传走了 legacy `/uploadSteps`，未生成 recording 元数据。
-
-**根因B**：`/listRecordings?taskId=...` 过滤导致只显示单任务。
-
-**方案**：Quest 上传优先 named recording，列表逻辑支持全量。
-
-**风险**：旧 APK 未更新时仍会走旧逻辑。
-
-#### 5. 步骤回放瞬移
-**根因**：只应用终态或无轨迹样本。
-
-**方案**：加入轨迹采样与插值播放，Next/Step 点击走动画路径。
-
-**风险**：若录制时无有效移动，仍可能退化为近似瞬移。
+**影响范围**：手机端播放页 UI
 
 ### ⚠️ 待修复问题
 
@@ -247,8 +219,6 @@ PhoneStepPlayback.CoPlayStep() (轨迹插值动画播放)
 **状态**：待排查
 
 **日志文件**：`D:\灵境项目相关\日志\quest端日志.txt`
-
-**初步分析**：可能与 XR Grab Interactable 的 scale 处理有关
 
 ---
 
@@ -268,55 +238,13 @@ PhoneStepPlayback.CoPlayStep() (轨迹插值动画播放)
 - **平台**：Android
 - **渲染管线**：URP (Universal Render Pipeline)
 - **XR 插件**：OpenXR, XR Interaction Toolkit
-
-### 手机端构建设置
-- **Platform**：Android
-- **XR Settings**：关闭 XR 支持
-- **Network Security**：允许 HTTP 明文连接
-- **API Level**：Min 25, Target 36
-
-### Quest 端构建设置
-- **Platform**：Android
-- **XR Settings**：启用 OpenXR
-- **XR Plugin Management**：Oculus/Meta Quest
-- **Network Security**：允许 HTTP 明文连接
-- **API Level**：Min 25, Target 36
+- **UI**：PhoneScene 推荐使用 UI Toolkit `UIDocument`
 
 ### 服务端启动
 ```bash
 cd "D:\assemble server"
 .\.venv\Scripts\python.exe -u server.py
-# 监听 0.0.0.0:5000
 ```
-
-### ApiClient 配置
-在 Unity Inspector 中设置 `ApiClient.baseUrl` 为服务器 IP（同一局域网）。
-
----
-
-## 🧪 调试方法
-
-### 客户端日志
-```bash
-# 手机端
-adb logcat -s Unity
-
-# Quest 端
-adb logcat -s Unity
-```
-
-### 服务端日志
-直接查看 Python 控制台输出，或检查数据文件：
-- `data/recordings/*.json`
-- `data/recording_steps/*.json`
-- `data/tasks/*.json`
-
-### 常见日志关键字
-- `[PHONE]` - 手机端日志
-- `[QUEST]` - Quest 端日志
-- `[IMPORT]` - 模型导入日志
-- `[PLAYBACK]` - 回放日志
-- `[RecordingListUI]` - 录制列表日志
 
 ---
 
@@ -327,38 +255,21 @@ adb logcat -s Unity
 - **方法名**：PascalCase (e.g., `LoadRecording`)
 - **字段名**：camelCase (e.g., `currentIndex`)
 - **私有字段**：_camelCase (e.g., `_loadedModelId`)
-- **常量**：UPPER_SNAKE_CASE (e.g., `PREF_PHONE_LAST_TASK_ID`)
-
-### 日志规范
-```csharp
-// 信息日志
-Debug.Log($"[MODULE] message with {variable}");
-
-// 警告日志
-Debug.LogWarning($"[MODULE] warning message");
-
-// 错误日志
-Debug.LogError($"[MODULE] error message: {exception}");
-```
-
-### 异步方法规范
-```csharp
-// 使用 async Task 而非 async void（除非是事件处理器）
-public async Task<bool> LoadRecording(string id)
-{
-    // ...
-}
-
-// UI 按钮回调可以使用 async void
-public async void OnButtonClick()
-{
-    await LoadRecording(recordingId);
-}
-```
 
 ---
 
 ## 🔄 项目变更记录
+
+### 2026-04-09
+- ✅ 新增 UI Toolkit 手机端播放页骨架
+- ✅ 新增 `PhonePlaybackUIDocumentController.cs`
+- ✅ 新增 `MainView.uxml`、`MainStyle.uss`、`PhonePlaybackPanelSettings.asset`
+- ✅ `PhoneCreateTask.cs` 与 `PhoneStepPlayback.cs` 增加 UI Toolkit 兼容状态
+- ✅ 手机端 UI 调整为更接近苹果风纯播放器的深色卡片式布局
+- ✅ 每个 UI 模块支持在运行时独立显示/隐藏
+- ✅ 顶部新增模块控制条，可在观看时快速开关各 UI 模块
+- ✅ Import GLB 与 Create Task 默认隐藏，按需在运行时打开
+- ✅ 右下区域文案保留为 `Steps`，兼容老版本录制步骤播放认知
 
 ### 2026-03-04
 - ✅ 修复动画播放位置偏移问题
@@ -366,102 +277,19 @@ public async void OnButtonClick()
 - ✅ 创建 `BUGFIX_SUMMARY.md` 详细文档
 - ✅ 创建 `PROJECT_README.md` 项目文档
 
-### 2026-03-03
-- ✅ 修复步骤列表只显示 Step2 的问题
-- ✅ 实现轨迹插值动画播放
-- ✅ 统一 recording API 为主链路
-
-### 2026-03-02
-- ✅ 实现 Quest 端录制上传
-- ✅ 实现手机端录制列表
-- ✅ 打通端到端闭环
-
 ---
 
 ## 📚 相关文档
 
 - `BUGFIX_SUMMARY.md` - Bug 修复详细报告
-- `PROJECT_CHANGELOG.md` - 项目变更日志（待创建）
-- `API_DOCUMENTATION.md` - API 接口文档（待创建）
+- `PROJECT_CHANGELOG.md` - 项目变更日志
+- `PROJECT_REQUIREMENTS.md` - 项目需求管理文档
 
 ---
 
 ## 🤝 开发协作指南
 
-### 新 Agent 接手流程
-1. ✅ **必读**：完整阅读本文档 (`PROJECT_README.md`)
-2. ✅ **了解现状**：查看"已知问题与解决方案"章节
-3. ✅ **检查日志**：如果有问题，先查看相关日志文件
-4. ✅ **理解架构**：熟悉核心模块和业务流程
-5. ✅ **开始工作**：基于现有代码进行修改或新增功能
-
 ### 修改代码时的注意事项
 - ⚠️ 不要破坏已修复的 Bug（查看"已修复问题"章节）
-- ⚠️ 保持代码风格一致（遵循"代码规范"章节）
-- ⚠️ 添加必要的日志（遵循"日志规范"）
-- ⚠️ 更新本文档的"项目变更记录"章节
-- ⚠️ 如果修复了 Bug，在"已知问题与解决方案"中记录
-
-### 提交变更时
-1. 在"项目变更记录"中添加条目
-2. 如果是 Bug 修复，更新"已知问题与解决方案"
-3. 如果是重大变更，考虑创建独立的文档（如 `BUGFIX_SUMMARY.md`）
-
----
-
-## 🎯 下一步计划
-
-### P0 任务
-- [ ] 修复 Quest 端抓握模型时模型缩小的问题
-- [ ] 统一"录制数据唯一真源"为 recording（移除 legacy steps）
-
-### P1 任务
-- [ ] 录制列表可观测性（显示请求 URL + 返回条数 + 首条 ID）
-- [ ] 录制管理能力（重命名、删除、按时间排序、分页加载）
-- [ ] 用户维度接入（userId 关联与过滤）
-
-### P2 任务
-- [ ] 服务端工程化（FastAPI/Flask + DB）
-- [ ] Android Studio 宿主集成方案
-- [ ] 完整的 API 文档
-
----
-
-## 📞 联系方式
-
-**项目负责人**：[王乐泉]
-
-**技术支持**：[Unity]
-
-**最后更新**：2026-03-04
-
----
-
-> 💡 **提示**：本文档会持续更新，请确保在开始工作前阅读最新版本！
----
-
-## 🔄 项目变更记录（更新）
-
-### 2026-03-15
-- ✅ 大模型导入性能优化（Phase 1）
-- ✅ 改用 glTFast `Load(Uri)` 避免一次性读取大文件
-- ✅ 添加加载进度显示和超时机制
-- ✅ 优化材质处理逻辑（材质去重、跳过已正确材质）
-- ✅ 创建 `ImportOptimizer.cs` 和 `LoadingProgressUI.cs`
-- ✅ 创建 `PERFORMANCE_OPTIMIZATION.md` 优化文档
-- ✅ 修复 glTFast 6.16 材质属性名称问题（小写字段）
-- ✅ 创建 `UrpLitMaterialGenerator.cs` 自定义材质生成器
-
-### 2026-03-30
-- ✅ 手机端摄像机视角优化：改为绕底座上方环绕模式
-- ✅ 修改 `OrbitPinchCamera.cs`：添加动态轨道中心（`SetOrbitCenter`）、平滑过渡、可调参数
-- ✅ 修改 `PhoneStepPlayback.cs`：识别录制中第一个移动零件为底座，模型加载后自动更新摄像机轨道中心
-- ✅ 新增 `baseHeightOffset` 字段（Inspector 可调，默认 1.5f），控制轨道中心高于底座顶部的偏移量
-
-### 2026-03-31
-- ✅ 手机端视角交互重构：改为围绕当前选中零件平滑环绕
-- ✅ 修改 `SelectionManager.cs`：选择机制改为单选，点击新零件自动取消旧选择
-- ✅ 选中高亮改为低调轻微染色，不再使用过于显眼的纯替换高亮材质
-- ✅ 修改 `OrbitPinchCamera.cs`：新增 `FocusOnTransform` / `ClearFollowTarget`，支持持续跟随选中零件
-- ✅ 修改 `ImportManager.cs`：绑定模型时同步绑定选择器与轨道相机引用
-- ✅ 清理 `PhoneStepPlayback.cs` 中旧的底座环绕逻辑，避免与选中跟随机制冲突
+- ⚠️ 手机端 UI 迁移优先保留 `PhoneStepPlayback` 业务逻辑，替换 View 层
+- ⚠️ 保持代码风格一致

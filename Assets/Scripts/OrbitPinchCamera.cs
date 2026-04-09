@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem.EnhancedTouch;
@@ -12,6 +13,7 @@ public class OrbitPinchCamera : MonoBehaviour
     [Header("Target & Camera")]
     public Transform target;                // ImportedModel（轨道中心 fallback）
     public Transform cameraTransform;       // Main Camera
+    public PhonePlaybackUIDocumentController playbackUiController;
 
     [Header("UI Guard")]
     public bool ignoreInputOverUI = true;
@@ -58,6 +60,7 @@ public class OrbitPinchCamera : MonoBehaviour
     {
         AutoFindCamera();
         InitOrbitCenter();
+        if (playbackUiController == null) playbackUiController = FindAnyObjectByType<PhonePlaybackUIDocumentController>();
         if (cameraTransform != null) UpdateCam();
     }
 
@@ -174,6 +177,15 @@ public class OrbitPinchCamera : MonoBehaviour
         return target != null ? target.position : Vector3.zero;
     }
 
+    bool IsTouchOverInteractiveUi(Vector2 screenPosition, int pointerId)
+    {
+        if (playbackUiController == null) playbackUiController = FindAnyObjectByType<PhonePlaybackUIDocumentController>();
+        if (playbackUiController != null)
+            return playbackUiController.IsPointerOverInteractiveUi(screenPosition);
+
+        return false;
+    }
+
 #if ENABLE_INPUT_SYSTEM
     void HandleInput_NewInputSystem()
     {
@@ -189,8 +201,7 @@ public class OrbitPinchCamera : MonoBehaviour
 
             if (t.phase == TouchPhaseET.Began)
             {
-                ignoreDrag = ignoreInputOverUI && EventSystem.current != null &&
-                             EventSystem.current.IsPointerOverGameObject(pointerId);
+                ignoreDrag = ignoreInputOverUI && IsTouchOverInteractiveUi(pos, pointerId);
                 lastPos = pos;
             }
 
@@ -214,9 +225,9 @@ public class OrbitPinchCamera : MonoBehaviour
             var t0 = touches[0];
             var t1 = touches[1];
 
-            if (ignoreInputOverUI && EventSystem.current != null &&
-                (EventSystem.current.IsPointerOverGameObject(t0.touchId) ||
-                 EventSystem.current.IsPointerOverGameObject(t1.touchId)))
+            if (ignoreInputOverUI &&
+                (IsTouchOverInteractiveUi(t0.screenPosition, t0.touchId) ||
+                 IsTouchOverInteractiveUi(t1.screenPosition, t1.touchId)))
                 return;
 
             Vector2 p0 = t0.screenPosition;
@@ -248,8 +259,7 @@ public class OrbitPinchCamera : MonoBehaviour
 
             if (t.phase == TouchPhase.Began)
             {
-                ignoreDrag = ignoreInputOverUI && EventSystem.current != null &&
-                             EventSystem.current.IsPointerOverGameObject(t.fingerId);
+                ignoreDrag = ignoreInputOverUI && IsTouchOverInteractiveUi(t.position, t.fingerId);
                 lastPos = t.position;
             }
 
@@ -271,9 +281,9 @@ public class OrbitPinchCamera : MonoBehaviour
         {
             UnityEngine.Touch t0 = Input.GetTouch(0);
             UnityEngine.Touch t1 = Input.GetTouch(1);
-            if (ignoreInputOverUI && EventSystem.current != null &&
-                (EventSystem.current.IsPointerOverGameObject(t0.fingerId) ||
-                 EventSystem.current.IsPointerOverGameObject(t1.fingerId)))
+            if (ignoreInputOverUI &&
+                (IsTouchOverInteractiveUi(t0.position, t0.fingerId) ||
+                 IsTouchOverInteractiveUi(t1.position, t1.fingerId)))
                 return;
 
             Vector2 t0Prev = t0.position - t0.deltaPosition;
