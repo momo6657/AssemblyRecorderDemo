@@ -313,6 +313,8 @@ public class ImportManager : MonoBehaviour
             return;
         }
 
+        if (orbitPinchCamera == null) orbitPinchCamera = FindFirstObjectByType<OrbitPinchCamera>();
+        selectionManager.orbitCamera = orbitPinchCamera;
         selectionManager.BindModel(root);
         Debug.Log("[IMPORT] SelectionManager bound");
     }

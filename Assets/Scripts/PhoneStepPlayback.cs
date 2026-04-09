@@ -13,6 +13,7 @@ public class PhoneStepPlayback : MonoBehaviour
     public ApiClient api;
     public ImportManager importManager;
     public ModelIndex modelIndex;
+    public OrbitPinchCamera orbitCamera;
 
     [Header("Input/UI")]
     public TMP_InputField taskIdInput;
@@ -932,6 +933,7 @@ public class PhoneStepPlayback : MonoBehaviour
         if (api == null) api = FindFirstObjectByType<ApiClient>();
         if (importManager == null) importManager = FindFirstObjectByType<ImportManager>();
         if (modelIndex == null) modelIndex = FindFirstObjectByType<ModelIndex>();
+        if (orbitCamera == null) orbitCamera = FindFirstObjectByType<OrbitPinchCamera>();
     }
 
     async Task<bool> TryLoadLatestRecordingByTask(string taskIdForList)

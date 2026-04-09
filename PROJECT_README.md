@@ -451,3 +451,17 @@ public async void OnButtonClick()
 - ✅ 创建 `PERFORMANCE_OPTIMIZATION.md` 优化文档
 - ✅ 修复 glTFast 6.16 材质属性名称问题（小写字段）
 - ✅ 创建 `UrpLitMaterialGenerator.cs` 自定义材质生成器
+
+### 2026-03-30
+- ✅ 手机端摄像机视角优化：改为绕底座上方环绕模式
+- ✅ 修改 `OrbitPinchCamera.cs`：添加动态轨道中心（`SetOrbitCenter`）、平滑过渡、可调参数
+- ✅ 修改 `PhoneStepPlayback.cs`：识别录制中第一个移动零件为底座，模型加载后自动更新摄像机轨道中心
+- ✅ 新增 `baseHeightOffset` 字段（Inspector 可调，默认 1.5f），控制轨道中心高于底座顶部的偏移量
+
+### 2026-03-31
+- ✅ 手机端视角交互重构：改为围绕当前选中零件平滑环绕
+- ✅ 修改 `SelectionManager.cs`：选择机制改为单选，点击新零件自动取消旧选择
+- ✅ 选中高亮改为低调轻微染色，不再使用过于显眼的纯替换高亮材质
+- ✅ 修改 `OrbitPinchCamera.cs`：新增 `FocusOnTransform` / `ClearFollowTarget`，支持持续跟随选中零件
+- ✅ 修改 `ImportManager.cs`：绑定模型时同步绑定选择器与轨道相机引用
+- ✅ 清理 `PhoneStepPlayback.cs` 中旧的底座环绕逻辑，避免与选中跟随机制冲突

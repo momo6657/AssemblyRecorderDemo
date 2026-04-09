@@ -13,9 +13,14 @@ public class SelectionManager : MonoBehaviour
     [Header("Refs")]
     public Camera cam;
     public Material highlightMat;
+    public OrbitPinchCamera orbitCamera;
 
     [Header("UI Guard")]
     public bool ignoreTapOverUI = true;
+
+    [Header("Highlight")]
+    [Range(0f, 1f)] public float highlightBlend = 0.18f;
+    public Color highlightTint = new Color(0.85f, 0.92f, 1f, 1f);
 
     [Header("Runtime")]
     public Transform modelRoot;     // ImportedModel
@@ -39,6 +44,7 @@ public class SelectionManager : MonoBehaviour
     {
         if (cam == null) cam = Camera.main;
         if (index == null) index = FindAnyObjectByType<ModelIndex>();
+        if (orbitCamera == null) orbitCamera = FindAnyObjectByType<OrbitPinchCamera>();
     }
 
     public void BindModel(Transform root)
@@ -59,6 +65,8 @@ public class SelectionManager : MonoBehaviour
         EnsureColliders(modelRoot);
 
         ClearSelection();
+        if (orbitCamera == null) orbitCamera = FindAnyObjectByType<OrbitPinchCamera>();
+        if (orbitCamera != null) orbitCamera.ClearFollowTarget();
         Debug.Log("[SelectionManager] Bound modelRoot=" + modelRoot.name + " parts=" + (index.map != null ? index.map.Count : 0));
     }
 
@@ -136,16 +144,22 @@ public class SelectionManager : MonoBehaviour
         if (index == null || index.map == null) return;
         if (!index.map.TryGetValue(key, out var t) || t == null) return;
 
-        if (selected.Contains(key))
+        bool alreadySelected = selected.Contains(key);
+        ClearSelection();
+
+        if (alreadySelected)
         {
-            selected.Remove(key);
-            Restore(t, key);
+            if (orbitCamera != null)
+                orbitCamera.ClearFollowTarget();
+            return;
         }
-        else
-        {
-            selected.Add(key);
-            Highlight(t, key);
-        }
+
+        selected.Add(key);
+        Highlight(t, key);
+
+        if (orbitCamera == null) orbitCamera = FindAnyObjectByType<OrbitPinchCamera>();
+        if (orbitCamera != null)
+            orbitCamera.FocusOnTransform(t);
     }
 
     void Highlight(Transform t, string key)
@@ -156,12 +170,26 @@ public class SelectionManager : MonoBehaviour
         if (!original.ContainsKey(key))
             original[key] = r.materials;
 
-        if (highlightMat != null)
+        var sourceMats = original[key];
+        var mats = new Material[sourceMats.Length];
+        for (int i = 0; i < mats.Length; i++)
         {
-            var mats = new Material[r.materials.Length];
-            for (int i = 0; i < mats.Length; i++) mats[i] = highlightMat;
-            r.materials = mats;
+            var src = sourceMats[i];
+            if (src == null) continue;
+
+            mats[i] = new Material(src);
+            if (mats[i].HasProperty("_BaseColor"))
+            {
+                Color baseColor = mats[i].GetColor("_BaseColor");
+                mats[i].SetColor("_BaseColor", Color.Lerp(baseColor, highlightTint, highlightBlend));
+            }
+            else if (mats[i].HasProperty("_Color"))
+            {
+                Color baseColor = mats[i].GetColor("_Color");
+                mats[i].SetColor("_Color", Color.Lerp(baseColor, highlightTint, highlightBlend));
+            }
         }
+        r.materials = mats;
     }
 
     void Restore(Transform t, string key)

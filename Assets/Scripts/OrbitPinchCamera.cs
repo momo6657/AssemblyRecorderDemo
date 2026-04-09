@@ -10,7 +10,7 @@ using TouchPhaseET = UnityEngine.InputSystem.TouchPhase;
 public class OrbitPinchCamera : MonoBehaviour
 {
     [Header("Target & Camera")]
-    public Transform target;                // ImportedModel
+    public Transform target;                // ImportedModel（轨道中心 fallback）
     public Transform cameraTransform;       // Main Camera
 
     [Header("UI Guard")]
@@ -26,12 +26,26 @@ public class OrbitPinchCamera : MonoBehaviour
     public float minDistance = 1f;
     public float maxDistance = 20f;
 
+    [Header("Orbit Center (Dynamic)")]
+    [Tooltip("是否启用动态轨道中心")]
+    public bool useDynamicOrbitCenter = true;
+    [Tooltip("平滑过渡速度，0 = 瞬间切换")]
+    public float orbitCenterSmoothSpeed = 5f;
+    [Tooltip("选中零件时，轨道中心相对零件中心的垂直偏移")]
+    public float selectionVerticalOffset = 0f;
+
     float yaw = 0f;
     float pitch = 20f;
     float distance = 6f;
 
     Vector2 lastPos;
     bool ignoreDrag = false;
+
+    // 动态轨道中心
+    Vector3 _targetOrbitCenter;     // 目标中心（外部设置）
+    Vector3 _currentOrbitCenter;    // 当前插值中心
+    bool _orbitCenterSet = false;   // 是否已被外部设置过
+    Transform _followTarget;        // 当前选中的零件
 
     void OnEnable()
     {
@@ -43,7 +57,16 @@ public class OrbitPinchCamera : MonoBehaviour
     void Start()
     {
         AutoFindCamera();
-        if (target != null && cameraTransform != null) UpdateCam();
+        InitOrbitCenter();
+        if (cameraTransform != null) UpdateCam();
+    }
+
+    void InitOrbitCenter()
+    {
+        // 初始中心：target 位置（兼容旧行为）
+        Vector3 initial = target != null ? target.position : Vector3.zero;
+        _targetOrbitCenter = initial;
+        _currentOrbitCenter = initial;
     }
 
     void AutoFindCamera()
@@ -62,16 +85,93 @@ public class OrbitPinchCamera : MonoBehaviour
 
     void Update()
     {
-        if (target == null) return;
-
         AutoFindCamera();
         if (cameraTransform == null) return;
+
+        if (_followTarget != null)
+            _targetOrbitCenter = _followTarget.position + Vector3.up * selectionVerticalOffset;
+
+        // 平滑过渡轨道中心
+        if (useDynamicOrbitCenter && _orbitCenterSet)
+        {
+            if (orbitCenterSmoothSpeed > 0f)
+                _currentOrbitCenter = Vector3.Lerp(_currentOrbitCenter, _targetOrbitCenter,
+                    Time.deltaTime * orbitCenterSmoothSpeed);
+            else
+                _currentOrbitCenter = _targetOrbitCenter;
+
+            UpdateCam();
+        }
+        else if (target == null)
+        {
+            return;
+        }
 
 #if ENABLE_INPUT_SYSTEM
         HandleInput_NewInputSystem();
 #else
         HandleInput_OldInput();
 #endif
+    }
+
+    /// <summary>
+    /// 设置动态轨道中心（手动指定中心点）
+    /// </summary>
+    public void SetOrbitCenter(Vector3 worldCenter)
+    {
+        _followTarget = null;
+        _targetOrbitCenter = worldCenter;
+        if (!_orbitCenterSet)
+            _currentOrbitCenter = worldCenter;
+        _orbitCenterSet = true;
+        Debug.Log($"[OrbitCamera] SetOrbitCenter: {worldCenter}");
+    }
+
+    /// <summary>
+    /// 聚焦到指定零件，之后轨道中心会持续跟随该零件中心
+    /// </summary>
+    public void FocusOnTransform(Transform focusTarget)
+    {
+        if (focusTarget == null) return;
+        _followTarget = focusTarget;
+        _targetOrbitCenter = focusTarget.position + Vector3.up * selectionVerticalOffset;
+        if (!_orbitCenterSet)
+            _currentOrbitCenter = _targetOrbitCenter;
+        _orbitCenterSet = true;
+        Debug.Log($"[OrbitCamera] FocusOnTransform: {focusTarget.name}");
+    }
+
+    /// <summary>
+    /// 清除零件跟随，回退到模型整体 target
+    /// </summary>
+    public void ClearFollowTarget()
+    {
+        _followTarget = null;
+        ClearOrbitCenter();
+    }
+
+    /// <summary>
+    /// 清除动态中心，回退到 target
+    /// </summary>
+    public void ClearOrbitCenter()
+    {
+        _orbitCenterSet = false;
+        if (target != null)
+        {
+            _targetOrbitCenter = target.position;
+            _currentOrbitCenter = target.position;
+        }
+    }
+
+    /// <summary>
+    /// 获取当前实际使用的轨道中心
+    /// </summary>
+    Vector3 GetOrbitCenter()
+    {
+        if (useDynamicOrbitCenter && _orbitCenterSet)
+            return _currentOrbitCenter;
+
+        return target != null ? target.position : Vector3.zero;
     }
 
 #if ENABLE_INPUT_SYSTEM
@@ -221,18 +321,26 @@ public class OrbitPinchCamera : MonoBehaviour
 
     void UpdateCam()
     {
-        if (target == null || cameraTransform == null) return;
+        if (cameraTransform == null) return;
 
-        transform.position = target.position;
+        Vector3 center = GetOrbitCenter();
+
+        // 绕中心旋转
+        transform.position = center;
         transform.rotation = Quaternion.Euler(pitch, yaw, 0f);
 
         cameraTransform.position = transform.position - transform.forward * distance;
-        cameraTransform.LookAt(target.position);
+        cameraTransform.LookAt(center);
     }
 
     public void ForceUpdateOnce()
     {
         AutoFindCamera();
+        if (!_orbitCenterSet && target != null)
+        {
+            _targetOrbitCenter = target.position;
+            _currentOrbitCenter = target.position;
+        }
         UpdateCam();
     }
 }
