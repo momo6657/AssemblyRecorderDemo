@@ -242,8 +242,14 @@ PhoneStepPlayback.CoPlayStep() (轨迹插值动画播放)
 
 ### 服务端启动
 ```bash
+# 本地开发（默认无鉴权，数据存 ./data）
 cd "D:\assemble server"
 .\.venv\Scripts\python.exe -u server.py
+
+# 云服务器部署（配置 .env 后用 start.sh）
+cp .env.example .env   # 编辑 .env 设置 API_KEY 等
+chmod +x start.sh
+./start.sh
 ```
 
 ---
@@ -259,6 +265,13 @@ cd "D:\assemble server"
 ---
 
 ## 🔄 项目变更记录
+
+### 2026-04-22
+- ✅ 后端 `server.py` 云部署改造（环境变量配置、API Key 鉴权、上传大小限制、日志文件、CORS）
+- ✅ 客户端 `ApiClient.cs` 增加 API Key 支持与可配置服务器地址
+- ✅ 客户端网络配置升级为 `ServerConfig` 全局配置方案（`Resources/ServerConfig.asset`）
+- ✅ `ServerConfig` 升级为 Local / Cloud 双环境配置，可手动切换本地开发与云端发布
+- ✅ 新增部署配置文件（systemd、Nginx、Caddy、启动脚本、环境变量模板）
 
 ### 2026-04-09
 - ✅ 新增 UI Toolkit 手机端播放页骨架

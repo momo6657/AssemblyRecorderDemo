@@ -151,6 +151,7 @@
     <Compile Include="Assets\Modern UI Pack\Scripts\Demo\DemoListShadow.cs" />
     <Compile Include="Assets\Scripts\UrpLitMaterialGenerator.cs" />
     <Compile Include="Assets\Scripts\ModelIndex.cs" />
+    <Compile Include="Assets\Scripts\net\ServerConfig.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\ListView\ListView.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Modern UI Pack\Scripts\UI Manager\UIManagerInputField.cs" />

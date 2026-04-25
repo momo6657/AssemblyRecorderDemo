@@ -4,6 +4,50 @@
 
 ---
 
+## 📅 2026-04-22
+
+### 🚀 云部署改造
+
+#### 后端 server.py 云部署适配
+- **功能描述**：将后端从"本地 demo 服务"改造为"可部署到云服务器"的版本
+- **解决方案**：
+  - 所有配置改为环境变量读取（`ASSEMBLE_HOST`、`ASSEMBLE_PORT`、`ASSEMBLE_DATA_DIR`、`ASSEMBLE_API_KEY`、`ASSEMBLE_MAX_UPLOAD_MB`）
+  - 增加 API Key 鉴权（通过 `X-Api-Key` 请求头校验，`/ping` 免鉴权）
+  - 增加上传大小限制（默认 100MB，超出返回 413）
+  - 增加 CORS 支持（`Access-Control-Allow-Origin: *`）
+  - 增加 OPTIONS 预检请求处理
+  - 增加结构化日志（同时输出到控制台和 `data/logs/server.log`）
+  - 关键操作（任务创建、录制创建、模型上传等）增加日志记录
+- **修改文件**：`D:\assemble server\server.py`
+- **影响范围**：后端全部接口
+- **向后兼容**：✅ 不设 API Key 时行为与改造前完全一致
+
+#### 客户端 ApiClient.cs 适配
+- **功能描述**：客户端支持 API Key 鉴权、全局服务器配置、Local/Cloud 双环境切换与运行时地址覆盖
+- **解决方案**：
+  - 新增 `ServerConfig.cs` ScriptableObject 作为全局服务器配置
+  - 约定从 `Resources/ServerConfig.asset` 自动加载环境配置与默认 API Key
+  - `ServerConfig` 新增 `environment`、`localBaseUrl`、`cloudBaseUrl`
+  - `ApiClient.cs` 按当前环境自动选择本地地址或云端地址
+  - 保留组件级 `baseUrl` 覆盖能力，但受全局配置项控制
+  - 保留 `PlayerPrefs` 运行时地址覆盖能力，便于切换本地调试环境
+  - 所有请求自动附加 `X-Api-Key` 头（组件级覆盖优先，否则走全局配置）
+- **修改文件**：
+  - `Assets/Scripts/net/ApiClient.cs`
+  - `Assets/Scripts/net/ServerConfig.cs`
+  - `Assets/Resources/ServerConfig.asset`
+- **影响范围**：手机端 + Quest 端网络请求配置
+- **需要重新打包**：✅ 手机端 + Quest 端
+
+#### 部署配置文件
+- **新增文件**：
+  - `D:\assemble server\requirements.txt` - 依赖声明
+  - `D:\assemble server\.env.example` - 环境变量模板
+  - `D:\assemble server\start.sh` - Linux 启动脚本
+  - `D:\assemble server\deploy\assemble-server.service` - systemd 服务文件
+  - `D:\assemble server\deploy\Caddyfile` - Caddy 反向代理配置
+  - `D:\assemble server\deploy\nginx.conf` - Nginx 反向代理配置
+
 ## 📅 2026-04-09
 
 ### 🎨 功能优化
