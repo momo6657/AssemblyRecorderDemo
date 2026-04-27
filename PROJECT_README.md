@@ -119,7 +119,7 @@ POST /uploadRecordingSteps (上传步骤数据)
 ```text
 PhonePlaybackUIDocumentController.RefreshRecordingsAsync()
   ↓
-GET /listRecordings (获取录制列表)
+GET /listRecordings (获取录制列表，可按 logicalModelId/modelType/modelHash 过滤打包版本对应录制)
   ↓
 用户点击录制条目
   ↓
@@ -149,6 +149,9 @@ PhoneStepPlayback.CoPlayStep() (轨迹插值动画播放)
   "status": "pending",
   "title": "Assembly Task 20260304_195127",
   "userId": "",
+  "logicalModelId": "engine_v1",
+  "modelType": "engine",
+  "modelHash": "sha256...",
   "createdAt": 1772625087295,
   "updatedAt": 1772625087295
 }
@@ -162,6 +165,9 @@ PhoneStepPlayback.CoPlayStep() (轨迹插值动画播放)
   "modelId": "m_20260304_195122_383",
   "title": "Recording 20260304_195148",
   "userId": "",
+  "logicalModelId": "engine_v1",
+  "modelType": "engine",
+  "modelHash": "sha256...",
   "createdAt": 1772625108433
 }
 ```
@@ -265,6 +271,14 @@ chmod +x start.sh
 ---
 
 ## 🔄 项目变更记录
+
+### 2026-04-25
+- ✅ 新增 `PlaybackAppConfig` 打包版本播放配置，可配置 `logicalModelId` / `modelType` / `modelHash` 与录制列表锁定开关
+- ✅ 手机端创建任务上传 GLB 后计算 SHA256 `modelHash`，并随 `/createTask` 写入 logical/model 元数据
+- ✅ Quest 端从 `/pollTask` 保存 logical/model 元数据，并在 `/createRecording` 与 `/uploadRecordingSteps` 中继续传递
+- ✅ 手机端 UI Toolkit 录制列表在锁定配置开启时通过 `/listRecordings` 传入 `logicalModelId` / `modelType` / `modelHash` 过滤参数
+- ✅ 后端录制接口保存并返回新字段，`/listRecordings` 支持 `taskId` / `userId` / `modelId` / `logicalModelId` / `modelType` / `modelHash` AND 组合过滤
+- ✅ 保持播放时使用 recording/steps 中的 `modelId` 下载服务器模型，不用 `modelId` 做打包版本过滤
 
 ### 2026-04-22
 - ✅ 后端 `server.py` 云部署改造（环境变量配置、API Key 鉴权、上传大小限制、日志文件、CORS）

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public static class InputCompat
 {
-    // 是否按下（这一帧）
+    // 是否按下
     public static bool PointerDownThisFrame(out Vector2 pos)
     {
         pos = default;

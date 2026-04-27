@@ -170,6 +170,9 @@ public class PhoneStepPlayback : MonoBehaviour
             if (recordingIdInput != null) recordingIdInput.text = id;
 
             string modelIdFromMeta = "";
+            string logicalModelIdFromMeta = "";
+            string modelTypeFromMeta = "";
+            string modelHashFromMeta = "";
 
             try
             {
@@ -201,6 +204,9 @@ public class PhoneStepPlayback : MonoBehaviour
                         if (taskIdInput != null) taskIdInput.text = t;
                     }
                     modelIdFromMeta = metaRes.recording.GetModelId();
+                    logicalModelIdFromMeta = metaRes.recording.GetLogicalModelId();
+                    modelTypeFromMeta = metaRes.recording.GetModelType();
+                    modelHashFromMeta = metaRes.recording.GetModelHash();
                 }
             }
             catch (Exception ex)
@@ -233,6 +239,12 @@ public class PhoneStepPlayback : MonoBehaviour
 
             if (string.IsNullOrEmpty(data.modelId) && !string.IsNullOrEmpty(modelIdFromMeta))
                 data.modelId = modelIdFromMeta;
+            if (string.IsNullOrEmpty(data.logicalModelId) && !string.IsNullOrEmpty(logicalModelIdFromMeta))
+                data.logicalModelId = logicalModelIdFromMeta;
+            if (string.IsNullOrEmpty(data.modelType) && !string.IsNullOrEmpty(modelTypeFromMeta))
+                data.modelType = modelTypeFromMeta;
+            if (string.IsNullOrEmpty(data.modelHash) && !string.IsNullOrEmpty(modelHashFromMeta))
+                data.modelHash = modelHashFromMeta;
 
             _loadedRecordingId = id;
             _loadedTaskId = taskId;
@@ -492,6 +504,9 @@ public class PhoneStepPlayback : MonoBehaviour
         var outData = new StepsData
         {
             modelId = lite != null ? lite.modelId : null,
+            logicalModelId = lite != null ? lite.logicalModelId : null,
+            modelType = lite != null ? lite.modelType : null,
+            modelHash = lite != null ? lite.modelHash : null,
             steps = new List<StepFrame>()
         };
 
@@ -943,7 +958,7 @@ public class PhoneStepPlayback : MonoBehaviour
     {
         try
         {
-            var items = await QueryRecordings(taskIdForList, ResolveUserIdForPlayback());
+            var items = await QueryRecordings(taskIdForList, ResolveUserIdForPlayback(), null, null, null);
             if (items == null || items.Length == 0) return false;
 
             string latestRid = ChooseLatestRecordingId(items);
@@ -958,12 +973,12 @@ public class PhoneStepPlayback : MonoBehaviour
         }
     }
 
-    async Task<RecordingData[]> QueryRecordings(string taskIdForList, string userIdForList)
+    async Task<RecordingData[]> QueryRecordings(string taskIdForList, string userIdForList, string logicalModelIdForList, string modelTypeForList, string modelHashForList)
     {
         EnsureRefs();
         if (api == null) return Array.Empty<RecordingData>();
 
-        string path = BuildListRecordingsPath(taskIdForList, userIdForList);
+        string path = BuildListRecordingsPath(taskIdForList, userIdForList, logicalModelIdForList, modelTypeForList, modelHashForList);
         string json = await api.GetText(path);
         if (string.IsNullOrWhiteSpace(json)) return Array.Empty<RecordingData>();
 
@@ -975,28 +990,40 @@ public class PhoneStepPlayback : MonoBehaviour
     // taskIdForList:
     // - null/empty => no task filter (list all recordings)
     // - non-empty  => filter by that taskId
-    public async Task<RecordingData[]> ListRecordings(string taskIdForList = null, string userIdForList = null)
+    public async Task<RecordingData[]> ListRecordings(
+        string taskIdForList = null,
+        string userIdForList = null,
+        string logicalModelIdForList = null,
+        string modelTypeForList = null,
+        string modelHashForList = null)
     {
         string taskFilter = string.IsNullOrWhiteSpace(taskIdForList) ? null : taskIdForList.Trim();
         string userFilter = string.IsNullOrWhiteSpace(userIdForList) ? ResolveUserIdForPlayback() : userIdForList;
-        return await QueryRecordings(taskFilter, userFilter);
+        string logicalFilter = string.IsNullOrWhiteSpace(logicalModelIdForList) ? null : logicalModelIdForList.Trim();
+        string typeFilter = string.IsNullOrWhiteSpace(modelTypeForList) ? null : modelTypeForList.Trim();
+        string hashFilter = string.IsNullOrWhiteSpace(modelHashForList) ? null : modelHashForList.Trim();
+        return await QueryRecordings(taskFilter, userFilter, logicalFilter, typeFilter, hashFilter);
     }
 
-    string BuildListRecordingsPath(string taskIdForList, string userIdForList)
+    string BuildListRecordingsPath(string taskIdForList, string userIdForList, string logicalModelIdForList, string modelTypeForList, string modelHashForList)
     {
         string path = "/listRecordings";
         string sep = "?";
 
-        if (!string.IsNullOrWhiteSpace(taskIdForList))
-        {
-            path += sep + "taskId=" + UnityWebRequest.EscapeURL(taskIdForList.Trim());
-            sep = "&";
-        }
-
-        if (!string.IsNullOrWhiteSpace(userIdForList))
-            path += sep + "userId=" + UnityWebRequest.EscapeURL(userIdForList.Trim());
+        AddQuery(ref path, ref sep, "taskId", taskIdForList);
+        AddQuery(ref path, ref sep, "userId", userIdForList);
+        AddQuery(ref path, ref sep, "logicalModelId", logicalModelIdForList);
+        AddQuery(ref path, ref sep, "modelType", modelTypeForList);
+        AddQuery(ref path, ref sep, "modelHash", modelHashForList);
 
         return path;
+    }
+
+    static void AddQuery(ref string path, ref string sep, string key, string value)
+    {
+        if (string.IsNullOrWhiteSpace(value)) return;
+        path += sep + key + "=" + UnityWebRequest.EscapeURL(value.Trim());
+        sep = "&";
     }
 
     static string ChooseLatestRecordingId(RecordingData[] items)
@@ -1137,6 +1164,9 @@ public class PhoneStepPlayback : MonoBehaviour
     class StepsDataLite
     {
         public string modelId;
+        public string logicalModelId;
+        public string modelType;
+        public string modelHash;
         public List<StepFrameLite> steps;
     }
 

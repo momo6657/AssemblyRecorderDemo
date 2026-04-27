@@ -34,6 +34,9 @@ public class QuestPollTask : MonoBehaviour
     public string currentModelId;
     public string currentTaskTitle;
     public string currentTaskUserId;
+    public string currentLogicalModelId;
+    public string currentModelType;
+    public string currentModelHash;
     public bool skipReloadIfSameTaskAlreadyLoaded = true;
     public bool skipReloadIfSameModelAlreadyLoaded = true;
 
@@ -196,6 +199,9 @@ public class QuestPollTask : MonoBehaviour
             currentTaskUserId = res.task != null
                 ? (!string.IsNullOrEmpty(res.task.userId) ? res.task.userId : res.task.user_id)
                 : "";
+            currentLogicalModelId = res.task != null ? res.task.GetLogicalModelId() : "";
+            currentModelType = res.task != null ? res.task.GetModelType() : "";
+            currentModelHash = res.task != null ? res.task.GetModelHash() : "";
 
             if (string.IsNullOrEmpty(currentTaskId) || string.IsNullOrEmpty(currentModelId))
             {
@@ -233,7 +239,10 @@ public class QuestPollTask : MonoBehaviour
 
             OnTaskContextChanged?.Invoke(currentTaskId, currentModelId);
 
-            SetStatus("[QUEST] got taskId=" + currentTaskId + " modelId=" + currentModelId);
+            SetStatus("[QUEST] got taskId=" + currentTaskId + " modelId=" + currentModelId
+                      + " logicalModelId=" + currentLogicalModelId
+                      + " modelType=" + currentModelType
+                      + " modelHash=" + currentModelHash);
 
             byte[] glb = await api.GetBytes("/downloadModel?modelId=" + currentModelId);
             if (glb == null || glb.Length == 0)

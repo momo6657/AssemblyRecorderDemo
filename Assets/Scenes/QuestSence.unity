@@ -2834,6 +2834,7 @@ MonoBehaviour:
   preferGltfUrpMaterialGenerator: 1
   remapImportedMaterialsToUrpLit: 1
   remapOnlyWhenUnsupported: 0
+  modelBrightnessMultiplier: 2
 --- !u!1 &1194706855
 GameObject:
   m_ObjectHideFlags: 0
@@ -4098,7 +4099,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a66633a2e8d29746851c02d4fa3dc20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ApiClient
+  useInspectorOverride: 1
   baseUrl: http://192.168.137.1:5000
+  apiKey: 
 --- !u!1 &1911715027
 GameObject:
   m_ObjectHideFlags: 0
@@ -4161,6 +4164,9 @@ MonoBehaviour:
   moveScaleThreshold: 0.001
   data:
     modelId: 
+    logicalModelId: 
+    modelType: 
+    modelHash: 
     steps: []
   currentIndex: -1
 --- !u!1 &1912080732
@@ -4272,6 +4278,9 @@ MonoBehaviour:
   currentModelId: 
   currentTaskTitle: 
   currentTaskUserId: 
+  currentLogicalModelId: 
+  currentModelType: 
+  currentModelHash: 
   skipReloadIfSameTaskAlreadyLoaded: 1
   skipReloadIfSameModelAlreadyLoaded: 1
   lastLoadedTaskId: 

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -88,7 +88,9 @@ namespace Michsky.MUIP
         // Helpers
         bool isInitialized = false;
         Button targetButton;
+#if !UNITY_IOS && !UNITY_ANDROID
         bool isPointerOn;
+#endif
         bool waitingForDoubleClickInput;
         const int navHelper = 1; 
 
@@ -390,7 +392,9 @@ namespace Michsky.MUIP
             if (enableButtonSounds && useHoverSound && soundSource != null) { soundSource.PlayOneShot(hoverSound); }
             if (animationSolution == AnimationSolution.ScriptBased) { StartCoroutine(nameof(SetHighlight)); }
          
+#if !UNITY_IOS && !UNITY_ANDROID
             isPointerOn = true;
+#endif
             onHover.Invoke();
         }
 
@@ -399,7 +403,9 @@ namespace Michsky.MUIP
             if (!isInteractable) { return; }
             if (animationSolution == AnimationSolution.ScriptBased) { StartCoroutine(nameof(SetNormal)); }
 
+#if !UNITY_IOS && !UNITY_ANDROID
             isPointerOn = false;
+#endif
             onLeave.Invoke();
         }
 

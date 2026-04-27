@@ -66,6 +66,9 @@ public class StepFrame
 public class StepsData
 {
     public string modelId;
+    public string logicalModelId;
+    public string modelType;
+    public string modelHash;
     public List<StepFrame> steps = new List<StepFrame>();
 }
 
@@ -111,6 +114,9 @@ public class QuestStepSession : MonoBehaviour
 
     string _boundTaskId;
     string _boundModelId;
+    string _boundLogicalModelId;
+    string _boundModelType;
+    string _boundModelHash;
 
     bool _segmentPrepared;
     float _segmentStartTime;
@@ -161,12 +167,21 @@ public class QuestStepSession : MonoBehaviour
 
     public void BeginTaskSession(string taskId, string modelId, bool clearExistingSteps = true)
     {
+        string logicalModelId = questPollTask != null ? questPollTask.currentLogicalModelId : "";
+        string modelType = questPollTask != null ? questPollTask.currentModelType : "";
+        string modelHash = questPollTask != null ? questPollTask.currentModelHash : "";
         bool changed = !string.Equals(_boundTaskId, taskId, StringComparison.Ordinal) ||
                        !string.Equals(_boundModelId, modelId, StringComparison.Ordinal);
 
         _boundTaskId = taskId;
         _boundModelId = modelId;
+        _boundLogicalModelId = logicalModelId;
+        _boundModelType = modelType;
+        _boundModelHash = modelHash;
         data.modelId = modelId;
+        data.logicalModelId = logicalModelId;
+        data.modelType = modelType;
+        data.modelHash = modelHash;
         if (changed) currentRecordingId = "";
 
         if (clearExistingSteps && changed)
@@ -630,6 +645,9 @@ public class QuestStepSession : MonoBehaviour
             if (data.steps == null || data.steps.Count == 0) throw new Exception("no steps recorded");
 
             data.modelId = _boundModelId;
+            data.logicalModelId = _boundLogicalModelId;
+            data.modelType = _boundModelType;
+            data.modelHash = _boundModelHash;
             if (useNamedRecordingApi)
             {
                 if (string.IsNullOrEmpty(_boundModelId))
@@ -641,7 +659,10 @@ public class QuestStepSession : MonoBehaviour
                     taskId = _boundTaskId,
                     modelId = _boundModelId,
                     title = title,
-                    userId = ResolveRecordingUserId()
+                    userId = ResolveRecordingUserId(),
+                    logicalModelId = _boundLogicalModelId,
+                    modelType = _boundModelType,
+                    modelHash = _boundModelHash
                 };
 
                 string createJson = JsonUtility.ToJson(createReq);

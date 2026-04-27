@@ -331,7 +331,21 @@ public class PhonePlaybackUIDocumentController : MonoBehaviour
         try
         {
             if (!silent) SetMessage("Refreshing library...");
-            var items = await phonePlayback.ListRecordings(null, GetUserIdFilter());
+            string logicalModelId = null;
+            string modelType = null;
+            string modelHash = null;
+            PlaybackAppConfig config = PlaybackAppConfig.Load();
+            if (config != null && config.lockRecordingsToConfiguredModel && config.buildMode != AppBuildMode.DebugAll)
+            {
+                logicalModelId = string.IsNullOrWhiteSpace(config.logicalModelId) ? null : config.logicalModelId.Trim();
+                modelType = string.IsNullOrWhiteSpace(config.modelType) ? null : config.modelType.Trim();
+                modelHash = string.IsNullOrWhiteSpace(config.modelHash) ? null : config.modelHash.Trim();
+                Debug.Log($"[UITK] Refresh recordings filter logicalModelId={logicalModelId ?? ""} modelType={modelType ?? ""} modelHash={modelHash ?? ""}");
+                if (string.IsNullOrEmpty(logicalModelId) && string.IsNullOrEmpty(modelType) && string.IsNullOrEmpty(modelHash))
+                    Debug.LogWarning("[UITK] lockRecordingsToConfiguredModel is true but logicalModelId/modelType/modelHash are all empty; using unfiltered recordings list.");
+            }
+
+            var items = await phonePlayback.ListRecordings(null, GetUserIdFilter(), logicalModelId, modelType, modelHash);
             RebuildRecordingsList(items);
         }
         catch (Exception e)

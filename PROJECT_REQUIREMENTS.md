@@ -7,14 +7,15 @@
 ## 🔄 文档版本控制
 
 ### 当前版本
-- **版本号**：v1.2.0
-- **最后更新**：2026-04-22
+- **版本号**：v1.3.0
+- **最后更新**：2026-04-25
 - **更新者**：AI Agent
-- **变更说明**：新增云部署改造与客户端全局 ServerConfig 网络配置
+- **变更说明**：录制列表支持按 logicalModelId/modelType/modelHash 过滤，用于打包版本播放器接口对齐
 
 ### 版本历史
 | 版本 | 日期 | 更新者 | 主要变更 |
 |------|------|--------|----------|
+| v1.3.0 | 2026-04-25 | AI Agent | 录制列表支持按 logicalModelId/modelType/modelHash 过滤，用于打包版本播放器接口对齐 |
 | v1.2.0 | 2026-04-22 | AI Agent | 新增云部署改造与客户端全局 ServerConfig 网络配置 |
 | v1.1.0 | 2026-04-09 | AI Agent | 新增手机端 UI Toolkit 播放页重构需求 |
 | v1.0.0 | 2026-03-04 | AI Agent | 初始版本创建 |
@@ -50,6 +51,7 @@
   - 显示所有录制（不按任务过滤）
   - 支持点击加载录制
   - 显示录制标题和时间
+  - 支持播放器打包版本通过 `logicalModelId` / `modelType` / `modelHash` 组合过滤录制列表
   - 状态：已完成
 
 - ✅ **步骤回放**
@@ -101,6 +103,7 @@
   - GET /listRecordings
   - GET /downloadRecording
   - GET /downloadRecordingSteps
+  - `/listRecordings` 支持 `taskId` / `userId` / `modelId` / `logicalModelId` / `modelType` / `modelHash` AND 组合过滤
   - 状态：已完成
 
 ### 2. 非功能需求
@@ -247,5 +250,5 @@ Agent 完成更新后，向用户确认：
 ---
 
 **文档维护者**：所有 AI Agent + 项目负责人  
-**最后审核**：2026-04-09  
+**最后审核**：2026-04-25  
 **下次审核**：需求变更时

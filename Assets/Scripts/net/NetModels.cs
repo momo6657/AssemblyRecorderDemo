@@ -1,5 +1,18 @@
 using System;
 
+public static class NetModelStringUtil
+{
+    public static string FirstNonEmpty(params string[] values)
+    {
+        if (values == null) return "";
+        for (int i = 0; i < values.Length; i++)
+        {
+            if (!string.IsNullOrEmpty(values[i])) return values[i];
+        }
+        return "";
+    }
+}
+
 [Serializable]
 public class TaskData
 {
@@ -9,12 +22,18 @@ public class TaskData
     public string modelFile;
     public string title;
     public string userId;
+    public string logicalModelId;
+    public string modelType;
+    public string modelHash;
 
     // compatibility: some backends may return snake_case
     public string task_id;
     public string model_id;
     public string model_file;
     public string user_id;
+    public string logical_model_id;
+    public string model_type;
+    public string model_hash;
 
     public string GetTaskId()
     {
@@ -28,6 +47,21 @@ public class TaskData
         if (!string.IsNullOrEmpty(modelId)) return modelId;
         if (!string.IsNullOrEmpty(model_id)) return model_id;
         return "";
+    }
+
+    public string GetLogicalModelId()
+    {
+        return NetModelStringUtil.FirstNonEmpty(logicalModelId, logical_model_id);
+    }
+
+    public string GetModelType()
+    {
+        return NetModelStringUtil.FirstNonEmpty(modelType, model_type);
+    }
+
+    public string GetModelHash()
+    {
+        return NetModelStringUtil.FirstNonEmpty(modelHash, model_hash);
     }
 }
 
@@ -74,6 +108,12 @@ public class CreateTaskReq
     public string modelId;
     public string title;
     public string userId;
+    public string logicalModelId;
+    public string modelType;
+    public string modelHash;
+    public string logical_model_id;
+    public string model_type;
+    public string model_hash;
 }
 
 [Serializable]
@@ -91,6 +131,9 @@ public class RecordingData
     public string modelId;
     public string title;
     public string userId;
+    public string logicalModelId;
+    public string modelType;
+    public string modelHash;
     public int stepsCount;
     public long createdAt;
     public long updatedAt;
@@ -100,6 +143,9 @@ public class RecordingData
     public string task_id;
     public string model_id;
     public string user_id;
+    public string logical_model_id;
+    public string model_type;
+    public string model_hash;
     public int steps_count;
 
     public string GetRecordingId()
@@ -123,6 +169,21 @@ public class RecordingData
         return "";
     }
 
+    public string GetLogicalModelId()
+    {
+        return NetModelStringUtil.FirstNonEmpty(logicalModelId, logical_model_id);
+    }
+
+    public string GetModelType()
+    {
+        return NetModelStringUtil.FirstNonEmpty(modelType, model_type);
+    }
+
+    public string GetModelHash()
+    {
+        return NetModelStringUtil.FirstNonEmpty(modelHash, model_hash);
+    }
+
     public int GetStepsCount()
     {
         if (stepsCount > 0) return stepsCount;
@@ -138,6 +199,12 @@ public class CreateRecordingReq
     public string modelId;
     public string title;
     public string userId;
+    public string logicalModelId;
+    public string modelType;
+    public string modelHash;
+    public string logical_model_id;
+    public string model_type;
+    public string model_hash;
 }
 
 [Serializable]

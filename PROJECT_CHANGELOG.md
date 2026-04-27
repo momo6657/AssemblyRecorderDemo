@@ -4,6 +4,34 @@
 
 ---
 
+## 📅 2026-04-25
+
+### 🔗 接口字段对齐
+
+#### 打包版本播放器按 logical/model 字段拉取录制
+- **功能描述**：保留“手机端导入模型 → 创建任务 → Quest 拉取任务 → Quest 录制 → 上传录制 → 手机端播放”完整链路，同时让播放器打包版本可以通过配置固定 `logicalModelId` / `modelType` / `modelHash` 拉取对应模型类型录制
+- **解决方案**：
+  - 新增 `PlaybackAppConfig` 配置，从 `Resources/PlaybackAppConfig.asset` 读取过滤字段与锁定开关
+  - `NetModels.cs` 为 task / recording DTO 增加 camelCase 与 snake_case 兼容字段和 getter
+  - `PhoneCreateTask.cs` 上传 GLB 时计算 SHA256，并随 `/createTask` 发送 `logicalModelId` / `modelType` / `modelHash`
+  - `QuestPollTask.cs` 保存 `/pollTask` 返回的新字段，`QuestStepSession.cs` 创建 recording 和上传 steps 时透传这些字段
+  - `PhoneStepPlayback.cs` 扩展 `ListRecordings` 查询参数，并在 `LoadRecording` 中从 recording meta 补齐 steps 根对象元数据
+  - `PhonePlaybackUIDocumentController.cs` 仅调整录制列表调用，不改 UI 显示/隐藏逻辑
+  - 后端 `server.py` 保存、补齐并返回新字段，`/listRecordings` 支持多过滤参数 AND 组合匹配
+- **修改文件**：
+  - `Assets/Scripts/PlaybackAppConfig.cs`
+  - `Assets/Resources/PlaybackAppConfig.asset`
+  - `Assets/Scripts/net/NetModels.cs`
+  - `Assets/Scripts/PhoneCreateTask.cs`
+  - `Assets/Scripts/PhoneStepPlayback.cs`
+  - `Assets/Scripts/PhonePlaybackUIDocumentController.cs`
+  - `Assets/Scripts/net/QuestPollTask.cs`
+  - `Assets/Scripts/QuestStepSession.cs`
+  - `D:\assemble server\server.py`
+- **影响范围**：手机端录制列表、任务创建、Quest 录制上传、后端录制列表接口
+- **向后兼容**：✅ `/listRecordings` 无参数仍返回旧录制；旧数据缺少新字段时不崩溃；点击录制播放仍使用 `modelId` 下载服务器模型
+- **需要重新打包**：✅ 手机端 + Quest 端
+
 ## 📅 2026-04-22
 
 ### 🚀 云部署改造

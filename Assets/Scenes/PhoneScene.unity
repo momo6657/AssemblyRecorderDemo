@@ -4488,6 +4488,9 @@ MonoBehaviour:
   preferRecordingApi: 1
   data:
     modelId: 
+    logicalModelId: 
+    modelType: 
+    modelHash: 
     steps: []
   currentIndex: -1
 --- !u!224 &622135542 stripped
@@ -10647,7 +10650,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a66633a2e8d29746851c02d4fa3dc20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ApiClient
+  useInspectorOverride: 1
   baseUrl: http://192.168.137.1:5000
+  apiKey: 
 --- !u!4 &1495546377
 Transform:
   m_ObjectHideFlags: 0
@@ -14741,10 +14746,10 @@ MonoBehaviour:
   serviceLocator: {fileID: 0}
   autoRefreshRecordingsOnEnable: 1
   pollUiInterval: 0.15
-  showImportButton: 0
+  showImportButton: 1
   showStatusPanel: 1
   showRecordingsPanel: 1
-  showTaskPanel: 0
+  showTaskPanel: 1
   showTimelinePanel: 1
   showJumpControls: 0
   showNavigationButtons: 1

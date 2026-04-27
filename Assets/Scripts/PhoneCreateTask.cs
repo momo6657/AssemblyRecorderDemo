@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -72,6 +74,7 @@ public class PhoneCreateTask : MonoBehaviour
                 throw new Exception("localGlbPath invalid");
 
             byte[] glb = File.ReadAllBytes(localGlbPath);
+            string computedModelHash = ComputeSha256Hex(glb);
             string up = await api.UploadModelBytes(modelId, glb);
             Debug.Log("[PHONE] uploadModel => " + up);
 
@@ -81,7 +84,26 @@ public class PhoneCreateTask : MonoBehaviour
             string uid = ResolveUserId();
             uid = string.IsNullOrWhiteSpace(uid) ? "" : uid.Trim();
 
-            var req = new CreateTaskReq { modelId = modelId, title = title, userId = uid };
+            PlaybackAppConfig config = PlaybackAppConfig.Load();
+            string configuredHash = config != null && !string.IsNullOrWhiteSpace(config.modelHash) ? config.modelHash.Trim() : "";
+            if (!string.IsNullOrEmpty(configuredHash) && !string.Equals(configuredHash, computedModelHash, StringComparison.OrdinalIgnoreCase))
+                Debug.LogWarning($"[PHONE] PlaybackAppConfig.modelHash differs from uploaded GLB SHA256. config={configuredHash}, computed={computedModelHash}");
+
+            string logicalModelId = config != null && !string.IsNullOrWhiteSpace(config.logicalModelId) ? config.logicalModelId.Trim() : "";
+            if (string.IsNullOrEmpty(logicalModelId) && !string.IsNullOrEmpty(computedModelHash))
+                logicalModelId = "lm_" + computedModelHash.Substring(0, Math.Min(16, computedModelHash.Length));
+            string modelType = config != null && !string.IsNullOrWhiteSpace(config.modelType) ? config.modelType.Trim() : "";
+            string modelHash = computedModelHash;
+
+            var req = new CreateTaskReq
+            {
+                modelId = modelId,
+                title = title,
+                userId = uid,
+                logicalModelId = logicalModelId,
+                modelType = modelType,
+                modelHash = modelHash
+            };
             string resText = await api.PostJson("/createTask", JsonUtility.ToJson(req));
             Debug.Log("[PHONE] createTask => " + resText);
 
@@ -124,6 +146,19 @@ public class PhoneCreateTask : MonoBehaviour
         if (!string.IsNullOrWhiteSpace(uiUserId))
             return uiUserId.Trim();
         return "";
+    }
+
+    static string ComputeSha256Hex(byte[] bytes)
+    {
+        if (bytes == null || bytes.Length == 0) return "";
+        using (var sha = SHA256.Create())
+        {
+            byte[] hash = sha.ComputeHash(bytes);
+            var sb = new StringBuilder(hash.Length * 2);
+            for (int i = 0; i < hash.Length; i++)
+                sb.Append(hash[i].ToString("x2"));
+            return sb.ToString();
+        }
     }
 
     void SetStatus(string msg)

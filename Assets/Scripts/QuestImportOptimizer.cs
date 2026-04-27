@@ -8,10 +8,6 @@ using GLTFast.Logging;
 using GLTFast.Materials;
 using UnityEngine;
 
-/// <summary>
-/// Quest 端深度性能优化器（简化版）
-/// 解决 70-87% 卡死问题
-/// </summary>
 public class QuestImportOptimizer
 {
     public delegate void OnProgressChanged(float progress, string stage);

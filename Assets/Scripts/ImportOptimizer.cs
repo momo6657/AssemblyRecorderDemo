@@ -9,12 +9,12 @@ using GLTFast.Materials;
 using UnityEngine;
 
 /// <summary>
-/// 大模型加载优化器（glTFast 最新版本）
+/// 大模型加载优化器
 /// 解决 641MB+ 模型导入时的卡死问题
 /// 
 /// 优化策略：
 /// 1. 使用 glTFast Load(Uri) 避免一次性读取整个文件
-/// 2. 添加进度显示和超时机制
+/// 2. 添加进度显示
 /// 3. 优化材质处理逻辑
 /// 4. 内存优化：纹理压缩、材质去重
 /// </summary>
