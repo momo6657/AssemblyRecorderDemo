@@ -130,7 +130,7 @@ public class ApiClient : MonoBehaviour
     public async Task<string> GetText(string path)
     {
         using var req = UnityWebRequest.Get(BuildUrl(path));
-        req.timeout = 30;
+        req.timeout = 600;
         SetCommonHeaders(req);
         var op = req.SendWebRequest();
         while (!op.isDone) await Task.Yield();
@@ -141,7 +141,7 @@ public class ApiClient : MonoBehaviour
     public async Task<byte[]> GetBytes(string path)
     {
         using var req = UnityWebRequest.Get(BuildUrl(path));
-        req.timeout = 60;
+        req.timeout = 600;
         SetCommonHeaders(req);
         var op = req.SendWebRequest();
         while (!op.isDone) await Task.Yield();
@@ -156,7 +156,7 @@ public class ApiClient : MonoBehaviour
         req.uploadHandler = new UploadHandlerRaw(bytes);
         req.downloadHandler = new DownloadHandlerBuffer();
         req.SetRequestHeader("Content-Type", "application/json; charset=utf-8");
-        req.timeout = 30;
+        req.timeout = 600;
         SetCommonHeaders(req);
 
         var op = req.SendWebRequest();
@@ -172,7 +172,7 @@ public class ApiClient : MonoBehaviour
         req.downloadHandler = new DownloadHandlerBuffer();
         req.SetRequestHeader("Content-Type", "application/octet-stream");
         req.SetRequestHeader("X-Model-Id", modelId);
-        req.timeout = 120;
+        req.timeout = 600;
         SetCommonHeaders(req);
 
         var op = req.SendWebRequest();

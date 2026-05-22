@@ -33,8 +33,8 @@ public class ImportOptimizer
     public event OnLoadComplete LoadComplete;
 
     // 配置
-    private const float QUEST_TIMEOUT_SECONDS = 60f;
-    private const float PHONE_TIMEOUT_SECONDS = 45f;
+    private const float QUEST_TIMEOUT_SECONDS = 600f;
+    private const float PHONE_TIMEOUT_SECONDS = 600f;
     private const int MAX_TEXTURE_SIZE_QUEST = 1024;
     private const int MAX_TEXTURE_SIZE_PHONE = 2048;
 

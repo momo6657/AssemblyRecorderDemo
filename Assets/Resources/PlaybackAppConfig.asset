@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f99c8807f7b4c7a8f8f83c3b93bff1a, type: 3}
   m_Name: PlaybackAppConfig
   m_EditorClassIdentifier: Assembly-CSharp::PlaybackAppConfig
-  logicalModelId: lm_137ef65d40d7116b
+  logicalModelId: ' '
   modelType: 
-  modelHash: 137ef65d40d7116ba53e82f5c3692afa11729b30917ad091e161f948f32bccfa
-  lockRecordingsToConfiguredModel: 1
+  modelHash: ' '
+  lockRecordingsToConfiguredModel: 0
   buildMode: 0

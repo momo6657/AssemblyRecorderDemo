@@ -13,7 +13,7 @@ public class QuestImportOptimizer
     public delegate void OnProgressChanged(float progress, string stage);
     public event OnProgressChanged ProgressChanged;
 
-    private const float QUEST_TIMEOUT_SECONDS = 90f;
+    private const float QUEST_TIMEOUT_SECONDS = 600f;
     private const int BATCH_SIZE = 15;
 
     private CancellationTokenSource _cancellationTokenSource;

@@ -10,13 +10,13 @@ public enum ServerEnvironment
 public class ServerConfig : ScriptableObject
 {
     [Header("当前环境")]
-    public ServerEnvironment environment = ServerEnvironment.Local;
+    public ServerEnvironment environment = ServerEnvironment.Cloud;
 
     [Header("本地开发地址（同局域网/热点测试）")]
     public string localBaseUrl = "http://192.168.1.50:5000";
 
     [Header("云端发布地址")]
-    public string cloudBaseUrl = "https://api.yourdomain.com";
+    public string cloudBaseUrl = "https://yunjingzhilian.asia";
 
     [Header("API Key（服务器未设置则留空）")]
     public string apiKey = "";

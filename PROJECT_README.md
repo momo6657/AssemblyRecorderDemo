@@ -279,6 +279,7 @@ chmod +x start.sh
 - ✅ 手机端 UI Toolkit 录制列表在锁定配置开启时通过 `/listRecordings` 传入 `logicalModelId` / `modelType` / `modelHash` 过滤参数
 - ✅ 后端录制接口保存并返回新字段，`/listRecordings` 支持 `taskId` / `userId` / `modelId` / `logicalModelId` / `modelType` / `modelHash` AND 组合过滤
 - ✅ 保持播放时使用 recording/steps 中的 `modelId` 下载服务器模型，不用 `modelId` 做打包版本过滤
+- ✅ 大幅增大网络请求、模型上传下载与 GLB 导入超时，适配云服务器大模型/慢网络场景
 
 ### 2026-04-22
 - ✅ 后端 `server.py` 云部署改造（环境变量配置、API Key 鉴权、上传大小限制、日志文件、CORS）

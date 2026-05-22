@@ -32,6 +32,24 @@
 - **向后兼容**：✅ `/listRecordings` 无参数仍返回旧录制；旧数据缺少新字段时不崩溃；点击录制播放仍使用 `modelId` 下载服务器模型
 - **需要重新打包**：✅ 手机端 + Quest 端
 
+### ⏱️ 稳定性优化
+
+#### 大模型云端下载/上传与 GLB 导入超时放宽
+- **问题描述**：手机端通过公网 IP 从云服务器下载较大 GLB 模型时可能超过原 60 秒下载超时，导致录制步骤可获取但模型无法加载
+- **解决方案**：
+  - `ApiClient.GetText` 普通 GET 超时从 30 秒增大到 600 秒
+  - `ApiClient.PostJson` 普通 POST 超时从 30 秒增大到 600 秒
+  - `ApiClient.GetBytes` 模型/二进制下载超时增大到 6000 秒
+  - `ApiClient.UploadModelBytes` 模型上传超时从 120 秒增大到 600 秒
+  - `ImportOptimizer` 手机/Quest 通用 GLB 导入超时增大到 600 秒
+  - `QuestImportOptimizer` Quest 专用 GLB 导入超时增大到 600 秒
+- **修改文件**：
+  - `Assets/Scripts/net/ApiClient.cs`
+  - `Assets/Scripts/ImportOptimizer.cs`
+  - `Assets/Scripts/QuestImportOptimizer.cs`
+- **影响范围**：手机端模型下载、手机端模型加载、Quest 端模型下载/加载、模型上传
+- **需要重新打包**：✅ 手机端 + Quest 端
+
 ## 📅 2026-04-22
 
 ### 🚀 云部署改造

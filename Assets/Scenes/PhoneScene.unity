@@ -10650,7 +10650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a66633a2e8d29746851c02d4fa3dc20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ApiClient
-  useInspectorOverride: 1
+  useInspectorOverride: 0
   baseUrl: http://192.168.137.1:5000
   apiKey: 
 --- !u!4 &1495546377
@@ -14746,10 +14746,10 @@ MonoBehaviour:
   serviceLocator: {fileID: 0}
   autoRefreshRecordingsOnEnable: 1
   pollUiInterval: 0.15
-  showImportButton: 1
+  showImportButton: 0
   showStatusPanel: 1
   showRecordingsPanel: 1
-  showTaskPanel: 1
+  showTaskPanel: 0
   showTimelinePanel: 1
   showJumpControls: 0
   showNavigationButtons: 1
