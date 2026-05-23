@@ -48,15 +48,10 @@ ExportedObj/
 # Unity3D generated file on crash reports
 sysinfo.txt
 
+# Logs
+Logs/
+
 # Builds
 *.apk
 *.aab
 *.unitypackage
-
-# Logs
-Logs/
-
-# Large skybox/HDRI assets (too large for GitHub)
-Assets/Allsky/
-Assets/Real Stars Skybox/
-Assets/Materials/HDRI/
