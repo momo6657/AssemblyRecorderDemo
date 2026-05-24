@@ -55,3 +55,6 @@ sysinfo.txt
 
 # Logs
 Logs/
+
+# Claude Code
+.claude/
